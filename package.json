@@ -15,7 +15,7 @@
     "lint": "pnpm exec nx run-many --target lint --verbose",
     "test": "pnpm exec nx run-many --target test --verbose",
     "format": "pnpm exec prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html}'",
-    "prepare": "pnpm exec husky",
+    "prepare": "pnpm run snyk-protect && pnpm exec husky",
     "tolgee": "dotenv -e .env -- tolgee",
     "tolgee:compare": "pnpm tolgee compare --config ./apps/shell/.tolgeerc.js",
     "tolgee:sync": "pnpm tolgee sync --config ./apps/shell/.tolgeerc.js",
@@ -24,7 +24,8 @@
     "tolgee:extract:check": "pnpm tolgee extract check --config ./apps/shell/.tolgeerc.js",
     "tolgee:extract:print": "pnpm tolgee extract print --config ./apps/shell/.tolgeerc.js",
     "storybook": "pnpm exec nx storybook storybook",
-    "build-storybook": "pnpm exec nx build-storybook storybook"
+    "build-storybook": "pnpm exec nx build-storybook storybook",
+    "snyk-protect": "snyk-protect"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.3.0",
@@ -91,7 +92,8 @@
     "vanilla-cookieconsent": "2.9.2",
     "viem": "2.43.1",
     "wagmi": "2.17.5",
-    "zod": "3.24.2"
+    "zod": "3.24.2",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "@commitlint/cli": "19.7.1",
@@ -196,5 +198,6 @@
       "@isaacs/brace-expansion@<=5.0.0": ">=5.0.1",
       "webpack@>=5.49.0 <=5.104.0": ">=5.104.1"
     }
-  }
+  },
+  "snyk": true
 }
