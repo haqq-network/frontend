@@ -22,7 +22,7 @@ export function NoMetamaskAlert({
             <ModalCloseButton onClick={onClose} />
           </div>
 
-          <div className="flex flex-col items-center space-y-6 space-y-reverse md:flex-row md:space-x-8 md:space-y-0">
+          <div className="flex flex-col items-center space-y-6 space-y-reverse md:flex-row md:space-y-0 md:space-x-8">
             <div>
               <Text className="mb-2 block">
                 It seems like you do not have the MetaMask wallet.

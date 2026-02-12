@@ -47,7 +47,7 @@ export const CaptchaModal = ({
           className="absolute end-[16px] top-[16px]"
         />
         <div className="flex w-full flex-col">
-          <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
+          <div className="pt-[24px] pb-[24px] sm:pt-[4px]">
             <ModalHeading>
               {t('complete-captcha-title', 'Complete the captcha')}
             </ModalHeading>

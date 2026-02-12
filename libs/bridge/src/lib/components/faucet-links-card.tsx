@@ -81,7 +81,7 @@ export function FaucetLinksCard({
             />
             <path d="M9 5h2v2H9V5zm0 4h2v6H9V9z" fill="currentColor" />
           </svg>
-          <h3 className="text-[16px] font-semibold leading-normal text-[#111827]">
+          <h3 className="text-[16px] leading-normal font-semibold text-[#111827]">
             Need testnet tokens?
           </h3>
         </div>
@@ -113,7 +113,7 @@ export function FaucetLinksCard({
             : 'pointer-events-none max-h-0 opacity-0'
         }`}
       >
-        <p className="mb-[16px] mt-[16px] text-[14px] leading-normal text-[#6b7280]">
+        <p className="mt-[16px] mb-[16px] text-[14px] leading-normal text-[#6b7280]">
           Use these faucets to get free test tokens for Sepolia network:
         </p>
 
@@ -128,7 +128,7 @@ export function FaucetLinksCard({
                 className="flex items-center justify-between rounded-[8px] bg-white p-[16px] transition-all hover:shadow-md"
               >
                 <div className="flex-1">
-                  <div className="text-[14px] font-semibold leading-normal text-[#111827]">
+                  <div className="text-[14px] leading-normal font-semibold text-[#111827]">
                     {faucet.name}
                   </div>
                   <div className="text-[13px] leading-normal text-[#6b7280]">
@@ -158,8 +158,8 @@ export function FaucetLinksCard({
 
         <div className="mt-[16px] rounded-[8px] bg-[#dbeafe] p-[12px]">
           <p className="text-[12px] leading-normal text-[#1e40af]">
-            <span className="font-semibold">Note:</span> These tokens have no real
-            value and are only for testing purposes.
+            <span className="font-semibold">Note:</span> These tokens have no
+            real value and are only for testing purposes.
           </p>
         </div>
       </div>

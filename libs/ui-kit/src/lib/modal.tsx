@@ -84,7 +84,7 @@ export function ModalHeading({
   return (
     <h3
       className={clsx(
-        'font-clash text-[18px] font-medium leading-[20px] md:text-[24px] md:leading-[26px]',
+        'font-clash text-[18px] leading-[20px] font-medium md:text-[24px] md:leading-[26px]',
         className,
       )}
     >

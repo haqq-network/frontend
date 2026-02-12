@@ -22,7 +22,7 @@ export function SearchInput({
           'w-full rounded-[6px] outline-none',
           'transition-colors duration-100 ease-in',
           'text-white placeholder:text-[#FFFFFF3D]',
-          'py-[12px] pe-[16px] ps-[48px] text-[14px] font-medium leading-[22px]',
+          'py-[12px] ps-[48px] pe-[16px] text-[14px] leading-[22px] font-medium',
           'bg-[#252528] hover:bg-[#3A3A3A] focus:bg-[#3A3A3A]',
           className,
         )}

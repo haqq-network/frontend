@@ -24,7 +24,7 @@ export function SelectChainButton({
           as="button"
           className={clsx(
             'flex h-[40px] flex-row items-center rounded-[6px] px-[12px] rtl:flex-row-reverse',
-            'font-guise text-[14px] font-medium leading-[22px]',
+            'font-guise text-[14px] leading-[22px] font-medium',
             'transition-colors duration-150 ease-out',
             'box-border appearance-none outline-none',
             'hover:text-haqq-black border border-white text-white hover:bg-white',
@@ -38,7 +38,7 @@ export function SelectChainButton({
             viewBox="0 0 22 22"
             fill="none"
             className={clsx(
-              'mb-[-2px] ml-[4px] mr-[-6px]',
+              'mr-[-6px] mb-[-2px] ml-[4px]',
               'transition-[transform] duration-150 ease-in',
               'group-data-open:scale-y-[-1]',
             )}
@@ -61,7 +61,7 @@ export function SelectChainButton({
             'border-haqq-orange hover:bg-haqq-orange/80 bg-haqq-orange border text-white hover:text-white',
           )}
         >
-          <div className="font-guise -mt-px text-left text-[10px] font-medium uppercase leading-[1.2em]">
+          <div className="font-guise -mt-px text-left text-[10px] leading-[1.2em] font-medium uppercase">
             <T
               keyName="unsupported-network-title"
               ns="common"
@@ -70,7 +70,7 @@ export function SelectChainButton({
           </div>
           <ArrowDownIcon
             className={clsx(
-              'mb-[-2px] ml-[4px] mr-[-6px]',
+              'mr-[-6px] mb-[-2px] ml-[4px]',
               'transition-[transform] duration-150 ease-in',
               'group-data-open:scale-y-[-1]',
             )}
@@ -90,7 +90,7 @@ export function SelectChainButton({
               as="button"
               key={`${chain.name}-${chain.id}`}
               className={clsx(
-                'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-left text-[13px] leading-[20px] hover:bg-[#ffffff14]',
+                'block w-full min-w-fit px-[16px] py-[10px] text-left text-[13px] leading-[20px] whitespace-nowrap hover:bg-[#ffffff14]',
                 'transition-colors duration-150 ease-out',
               )}
               onClick={() => {

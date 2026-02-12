@@ -11,7 +11,7 @@ function AccountWidgetBgImage() {
     <img
       src={widgetBg}
       alt=""
-      className="absolute left-[80%] top-[50%] h-[272px] w-[271px] translate-x-[-50%] translate-y-[-50%] select-none"
+      className="absolute top-[50%] left-[80%] h-[272px] w-[271px] translate-x-[-50%] translate-y-[-50%] select-none"
     />
   );
 }
@@ -167,19 +167,19 @@ export function BalancesFromIndexer({
                   />
                 )}
               </div>
-              <div className="flex select-none flex-col justify-between pt-[4px]">
+              <div className="flex flex-col justify-between pt-[4px] select-none">
                 {vested > 0 && (
-                  <div className="text-[14px] font-semibold leading-[18px] text-[#B26F1D]">
+                  <div className="text-[14px] leading-[18px] font-semibold text-[#B26F1D]">
                     Vested: {formatLocaleNumber(vested)} ISLM
                   </div>
                 )}
                 {staked > 0 && (
-                  <div className="text-[14px] font-semibold leading-[18px] text-[#0489D4]">
+                  <div className="text-[14px] leading-[18px] font-semibold text-[#0489D4]">
                     Staked: {formatLocaleNumber(staked)} ISLM
                   </div>
                 )}
                 {daoLocked > 0 && (
-                  <div className="text-islamic-green text-[14px] font-semibold leading-[18px]">
+                  <div className="text-islamic-green text-[14px] leading-[18px] font-semibold">
                     UnitedContributorsDAO: {formatLocaleNumber(daoLocked)} ISLM
                   </div>
                 )}

@@ -50,7 +50,7 @@ function MyAccountAmountBlock({
 }) {
   return (
     <div className="flex flex-col gap-y-[4px]">
-      <div className="font-guise text-[10px] font-semibold uppercase leading-[14px] text-white/50 lg:text-[12px]">
+      <div className="font-guise text-[10px] leading-[14px] font-semibold text-white/50 uppercase lg:text-[12px]">
         {title}
       </div>
       <div
@@ -65,7 +65,7 @@ function MyAccountAmountBlock({
         {value}
       </div>
       {subValue ? (
-        <div className="text-[12px] font-medium leading-[18px] text-white/50">
+        <div className="text-[12px] leading-[18px] font-medium text-white/50">
           {subValue}
         </div>
       ) : null}
@@ -184,7 +184,7 @@ function MyAccountConnected({
       <div className="font-guise flex flex-col py-[32px] sm:py-[22px] lg:py-[32px]">
         <div className="mb-[24px] flex flex-row items-center">
           <WalletIcon />
-          <Heading level={3} className="mb-[-2px] ms-[8px]">
+          <Heading level={3} className="ms-[8px] mb-[-2px]">
             {t('my-account', 'My account', { ns: 'common' })}
           </Heading>
           <Link href="/staking" className="leading-0">
@@ -196,11 +196,11 @@ function MyAccountConnected({
 
         <div className="flex flex-col space-y-6 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-6 lg:space-y-0">
           <div className="flex flex-col gap-y-[6px]">
-            <div className="font-guise text-[10px] font-semibold uppercase leading-[14px] text-white/50 lg:text-[12px]">
+            <div className="font-guise text-[10px] leading-[14px] font-semibold text-white/50 uppercase lg:text-[12px]">
               {t('balance', 'Balance', { ns: 'common' })}
             </div>
             <div className="flex flex-col justify-center gap-[4px]">
-              <div className="font-clash text-[20px] font-medium leading-[26px] text-white">
+              <div className="font-clash text-[20px] leading-[26px] font-medium text-white">
                 {`${formatNumber(balances.balance)} ${symbol.toLocaleUpperCase()}`}
               </div>
               <div className="flex flex-col gap-[4px] leading-0">
@@ -227,7 +227,7 @@ function MyAccountConnected({
                         className={clsx(
                           'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
                           'text-white hover:text-white/50',
-                          'text-[12px] font-medium leading-[18px]',
+                          'text-[12px] leading-[18px] font-medium',
                           'transition-colors duration-150 ease-in-out',
                         )}
                       >
@@ -281,7 +281,7 @@ function MyAccountConnected({
                             className={clsx(
                               'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
                               'text-white hover:text-white/50',
-                              'text-[12px] font-medium leading-[18px]',
+                              'text-[12px] leading-[18px] font-medium',
                               'transition-colors duration-150 ease-in-out',
                             )}
                           >
@@ -325,7 +325,7 @@ function MyAccountConnected({
           <MyAccountAmountBlock
             title={t('address', 'Address', { ns: 'common' })}
             value={
-              <div className="font-guise flex flex-col items-start space-y-2 lg:flex-row lg:space-x-4 lg:space-y-0">
+              <div className="font-guise flex flex-col items-start space-y-2 lg:flex-row lg:space-y-0 lg:space-x-4">
                 <div className="flex-1">
                   <Tooltip
                     text={

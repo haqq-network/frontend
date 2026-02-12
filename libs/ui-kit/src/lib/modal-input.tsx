@@ -102,7 +102,7 @@ export function StringInput({
             'w-full rounded-[6px] outline-none',
             'transition-colors duration-100 ease-in',
             'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
-            'px-[16px] py-[12px] text-[14px] font-medium leading-[22px]',
+            'px-[16px] py-[12px] text-[14px] leading-[22px] font-medium',
             'bg-[#E7E7E7]',
             className,
           )}
@@ -152,7 +152,7 @@ export function ModalInput({
             'w-full rounded-[6px] outline-none',
             'transition-colors duration-100 ease-in',
             'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
-            'px-[16px] py-[12px] text-[14px] font-medium leading-[22px]',
+            'px-[16px] py-[12px] text-[14px] leading-[22px] font-medium',
             disabled
               ? 'cursor-not-allowed bg-[#F3F4F6] opacity-50'
               : 'bg-[#E7E7E7]',
@@ -166,7 +166,7 @@ export function ModalInput({
           <div className="absolute end-3 top-1/2 -translate-y-1/2">
             {onMaxButtonClick && (
               <button
-                className="text-[14px] font-medium leading-[22px] text-[#EC5728] disabled:text-opacity-30"
+                className="disabled:text-opacity-30 text-[14px] leading-[22px] font-medium text-[#EC5728]"
                 onClick={onMaxButtonClick}
                 disabled={isMaxButtonDisabled}
               >
@@ -176,7 +176,7 @@ export function ModalInput({
             {symbol && (
               <div
                 className={clsx(
-                  'ms-[10px] inline-block select-none text-[14px] font-medium uppercase leading-[22px]',
+                  'ms-[10px] inline-block text-[14px] leading-[22px] font-medium uppercase select-none',
                   !value ? 'text-[#0D0D0E80]' : 'text-[#0D0D0E]',
                 )}
               >

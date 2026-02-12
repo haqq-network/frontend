@@ -25,11 +25,11 @@ export function MyAccountCardBlock({
   return (
     <div className="flex flex-col items-start gap-y-[6px]">
       {title && (
-        <div className="text-[10px] font-medium uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
+        <div className="text-[10px] leading-[12px] font-medium text-white/50 uppercase lg:text-[12px] lg:leading-[14px]">
           {title}
         </div>
       )}
-      <div className="text-[16px] uppercase leading-[26px]">{children}</div>
+      <div className="text-[16px] leading-[26px] uppercase">{children}</div>
     </div>
   );
 }
@@ -47,7 +47,7 @@ function MyAccountAmountBlock({
 }) {
   return (
     <div>
-      <div className="mb-[6px] text-[12px] font-medium uppercase leading-[1.2em] text-white/50">
+      <div className="mb-[6px] text-[12px] leading-[1.2em] font-medium text-white/50 uppercase">
         {title}
       </div>
       <div
@@ -178,7 +178,7 @@ export function GranteeCard({
                     <div
                       className={clsx(
                         'inline-flex cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
-                        'text-[12px] font-medium leading-[18px] text-white md:text-[14px] md:leading-[22px]',
+                        'text-[12px] leading-[18px] font-medium text-white md:text-[14px] md:leading-[22px]',
                       )}
                       onClick={handleEthAddressCopy}
                     >
@@ -201,7 +201,7 @@ export function GranteeCard({
                     <div
                       className={clsx(
                         'inline-flex cursor-pointer flex-row items-center gap-x-[8px] transition-colors duration-100 ease-out hover:text-white/50',
-                        'text-[12px] font-medium leading-[18px] text-white md:text-[14px] md:leading-[22px]',
+                        'text-[12px] leading-[18px] font-medium text-white md:text-[14px] md:leading-[22px]',
                       )}
                       onClick={handleHaqqAddressCopy}
                     >

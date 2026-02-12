@@ -47,15 +47,15 @@ export function GranterGrantsTable() {
           </div>
 
           <table className="w-full table-auto">
-            <thead className="text-[10px] uppercase leading-[24px] text-white/50 md:text-[12px]">
+            <thead className="text-[10px] leading-[24px] text-white/50 uppercase md:text-[12px]">
               <tr>
-                <th className="select-none p-[8px] text-start lg:p-[12px]">
+                <th className="p-[8px] text-start select-none lg:p-[12px]">
                   {t('grantee', 'Grantee')}
                 </th>
-                <th className="select-none p-[8px] text-start lg:p-[12px]">
+                <th className="p-[8px] text-start select-none lg:p-[12px]">
                   {t('message', 'Message')}
                 </th>
-                <th className="select-none p-[8px] text-start lg:p-[12px]">
+                <th className="p-[8px] text-start select-none lg:p-[12px]">
                   {t('valid-thru', 'Valid thru')}
                 </th>
                 <th className="w-[160px]">&nbsp;</th>

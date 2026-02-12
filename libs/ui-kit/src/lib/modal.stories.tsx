@@ -37,7 +37,7 @@ export const Modal = () => {
       >
         <div className="text-haqq-black mx-auto h-screen w-screen bg-white p-[16px] sm:mx-auto sm:h-auto sm:w-auto sm:max-w-[430px] sm:rounded-[12px] sm:p-[36px]">
           <ModalCloseButton
-            className="absolute right-[16px] top-[16px]"
+            className="absolute top-[16px] right-[16px]"
             onClick={() => {
               setOpened(false);
             }}

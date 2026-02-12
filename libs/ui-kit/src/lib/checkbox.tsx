@@ -34,7 +34,7 @@ export function Checkbox({
       <label
         htmlFor={id}
         className={clsx(
-          'relative inline-flex select-none flex-row items-center',
+          'relative inline-flex flex-row items-center select-none',
           disabled ? 'cursor-not-allowed text-white/50' : 'cursor-pointer',
         )}
       >
@@ -66,7 +66,7 @@ export function Checkbox({
         </svg>
 
         {children && (
-          <span className="ms-[8px] text-[14px] font-medium leading-[20px] text-white">
+          <span className="ms-[8px] text-[14px] leading-[20px] font-medium text-white">
             {children}
           </span>
         )}

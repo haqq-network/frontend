@@ -111,7 +111,7 @@ export function HeaderMobile({
 
               <div
                 className={clsx(
-                  'font-clash text-[24px] font-medium uppercase leading-none',
+                  'font-clash text-[24px] leading-none font-medium uppercase',
                   !isHaqqWallet ? 'ms-[20px]' : 'ms-[8px]',
                 )}
               >
@@ -345,7 +345,7 @@ function LanguageLink({
       <span className="flex items-center justify-between">
         <span>{localeLabel}</span>
         {isActive && (
-          <CheckIcon className="-mb-px ms-4 h-5 w-5 rtl:scale-x-[-1]" />
+          <CheckIcon className="ms-4 -mb-px h-5 w-5 rtl:scale-x-[-1]" />
         )}
       </span>
     </div>

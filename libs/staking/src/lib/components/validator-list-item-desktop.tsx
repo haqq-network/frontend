@@ -22,7 +22,7 @@ export function ValidatorListItemDesktop({
   const validatorCommission = useMemo(() => {
     return formatNumber(
       Number.parseFloat(validator.commission?.commission_rates?.rate ?? '0') *
-      100,
+        100,
     );
   }, [validator.commission?.commission_rates]);
   const votingPower = useMemo(() => {

@@ -240,7 +240,7 @@ function StrideUnbondings() {
           className={clsx(
             'font-guise inline-flex cursor-help flex-row justify-center gap-[4px]',
             'text-white hover:text-white/50',
-            'text-[12px] font-medium leading-[18px]',
+            'text-[12px] leading-[18px] font-medium',
             'transition-colors duration-150 ease-in-out',
           )}
         >

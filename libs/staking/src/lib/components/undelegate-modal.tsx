@@ -170,7 +170,7 @@ export function UndelegateModal({
                 {!isMemoVisible ? (
                   <div className="leading-0">
                     <OrangeLink
-                      className="text-[12px]! font-medium! leading-[16px]!"
+                      className="text-[12px]! leading-[16px]! font-medium!"
                       onClick={() => {
                         setMemoVisible(true);
                       }}
@@ -190,7 +190,7 @@ export function UndelegateModal({
                         'w-full rounded-[6px] outline-none',
                         'transition-colors duration-100 ease-in',
                         'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
-                        'px-[16px] py-[12px] text-[14px] font-medium leading-[22px]',
+                        'px-[16px] py-[12px] text-[14px] leading-[22px] font-medium',
                         'bg-[#E7E7E7]',
                       )}
                       placeholder={t('memo-placeholder', 'Add your memo', {

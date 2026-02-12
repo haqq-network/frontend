@@ -110,7 +110,7 @@ export function Header({
 
             <div
               className={clsx(
-                'font-clash text-[24px] font-medium uppercase leading-none',
+                'font-clash text-[24px] leading-none font-medium uppercase',
                 !isHaqqWallet
                   ? 'ms-[20px] lg:ms-[32px]'
                   : 'ms-[8px] lg:ms-[4px]',
@@ -193,7 +193,7 @@ function HeaderDropdown({
           viewBox="0 0 22 22"
           fill="none"
           className={clsx(
-            'mb-[-2px] me-[-6px] ms-[4px]',
+            'ms-[4px] me-[-6px] mb-[-2px]',
             'transition-[transform] duration-150 ease-in',
             isHover && 'scale-y-[-1]',
           )}
@@ -227,7 +227,7 @@ function HeaderDropdown({
                   href={href}
                   key={href}
                   className={clsx(
-                    'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-start text-[13px] leading-[20px] hover:bg-[#ffffff14]',
+                    'block w-full min-w-fit px-[16px] py-[10px] text-start text-[13px] leading-[20px] whitespace-nowrap hover:bg-[#ffffff14]',
                     'transition-colors duration-150 ease-out',
                   )}
                 >

@@ -48,7 +48,7 @@ export function Button({
 
       <Loader
         className={clsx(
-          'pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
+          'pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
           isPending ? 'visible' : 'invisible',
         )}
       />

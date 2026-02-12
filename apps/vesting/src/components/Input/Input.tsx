@@ -113,7 +113,7 @@ export function Input({
       {hint && hint !== '' && (
         <div
           className={clsx(
-            'mt-1 text-sm font-normal leading-[18px]',
+            'mt-1 text-sm leading-[18px] font-normal',
             state === 'error' ? 'text-danger' : 'text-dark-gray',
           )}
         >

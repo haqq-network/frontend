@@ -105,7 +105,7 @@ export default function SwitchNetworkPage() {
               <SwitchNetworkNetworkContainer networkName={chains[0].name} />
             </div>
 
-            <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+            <div className="flex flex-col space-y-6 md:flex-row md:space-y-0 md:space-x-6">
               <div className="flex flex-row space-x-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

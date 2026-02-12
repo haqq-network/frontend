@@ -27,7 +27,7 @@ export function AccountButton({
       )}
     >
       {balance && (
-        <div className="font-clash me-[-8px] rounded-s-[6px] border border-e-0 border-white pb-[6px] pe-[20px] ps-[12px] pt-[8px] leading-[24px] tracking-[.01em]">
+        <div className="font-clash me-[-8px] rounded-s-[6px] border border-e-0 border-white ps-[12px] pe-[20px] pt-[8px] pb-[6px] leading-[24px] tracking-[.01em]">
           {balance.toLocaleString()}&nbsp;ISLM
         </div>
       )}
@@ -37,17 +37,17 @@ export function AccountButton({
           <MenuButton
             as="button"
             className={clsx(
-              'flex h-full flex-row items-center space-x-[2px] py-[8px] pe-[8px] ps-[12px] rtl:space-x-reverse',
+              'flex h-full flex-row items-center space-x-[2px] py-[8px] ps-[12px] pe-[8px] rtl:space-x-reverse',
               'cursor-pointer bg-white text-black hover:bg-[#cecfce] active:bg-white',
               'transition-colors duration-150 ease-in',
               'box-border appearance-none outline-none',
-              'font-guise group appearance-none rounded-[6px] text-sm font-medium leading-[24px]',
+              'font-guise group appearance-none rounded-[6px] text-sm leading-[24px] font-medium',
             )}
           >
             <div className="-mt-px">{address}</div>
             <ArrowDownIcon
               className={clsx(
-                'mb-[-2px] me-[-6px] ms-[4px]',
+                'ms-[4px] me-[-6px] mb-[-2px]',
                 'transition-[transform] duration-150 ease-in',
                 'group-data-open:scale-y-[-1]',
               )}

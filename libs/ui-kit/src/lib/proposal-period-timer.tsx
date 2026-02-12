@@ -51,7 +51,7 @@ export function ProposalPeriodTimer({
 
       <div className="flex flex-col items-start">
         {title && (
-          <div className="text-[11px] font-medium leading-[17px] text-white/50 md:leading-[18px] lg:text-[12px]">
+          <div className="text-[11px] leading-[17px] font-medium text-white/50 md:leading-[18px] lg:text-[12px]">
             {title}
           </div>
         )}
@@ -59,7 +59,7 @@ export function ProposalPeriodTimer({
           date={date}
           renderer={({ days, hours, minutes, seconds }) => {
             return (
-              <div className="font-clash flex flex-row gap-[8px] text-[14px] font-medium leading-[18px] text-white/50 md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
+              <div className="font-clash flex flex-row gap-[8px] text-[14px] leading-[18px] font-medium text-white/50 md:text-[16px] md:leading-[22px] lg:text-[20px] lg:leading-[26px]">
                 {days > 0 && (
                   <div>
                     <span className="text-white">{days}</span>{' '}

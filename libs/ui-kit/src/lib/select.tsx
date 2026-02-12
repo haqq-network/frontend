@@ -47,7 +47,7 @@ export function Select({
 }) {
   const formatGroupLabel = useCallback((data: GroupBase<SelectOption>) => {
     return (
-      <div className="px-[16px] py-[6px] text-start text-[10px] font-medium uppercase leading-[18px] text-white/50">
+      <div className="px-[16px] py-[6px] text-start text-[10px] leading-[18px] font-medium text-white/50 uppercase">
         {data.label}
       </div>
     );
@@ -103,7 +103,7 @@ export function Select({
         <div>
           <label
             htmlFor={id}
-            className="cursor-pointer text-[12px] font-medium uppercase leading-[24px] text-white/50"
+            className="cursor-pointer text-[12px] leading-[24px] font-medium text-white/50 uppercase"
           >
             {label}
           </label>
@@ -197,7 +197,7 @@ export function ModalSelect({
         <div>
           <label
             htmlFor={id}
-            className="text-haqq-black font-guise cursor-pointer text-[13px] font-medium leading-[22px]"
+            className="text-haqq-black font-guise cursor-pointer text-[13px] leading-[22px] font-medium"
           >
             {label}
           </label>

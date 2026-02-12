@@ -92,7 +92,7 @@ export function AddressConversionPage() {
     <div className="flex flex-col">
       <div className="py-[32px] lg:py-[68px]">
         <Container>
-          <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+          <div className="font-clash text-[28px] leading-none uppercase sm:text-[48px] lg:text-[70px]">
             {t('address-conversion-title', 'Address Conversion', {
               ns: 'common',
             })}

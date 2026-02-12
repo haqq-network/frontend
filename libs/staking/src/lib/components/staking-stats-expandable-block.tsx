@@ -31,21 +31,21 @@ export function StakingStatsExpandableBlock({
         className="flex flex-row justify-between gap-y-[6px]"
         onClick={toggle}
       >
-        <div className="font-guise text-[12px] font-semibold uppercase leading-[20px] text-white/50">
+        <div className="font-guise text-[12px] leading-[20px] font-semibold text-white/50 uppercase">
           {title}
         </div>
 
         <div className="flex flex-col items-end gap-[2px]">
           <div
             className={clsx(
-              'font-guise text-[13px] font-medium leading-[20px]',
+              'font-guise text-[13px] leading-[20px] font-medium',
               isGreen ? 'text-[#01B26E]' : 'text-white',
             )}
           >
             {value}&nbsp;{uppercaseSymbol ? symbol.toUpperCase() : symbol}
           </div>
 
-          <div className="inline-flex flex-row items-end justify-center gap-[4px] text-[12px] font-medium leading-[16px]">
+          <div className="inline-flex flex-row items-end justify-center gap-[4px] text-[12px] leading-[16px] font-medium">
             {isOpen ? (
               <span> {t('less-info', 'Less info')}</span>
             ) : (

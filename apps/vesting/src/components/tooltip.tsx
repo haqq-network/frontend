@@ -16,7 +16,7 @@ export function Tooltip({ text, children }: TooltipProps): ReactElement {
           'bottom-full left-1/2 -translate-x-1/2 -translate-y-2',
           'transition duration-100 ease-out',
           'group-hover:visible group-hover:z-50 group-hover:translate-y-0 group-hover:opacity-100',
-          'rounded-md px-[12px] py-[6px] text-xs font-medium leading-snug shadow-lg',
+          'rounded-md px-[12px] py-[6px] text-xs leading-snug font-medium shadow-lg',
           'bg-primary text-white',
         )}
       >

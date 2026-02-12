@@ -39,12 +39,12 @@ export function MyAccountBlockDesktop({
       <div className="flex flex-col gap-[24px] px-[28px] py-[32px]">
         <div className="flex flex-row items-center">
           <WalletIcon />
-          <Heading level={3} className="mb-[-2px] ms-[8px]">
+          <Heading level={3} className="ms-[8px] mb-[-2px]">
             {t('my-account', 'My account')}
           </Heading>
           <button
             className={clsx(
-              'text-[14px] font-semibold leading-[20px] text-[#EC5728] hover:text-[#FF8D69]',
+              'text-[14px] leading-[20px] font-semibold text-[#EC5728] hover:text-[#FF8D69]',
               'ms-[16px] mt-[-4px] inline-flex cursor-pointer flex-row items-center justify-center gap-[4px] transition-colors duration-100 ease-out',
             )}
             onClick={() => {

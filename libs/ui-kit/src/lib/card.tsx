@@ -25,7 +25,7 @@ export function CardHeading({
   return (
     <div
       className={clsx(
-        'font-guise text-[14px] font-medium leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]',
+        'font-guise text-[14px] leading-[22px] font-medium text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]',
         className,
       )}
     >

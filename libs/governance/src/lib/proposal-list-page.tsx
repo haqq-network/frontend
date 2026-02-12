@@ -106,7 +106,7 @@ export function ProposalListPage() {
       {!isHaqqWallet && (
         <div className="pt-[32px] lg:pt-[68px]">
           <Container>
-            <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+            <div className="font-clash text-[28px] leading-none uppercase sm:text-[48px] lg:text-[70px]">
               {t('governance', 'Governance', { ns: 'common' })}
             </div>
           </Container>
@@ -119,7 +119,7 @@ export function ProposalListPage() {
             <div className="pointer-events-none mx-auto flex min-h-[320px] w-full flex-1 select-none">
               <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
                 <SpinnerLoader />
-                <div className="font-guise text-[10px] uppercase leading-[1.2em]">
+                <div className="font-guise text-[10px] leading-[1.2em] uppercase">
                   {t('fetching-proposals', 'Fetching proposals', {
                     ns: 'common',
                   })}

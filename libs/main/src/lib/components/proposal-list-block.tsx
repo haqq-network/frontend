@@ -89,9 +89,9 @@ export function ProposalListBlock() {
       </div>
 
       {isFetching || !govParams ? (
-        <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8 py-[48px]">
+        <div className="pointer-events-none flex min-h-full flex-1 flex-col items-center justify-center space-y-8 py-[48px] select-none">
           <SpinnerLoader />
-          <div className="font-guise text-[10px] uppercase leading-[1.2em]">
+          <div className="font-guise text-[10px] leading-[1.2em] uppercase">
             {t('fetching-proposals', 'Fetching proposals', { ns: 'common' })}
           </div>
         </div>

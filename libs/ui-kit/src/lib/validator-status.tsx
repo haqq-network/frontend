@@ -52,8 +52,8 @@ export function ValidatorDetailsStatus({
     return (
       <div
         className={clsx(
-          'inline-block whitespace-nowrap rounded-lg px-[12px] pb-[11px] pt-[13px] text-center',
-          'font-clash text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
+          'inline-block rounded-lg px-[12px] pt-[13px] pb-[11px] text-center whitespace-nowrap',
+          'font-clash text-[14px] leading-none font-medium tracking-[.01em] text-white uppercase',
           'bg-[#FF5454]',
         )}
       >
@@ -66,8 +66,8 @@ export function ValidatorDetailsStatus({
     return (
       <div
         className={clsx(
-          'inline-block whitespace-nowrap rounded-lg px-[12px] pb-[11px] pt-[13px] text-center',
-          'font-clash text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
+          'inline-block rounded-lg px-[12px] pt-[13px] pb-[11px] text-center whitespace-nowrap',
+          'font-clash text-[14px] leading-none font-medium tracking-[.01em] text-white uppercase',
           'bg-[#01B26E]',
         )}
       >
@@ -79,8 +79,8 @@ export function ValidatorDetailsStatus({
   return (
     <div
       className={clsx(
-        'inline-block whitespace-nowrap rounded-lg px-[12px] pb-[11px] pt-[13px] text-center',
-        'font-clash text-[14px] font-medium uppercase leading-none tracking-[.01em] text-white',
+        'inline-block rounded-lg px-[12px] pt-[13px] pb-[11px] text-center whitespace-nowrap',
+        'font-clash text-[14px] leading-none font-medium tracking-[.01em] text-white uppercase',
         'bg-[#E3A13F]',
       )}
     >

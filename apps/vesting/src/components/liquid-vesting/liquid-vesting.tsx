@@ -139,7 +139,7 @@ export function LiquidVestingHooked({
                       to={`${explorer.cosmos}/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-[4px] lowercase text-[#0389D4] transition-colors duration-300 hover:text-[#0389D4]/75"
+                      className="flex items-center gap-[4px] text-[#0389D4] lowercase transition-colors duration-300 hover:text-[#0389D4]/75"
                     >
                       <LinkIcon />
                       <span>{getFormattedAddress(txHash)}</span>
@@ -234,7 +234,7 @@ export function LiquidVestingHooked({
                         to={`${explorer.cosmos}/tx/${txHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-[4px] lowercase text-[#0389D4] transition-colors duration-300 hover:text-[#0389D4]/75"
+                        className="flex items-center gap-[4px] text-[#0389D4] lowercase transition-colors duration-300 hover:text-[#0389D4]/75"
                       >
                         <LinkIcon />
                         <span>{getFormattedAddress(txHash)}</span>
