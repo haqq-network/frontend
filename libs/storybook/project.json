@@ -1,0 +1,31 @@
+{
+  "name": "storybook",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/storybook/src",
+  "projectType": "library",
+  "tags": ["storybook"],
+  "targets": {
+    "storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "storybook dev -p 4400 --config-dir apps/shell/.storybook",
+        "cwd": "{workspaceRoot}"
+      },
+      "configurations": {
+        "ci": {
+          "command": "storybook dev -p 4400 --config-dir apps/shell/.storybook --quiet",
+          "cwd": "{workspaceRoot}"
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "storybook build --config-dir apps/shell/.storybook -o apps/shell/storybook-static",
+        "cwd": "{workspaceRoot}"
+      },
+      "configurations": { "ci": {} },
+      "outputs": ["{workspaceRoot}/apps/shell/storybook-static"]
+    }
+  }
+}

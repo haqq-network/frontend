@@ -22,7 +22,9 @@
     "tolgee:pull": "pnpm tolgee pull --config ./apps/shell/.tolgeerc.js",
     "tolgee:push": "pnpm tolgee push --config ./apps/shell/.tolgeerc.js",
     "tolgee:extract:check": "pnpm tolgee extract check --config ./apps/shell/.tolgeerc.js",
-    "tolgee:extract:print": "pnpm tolgee extract print --config ./apps/shell/.tolgeerc.js"
+    "tolgee:extract:print": "pnpm tolgee extract print --config ./apps/shell/.tolgeerc.js",
+    "storybook": "pnpm exec nx storybook storybook",
+    "build-storybook": "pnpm exec nx build-storybook storybook"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.3.0",
