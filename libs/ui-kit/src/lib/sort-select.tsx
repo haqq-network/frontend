@@ -29,7 +29,7 @@ export function SortSelect({
           as="button"
           key={id}
           className={clsx(
-            'block w-full min-w-fit whitespace-nowrap px-[16px] py-[10px] text-start text-[13px] leading-[20px] hover:bg-[#ffffff14]',
+            'block w-full min-w-fit px-[16px] py-[10px] text-start text-[13px] leading-[20px] whitespace-nowrap hover:bg-[#ffffff14]',
             'transition-colors duration-150 ease-out',
           )}
           onClick={() => {
@@ -51,15 +51,15 @@ export function SortSelect({
           'box-border w-full appearance-none rounded-[6px] outline-none',
           'transition-colors duration-100 ease-in',
           'group text-[#fffff]',
-          'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
-          'data-[open]:bg-[#3A3A3A] [&:not([data-open])]:bg-[#252528] [&:not([data-open])]:hover:bg-[#3A3A3A]',
+          'px-[16px] py-[12px] text-[14px] leading-[22px] font-medium',
+          'data-open:bg-[#3A3A3A] [&:not([data-open])]:bg-[#252528] [&:not([data-open])]:hover:bg-[#3A3A3A]',
         )}
       >
         <div>
           {currentValue ? (
             <span>{currentValue.title}</span>
           ) : (
-            <span className="text-[#fff]">{placeholder}</span>
+            <span className="text-white">{placeholder}</span>
           )}
         </div>
 
@@ -71,7 +71,7 @@ export function SortSelect({
           className={clsx(
             'mb-[-2px]',
             'transition-transform duration-150 ease-in',
-            'group-data-[open]:scale-y-[-1]',
+            'group-data-open:scale-y-[-1]',
           )}
         >
           <path

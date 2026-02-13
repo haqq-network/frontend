@@ -60,7 +60,7 @@ export function MainPage({ seedPhrase }: { seedPhrase: string }) {
         <Container>
           <div className="flex flex-col gap-[8px]">
             {!isHaqqWallet && (
-              <div className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]">
+              <div className="font-clash text-[28px] leading-none uppercase sm:text-[48px] lg:text-[70px]">
                 {t('shell-title', 'Shell')}
               </div>
             )}
@@ -81,7 +81,7 @@ export function MainPage({ seedPhrase }: { seedPhrase: string }) {
       </div>
 
       {isTablet && (
-        <div className="sticky bottom-0 left-0 right-0 z-30">
+        <div className="sticky right-0 bottom-0 left-0 z-30">
           <AccountFooterMobile />
         </div>
       )}

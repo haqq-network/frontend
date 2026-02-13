@@ -46,7 +46,7 @@ export function LocaleDropdown({
 
       <div
         className={clsx(
-          'absolute left-1/2 top-full z-50 origin-top -translate-x-1/2',
+          'absolute top-full left-1/2 z-50 origin-top -translate-x-1/2',
           'min-w-[150px] pt-[4px]',
           isHover ? 'visible' : 'invisible',
         )}
@@ -65,7 +65,7 @@ export function LocaleDropdown({
                 <button
                   key={id}
                   className={clsx(
-                    'flex w-full min-w-fit items-center justify-between whitespace-nowrap px-[16px] py-[10px] text-start text-[13px] leading-[20px] hover:bg-[#ffffff14]',
+                    'flex w-full min-w-fit items-center justify-between px-[16px] py-[10px] text-start text-[13px] leading-[20px] whitespace-nowrap hover:bg-[#ffffff14]',
                     'transition-colors duration-150 ease-out',
                   )}
                   onClick={() => {
@@ -80,9 +80,7 @@ export function LocaleDropdown({
                   </span>
                   {isActive ? (
                     <CheckIcon
-                      className={clsx(
-                        'mb-[-1px] ms-4 h-4 w-4 rtl:scale-x-[-1]',
-                      )}
+                      className={clsx('ms-4 -mb-px h-4 w-4 rtl:scale-x-[-1]')}
                     />
                   ) : (
                     <div className="ms-4 h-4 w-4" />

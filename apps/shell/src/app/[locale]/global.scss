@@ -1,6 +1,26 @@
-@tailwind components;
-@tailwind base;
-@tailwind utilities;
+@use "tailwindcss";
+
+@source "../../../../../libs/**/*.{ts,tsx}";
+@source "../../**/*.{ts,tsx}";
+
+@plugin "@tailwindcss/typography";
+
+
+@theme {
+  --font-guise: var(--guise-font);
+  --font-clash: var(--clash-font);
+  --color-haqq-border: #ffffff1a;
+  --color-haqq-modal-border: #c5c5c5;
+  --color-haqq-black: #0d0d0e;
+  --color-haqq-orange: #ec5728;
+  --color-haqq-blue: #091d53;
+  --color-haqq-seaweed: #157c83;
+  --color-haqq-bigfoot-feet: #e98c50;
+  --color-haqq-azure: #ecfefe;
+  --color-haqq-modal-overlay: #0d0d0ecc;
+  --color-haqq-danger: #f50000;
+  --breakpoint-3xl: 2048px;
+}
 
 @layer base {
   input[type='number'] {

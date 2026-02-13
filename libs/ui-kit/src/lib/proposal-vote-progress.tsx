@@ -76,7 +76,7 @@ export function ProposalVoteProgress({
     <div className="flex w-full flex-col space-y-2">
       <div className="space-y-[8px]">
         <div className="flex items-center space-x-[12px]">
-          <CardText className="text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]">
+          <CardText className="text-[12px] leading-[18px] font-medium text-white md:text-[14px] md:leading-[22px]">
             {status === ProposalStatusEnum.Voting
               ? t('voting-status', 'Voting status')
               : t('voting-results', 'Voting results')}
@@ -87,24 +87,24 @@ export function ProposalVoteProgress({
                 {t('you-voted', 'You voted:')}
               </CardSubText>
               {voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_YES && (
-                <CardSubText className="uppercase text-[#01B26E]">
+                <CardSubText className="text-[#01B26E] uppercase">
                   {t('vote-option-yes', 'Yes')}
                 </CardSubText>
               )}
               {voteOptionFromJSON(userVote) === VoteOption.VOTE_OPTION_NO && (
-                <CardSubText className="uppercase text-[#FF5454]">
+                <CardSubText className="text-[#FF5454] uppercase">
                   {t('vote-option-no', 'No')}
                 </CardSubText>
               )}
               {voteOptionFromJSON(userVote) ===
                 VoteOption.VOTE_OPTION_NO_WITH_VETO && (
-                <CardSubText className="uppercase text-[#E3A13F]">
+                <CardSubText className="text-[#E3A13F] uppercase">
                   {t('vote-option-no-with-veto', 'No with veto')}
                 </CardSubText>
               )}
               {voteOptionFromJSON(userVote) ===
                 VoteOption.VOTE_OPTION_ABSTAIN && (
-                <CardSubText className="uppercase text-[#AAABB2]">
+                <CardSubText className="text-[#AAABB2] uppercase">
                   {t('vote-option-abstain', 'Abstain')}
                 </CardSubText>
               )}
@@ -128,7 +128,7 @@ export function ProposalVoteProgress({
               <div
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#01B26E]',
-                  'duration-250 transition-[width] ease-out',
+                  'transition-[width] duration-250 ease-out',
                 )}
                 style={{
                   width: `${voteResults.yes.percentage}%`,
@@ -139,7 +139,7 @@ export function ProposalVoteProgress({
               <div
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#FF5454]',
-                  'duration-250 transition-[width] ease-out',
+                  'transition-[width] duration-250 ease-out',
                 )}
                 style={{ width: `${voteResults.no.percentage}%` }}
               />
@@ -148,7 +148,7 @@ export function ProposalVoteProgress({
               <div
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#AAABB2]',
-                  'duration-250 transition-[width] ease-out',
+                  'transition-[width] duration-250 ease-out',
                 )}
                 style={{ width: `${voteResults.abstain.percentage}%` }}
               />
@@ -157,7 +157,7 @@ export function ProposalVoteProgress({
               <div
                 className={clsx(
                   'h-full min-w-[2px] rounded-xl bg-[#E3A13F]',
-                  'duration-250 transition-[width] ease-out',
+                  'transition-[width] duration-250 ease-out',
                 )}
                 style={{ width: `${voteResults.noWithVeto.percentage}%` }}
               />
@@ -167,7 +167,7 @@ export function ProposalVoteProgress({
 
         <div className="flex flex-wrap items-start gap-x-3">
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
+            <div className="me-[4px] mb-[-2px] h-2 w-2 rounded-full bg-[#01B26E] lg:mb-[-3px]" />
             <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
                 {t('vote-option-yes', 'Yes')}
@@ -179,7 +179,7 @@ export function ProposalVoteProgress({
           </div>
 
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
+            <div className="me-[4px] mb-[-2px] h-2 w-2 rounded-full bg-[#FF5454] lg:mb-[-3px]" />
             <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
                 {t('vote-option-no', 'No')}
@@ -191,7 +191,7 @@ export function ProposalVoteProgress({
           </div>
 
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-3px]" />
+            <div className="me-[4px] mb-[-2px] h-2 w-2 rounded-full bg-[#AAABB2] lg:mb-[-3px]" />
             <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
                 {t('vote-option-abstain', 'Abstain')}
@@ -203,7 +203,7 @@ export function ProposalVoteProgress({
           </div>
 
           <div className="flex flex-row items-center">
-            <div className="mb-[-2px] me-[4px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
+            <div className="me-[4px] mb-[-2px] h-2 w-2 rounded-full bg-yellow-500 lg:mb-[-3px]" />
             <div className="me-[2px]">
               <CardText className="font-guise text-[11px] leading-[18px] text-white/50 md:text-[12px] md:leading-[18px]">
                 {t('vote-option-no-with-veto', 'No with veto')}

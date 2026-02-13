@@ -157,7 +157,7 @@ export function ShellIndexPageDelegationList() {
 
   if (!haqqAddress) {
     return (
-      <Card className="flex min-h-[293px] flex-row items-center justify-center !p-0">
+      <Card className="flex min-h-[293px] flex-row items-center justify-center p-0!">
         <div>
           {t('connect-wallet-message', 'You should connect wallet first', {
             ns: 'common',
@@ -169,7 +169,7 @@ export function ShellIndexPageDelegationList() {
 
   return (
     <div>
-      <Card className="flex flex-1 flex-col !p-0">
+      <Card className="flex flex-1 flex-col p-0!">
         <div className="border-b border-[#CFCFCF]/20 px-6 py-3">
           <div className="flex items-center justify-between space-x-6 font-semibold">
             <div className="w-1/4">

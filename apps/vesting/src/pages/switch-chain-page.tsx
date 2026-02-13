@@ -69,7 +69,7 @@ export default function SwitchNetworkPage() {
               />
               <div className="flex-1">
                 <svg
-                  className="z-10 my-5 ml-[-10%] w-[120%] origin-center rotate-[90deg] text-gray-400 md:my-0 md:rotate-[0deg]"
+                  className="z-10 my-5 ml-[-10%] w-[120%] origin-center rotate-90 text-gray-400 md:my-0 md:rotate-0"
                   width="191"
                   height="32"
                   viewBox="0 0 191 32"
@@ -105,7 +105,7 @@ export default function SwitchNetworkPage() {
               <SwitchNetworkNetworkContainer networkName={chains[0].name} />
             </div>
 
-            <div className="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
+            <div className="flex flex-col space-y-6 md:flex-row md:space-y-0 md:space-x-6">
               <div className="flex flex-row space-x-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

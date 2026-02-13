@@ -81,17 +81,17 @@ export function ProposalListBlock() {
         <Heading level={3} className="mb-[-2px]">
           {t('latest-proposals', 'Latest proposals', { ns: 'main' })}
         </Heading>
-        <Link href="/governance" className="leading-[0]">
-          <OrangeLink className="font-clash ms-[16px] !text-[12px] uppercase">
+        <Link href="/governance" className="leading-0">
+          <OrangeLink className="font-clash ms-[16px] text-[12px]! uppercase">
             {t('link-to-governance', 'Go to Governance', { ns: 'main' })}
           </OrangeLink>
         </Link>
       </div>
 
       {isFetching || !govParams ? (
-        <div className="pointer-events-none flex min-h-full flex-1 select-none flex-col items-center justify-center space-y-8 py-[48px]">
+        <div className="pointer-events-none flex min-h-full flex-1 flex-col items-center justify-center space-y-8 py-[48px] select-none">
           <SpinnerLoader />
-          <div className="font-guise text-[10px] uppercase leading-[1.2em]">
+          <div className="font-guise text-[10px] leading-[1.2em] uppercase">
             {t('fetching-proposals', 'Fetching proposals', { ns: 'common' })}
           </div>
         </div>

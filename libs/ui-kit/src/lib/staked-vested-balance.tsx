@@ -102,7 +102,7 @@ export function StakedVestedBalance({
           />
         )}
       </div>
-      <div className="flex select-none flex-col justify-between pt-[4px] text-[12px] font-[500] leading-[18px]">
+      <div className="flex flex-col justify-between pt-[4px] text-[12px] leading-[18px] font-medium select-none">
         {vested > 0 && (
           <div className="text-[#E3A13F]">
             {t('vested-amount', 'Vested: {amount}', {

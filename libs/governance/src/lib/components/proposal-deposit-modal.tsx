@@ -39,7 +39,7 @@ export function DepositModalDetails({
       </div>
       <div
         className={clsx(
-          'text-haqq-black font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]',
+          'text-haqq-black font-clash text-[16px] leading-[22px] font-medium md:text-[20px] md:leading-[26px]',
           valueClassName,
         )}
       >
@@ -140,7 +140,7 @@ export function ProposalDepositModal({
 
         <div className="flex w-full flex-col space-y-6">
           <div className="divide-haqq-border divide-y divide-dashed">
-            <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
+            <div className="pt-[24px] pb-[24px] sm:pt-[4px]">
               <ModalHeading>
                 {t('deposit', 'Deposit', { ns: 'common' })}
               </ModalHeading>

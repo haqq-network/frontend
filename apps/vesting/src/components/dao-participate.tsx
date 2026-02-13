@@ -23,7 +23,7 @@ export function DaoParticipate({ address }: { address: string }) {
       <div className="p-4 pt-6">
         <Heading level={4}>
           <span>UnitedContributorsDAO</span>{' '}
-          <div className="bg-primary pointer-events-none ml-[8xp] inline-block translate-y-[-8px] select-none rounded-[6px] px-[6px] py-[2px] font-sans text-[11px] font-[600] uppercase leading-[16px] text-white">
+          <div className="bg-primary pointer-events-none ml-[8xp] inline-block translate-y-[-8px] rounded-[6px] px-[6px] py-[2px] font-sans text-[11px] leading-[16px] font-semibold text-white uppercase select-none">
             New
           </div>
         </Heading>
@@ -48,15 +48,15 @@ export function DaoParticipate({ address }: { address: string }) {
               <>
                 <div>
                   Your address{' '}
-                  <span className="font-[600] uppercase">is part</span> of the
-                  United Contributors DAO.
+                  <span className="font-semibold uppercase">is part</span> of
+                  the United Contributors DAO.
                 </div>
                 <div>
                   It was affected by proposal{' '}
                   <a
                     href="https://shell.haqq.network/governance/proposal/34"
                     target="_blank"
-                    className="font-[600] text-[#0489D4]"
+                    className="font-semibold text-[#0489D4]"
                     rel="noreferrer"
                   >
                     #34
@@ -68,15 +68,15 @@ export function DaoParticipate({ address }: { address: string }) {
               <>
                 <div>
                   Your address{' '}
-                  <span className="font-[600] uppercase">is not part</span> of
-                  the UnitedContributorsDAO.
+                  <span className="font-semibold uppercase">is not part</span>{' '}
+                  of the UnitedContributorsDAO.
                 </div>
                 <div>
                   It was not affected by proposal{' '}
                   <a
                     href="https://shell.haqq.network/governance/proposal/34"
                     target="_blank"
-                    className="font-[600] text-[#0489D4]"
+                    className="font-semibold text-[#0489D4]"
                     rel="noreferrer"
                   >
                     #34

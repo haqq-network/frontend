@@ -1,5 +1,6 @@
-import { mainnet, sepolia } from 'viem/chains';
+import { sepolia } from 'viem/chains';
 import { haqqEthiq, haqqTestethiq } from '@haqq/shell-shared';
+import { mainnet } from './mainnet';
 
 /**
  * Chain configurations for OP Stack operations

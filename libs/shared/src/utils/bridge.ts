@@ -1,5 +1,5 @@
-import { mainnet } from 'viem/chains';
 import { IBridgeAddresses } from './common-bridge-utils';
+import { mainnet } from './ethereum-mainnet';
 
 const haqqEthiqRpcUrl = 'https://rpc.internal.ethiq.network/';
 

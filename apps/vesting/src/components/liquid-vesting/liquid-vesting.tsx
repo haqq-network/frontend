@@ -139,7 +139,7 @@ export function LiquidVestingHooked({
                       to={`${explorer.cosmos}/tx/${txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-[4px] lowercase text-[#0389D4] transition-colors duration-300 hover:text-[#0389D4]/75"
+                      className="flex items-center gap-[4px] text-[#0389D4] lowercase transition-colors duration-300 hover:text-[#0389D4]/75"
                     >
                       <LinkIcon />
                       <span>{getFormattedAddress(txHash)}</span>
@@ -152,7 +152,7 @@ export function LiquidVestingHooked({
           error: (error: Error) => {
             return (
               <ToastError>
-                <span className="!text-danger">Error: {error.message}</span>
+                <span className="text-danger!">Error: {error.message}</span>
               </ToastError>
             );
           },
@@ -234,7 +234,7 @@ export function LiquidVestingHooked({
                         to={`${explorer.cosmos}/tx/${txHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-[4px] lowercase text-[#0389D4] transition-colors duration-300 hover:text-[#0389D4]/75"
+                        className="flex items-center gap-[4px] text-[#0389D4] lowercase transition-colors duration-300 hover:text-[#0389D4]/75"
                       >
                         <LinkIcon />
                         <span>{getFormattedAddress(txHash)}</span>
@@ -247,7 +247,7 @@ export function LiquidVestingHooked({
             error: (error: Error) => {
               return (
                 <ToastError>
-                  <span className="!text-danger">Error: {error.message}</span>
+                  <span className="text-danger!">Error: {error.message}</span>
                 </ToastError>
               );
             },
@@ -399,7 +399,7 @@ function LiquidVesting({
               </div>
               <div className="flex-initial pt-[25px]">
                 <Button
-                  className="!px-8"
+                  className="px-8!"
                   disabled={!isLiquidationEnabled}
                   isPending={isLiquidationPending}
                   type="submit"

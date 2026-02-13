@@ -135,7 +135,7 @@ export function LiquidStakingDelegateModalDetails({
       </div>
       <div
         className={clsx(
-          'text-haqq-black font-clash text-[14px] font-[500] leading-[18px] md:text-[20px] md:leading-[26px]',
+          'text-haqq-black font-clash text-[14px] leading-[18px] font-medium md:text-[20px] md:leading-[26px]',
           isValuePending && 'animate-pulse',
           valueClassName,
         )}
@@ -164,11 +164,11 @@ export function DelegateModalSubmitButton({
       onClick={onClick}
       disabled={disabled}
       className={clsx(
-        'bg-slate-500 text-white outline-none ring-slate-500/40 hover:bg-slate-500/90 focus:ring-4 dark:ring-slate-100/80',
+        'bg-slate-500 text-white ring-slate-500/40 outline-none hover:bg-slate-500/90 focus:ring-4 dark:ring-slate-100/80',
         isSmall
           ? 'h-[30px] rounded px-2 py-1 text-sm font-semibold'
-          : 'rounded-md px-4 py-2 text-lg font-medium leading-8',
-        'disabled:cursor-not-allowed disabled:!bg-slate-500 disabled:!opacity-60',
+          : 'rounded-md px-4 py-2 text-lg leading-8 font-medium',
+        'disabled:cursor-not-allowed disabled:bg-slate-500! disabled:opacity-60!',
         'transition-all duration-100',
         className,
       )}
@@ -312,19 +312,19 @@ export function LiquidStakingDelegateModal({
                     <div className="font-guise mb-2 text-[11px] leading-[16px] text-[#0D0D0E80] lg:text-[12px] lg:leading-[18px]">
                       {t('you-will-get', "What you'll get:", { ns: 'staking' })}
                     </div>
-                    <div className="text-[20px] font-semibold leading-[26px]">
+                    <div className="text-[20px] leading-[26px] font-semibold">
                       {formatNumber(stIslmFormIslm)} stISLM
                     </div>
                   </div>
 
                   {annualizedYield ? (
-                    <div className="flex w-full flex-col items-center justify-center rounded-[4px] border-[1px] border-[#01B26E] p-[8px]">
+                    <div className="flex w-full flex-col items-center justify-center rounded-[4px] border border-[#01B26E] p-[8px]">
                       <div className="font-guise mb-2 text-[11px] leading-[16px] text-[#0D0D0E80] lg:text-[12px] lg:leading-[18px]">
                         {t('annualized-yield', 'Annual percentage yield', {
                           ns: 'staking',
                         })}
                       </div>
-                      <div className="text-[20px] font-semibold leading-[26px] text-[#01B26E]">
+                      <div className="text-[20px] leading-[26px] font-semibold text-[#01B26E]">
                         {formatNumber(annualizedYield)} stISLM
                       </div>
                     </div>

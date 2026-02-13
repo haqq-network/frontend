@@ -10,7 +10,7 @@ export function ProposalStatus({
 }): ReactElement {
   const { t } = useTranslate('common');
   const baseClassName =
-    'inline-flex rounded-[8px] p-[8px] items-center uppercase text-[14px] font-[500] tracking-[0.01em] font-clash gap-[4px]';
+    'inline-flex rounded-[8px] p-[8px] items-center uppercase text-[14px] font-medium tracking-[0.01em] font-clash gap-[4px]';
 
   switch (status) {
     case ProposalStatusEnum.Rejected:
@@ -82,7 +82,7 @@ export function ProposalStatus({
       );
     case ProposalStatusEnum.Failed:
       return (
-        <div className={clsx('bg-white/[8%] text-white', baseClassName)}>
+        <div className={clsx('bg-white/8 text-white', baseClassName)}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path
               fillRule="evenodd"

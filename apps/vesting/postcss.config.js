@@ -1,8 +1,9 @@
+/**
+ * Tailwind v4: use @tailwindcss/postcss. Config path is set in CSS via @config.
+ */
 module.exports = {
   plugins: {
-    'postcss-import': {},
-    'tailwindcss/nesting': {},
-    tailwindcss: {},
+    '@tailwindcss/postcss': {},
     'postcss-preset-env': {
       stage: 3,
       features: {

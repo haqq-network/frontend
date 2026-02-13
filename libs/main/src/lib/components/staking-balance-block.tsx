@@ -60,7 +60,7 @@ export function StakingBalanceBlock({
   return (
     <div
       className={clsx(
-        'bg-haqq-black font-guise border-haqq-border max-w-[320px] transform-gpu rounded-lg border bg-opacity-90 px-[8px] text-white shadow-lg backdrop-blur',
+        'bg-haqq-black/90 font-guise border-haqq-border max-w-[320px] transform-gpu rounded-lg border px-[8px] text-white shadow-lg backdrop-blur',
         className,
       )}
     >

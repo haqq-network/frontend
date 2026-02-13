@@ -49,6 +49,9 @@ migrations.json
 package-lock.json
 .vercel
 
+# Storybook
+**/storybook-static
+
 # Next.js
 .next
 .nx/cache

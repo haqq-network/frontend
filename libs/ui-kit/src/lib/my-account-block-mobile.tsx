@@ -74,7 +74,7 @@ export function MyAccountBlockMobile({
               'cursor-pointer text-[14px] leading-[22px]',
               'transition-color duration-150 ease-in will-change-[color]',
               'text-[#01B26E] hover:text-[#01b26e80]',
-              'disabled:cursor-not-allowed disabled:!text-[#01B26E] disabled:opacity-80',
+              'disabled:cursor-not-allowed disabled:text-[#01B26E]! disabled:opacity-80',
             )}
             onClick={onRewardsClaim}
             disabled={totalRewards < minRewardsToClaim || isRewardsPending}

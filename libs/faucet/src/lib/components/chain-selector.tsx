@@ -33,7 +33,7 @@ export function ChainSelectOption({
     <chainSelectComponents.Option {...rest}>
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[14px] font-[500] text-white">{chain.name}</div>
+          <div className="text-[14px] font-medium text-white">{chain.name}</div>
           <div className="text-[10px] leading-[12px] text-white/50">
             Chain ID: {chain.id}
           </div>
@@ -82,14 +82,14 @@ export function ChainSelector({
         return 'text-white/50';
       },
       valueContainer: () => {
-        return 'text-[16px] font-[500] text-white min-h-[54px] px-[16px] py-[18px]';
+        return 'text-[16px] font-medium text-white min-h-[54px] px-[16px] py-[18px]';
       },
       indicatorsContainer: () => {
         return 'pe-[16px] text-white/50';
       },
       menu: () => {
         return clsx(
-          'border-[1px] border-white/20 bg-[#0D0D0E] rounded-[12px] mt-[4px] shadow-lg',
+          'border border-white/20 bg-[#0D0D0E] rounded-[12px] mt-[4px] shadow-lg',
           'text-white text-[14px] leading-[20px]',
           'overflow-hidden',
         );
@@ -139,7 +139,7 @@ export function ChainSelector({
 
   return (
     <div className="space-y-[8px]">
-      <label className="block text-[14px] font-[500] text-white">
+      <label className="block text-[14px] font-medium text-white">
         {t('select-chain', 'Select Chain')}
       </label>
       <Select

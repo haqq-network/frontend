@@ -1,15 +1,25 @@
 //@ts-check
-// import { fileURLToPath } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { composePlugins, withNx } from '@nx/next';
 import { withSentryConfig } from '@sentry/nextjs';
 import createNextIntlPlugin from 'next-intl/plugin';
+import path from 'node:path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 // import createJiti from 'jiti';
 // const jiti = createJiti(fileURLToPath(import.meta.url));
 
 // // Validate during build.
 // jiti('./src/env/client.ts');
 
-const withNextIntl = createNextIntlPlugin();
+const requestPath = path.join(__dirname, 'src/i18n/request.ts');
+let relativeRequestPath = path.relative(process.cwd(), requestPath);
+if (!relativeRequestPath.startsWith('.')) {
+  relativeRequestPath = `./${relativeRequestPath}`;
+}
+// console.log('[next.config.mjs] Resolving next-intl request path:', relativeRequestPath);
+const withNextIntl = createNextIntlPlugin(relativeRequestPath);
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
@@ -56,9 +66,6 @@ const nextConfig = {
         ],
       },
     ];
-  },
-  experimental: {
-    instrumentationHook: true,
   },
 };
 

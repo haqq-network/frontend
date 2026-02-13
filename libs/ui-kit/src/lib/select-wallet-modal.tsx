@@ -43,7 +43,7 @@ export function SelectWalletModal({
         />
 
         <div className="flex w-full flex-col">
-          <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
+          <div className="pt-[24px] pb-[24px] sm:pt-[4px]">
             <ModalHeading>
               {t('select-wallet-heading', 'Select wallet')}
             </ModalHeading>

@@ -58,11 +58,11 @@ export function RedelegateModalSubmitButton({
       onClick={onClick}
       disabled={disabled}
       className={clsx(
-        'bg-slate-500 text-white outline-none ring-slate-500/40 hover:bg-slate-500/90 focus:ring-4 dark:ring-slate-100/80',
+        'bg-slate-500 text-white ring-slate-500/40 outline-none hover:bg-slate-500/90 focus:ring-4 dark:ring-slate-100/80',
         isSmall
           ? 'h-[30px] rounded px-2 py-1 text-sm font-semibold'
-          : 'rounded-md px-4 py-2 text-lg font-medium leading-8',
-        'disabled:cursor-not-allowed disabled:!bg-slate-500 disabled:!opacity-60',
+          : 'rounded-md px-4 py-2 text-lg leading-8 font-medium',
+        'disabled:cursor-not-allowed disabled:bg-slate-500! disabled:opacity-60!',
         'transition-all duration-100',
         className,
       )}
@@ -206,9 +206,9 @@ export function RedelegateModal({
                 </div>
 
                 {!isMemoVisible ? (
-                  <div className="leading-[0]">
+                  <div className="leading-0">
                     <OrangeLink
-                      className="!text-[12px] !font-[500] !leading-[16px]"
+                      className="text-[12px]! leading-[16px]! font-medium!"
                       onClick={() => {
                         setMemoVisible(true);
                       }}
@@ -217,7 +217,7 @@ export function RedelegateModal({
                     </OrangeLink>
                   </div>
                 ) : (
-                  <div className="leading-[0]">
+                  <div className="leading-0">
                     <input
                       type="text"
                       value={memo}
@@ -228,7 +228,7 @@ export function RedelegateModal({
                         'w-full rounded-[6px] outline-none',
                         'transition-colors duration-100 ease-in',
                         'text-[#0D0D0E] placeholder:text-[#0D0D0E80]',
-                        'px-[16px] py-[12px] text-[14px] font-[500] leading-[22px]',
+                        'px-[16px] py-[12px] text-[14px] leading-[22px] font-medium',
                         'bg-[#E7E7E7]',
                       )}
                       placeholder={t('memo-placeholder', 'Add your memo', {

@@ -5,5 +5,30 @@
   "projectType": "application",
   "tags": ["shell"],
   "// targets": "to see all targets run: nx show project shell --web",
-  "targets": {}
+  "targets": {
+    "storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "storybook dev -p 4400 --config-dir apps/shell/.storybook",
+        "cwd": "{workspaceRoot}"
+      },
+      "configurations": {
+        "ci": {
+          "command": "storybook dev -p 4400 --config-dir apps/shell/.storybook --quiet",
+          "cwd": "{workspaceRoot}"
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "storybook build --config-dir apps/shell/.storybook -o apps/shell/storybook-static",
+        "cwd": "{workspaceRoot}"
+      },
+      "configurations": {
+        "ci": {}
+      },
+      "outputs": ["{projectRoot}/storybook-static"]
+    }
+  }
 }

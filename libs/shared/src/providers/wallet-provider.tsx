@@ -208,7 +208,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       const recoveredAddress = publicKeyToAddress(pkUncompressedHex);
 
       return address.toLowerCase() === recoveredAddress.toLowerCase();
-    } catch (error) {
+    } catch (_error) {
       console.error('Failed to validate pubkey');
       return false;
     }

@@ -67,14 +67,14 @@ export function ValidatorSelect({
         return 'text-[#0D0D0E80]';
       },
       valueContainer: () => {
-        return 'text-[14px] font-[500] leading-[22px] text-[#0D0D0E] min-h-[46px] px-[16px]';
+        return 'text-[14px] font-medium leading-[22px] text-[#0D0D0E] min-h-[46px] px-[16px]';
       },
       indicatorsContainer: () => {
         return 'pe-[10px] text-[#0D0D0E80]';
       },
       menu: () => {
         return clsx(
-          'border-[1px] border-haqq-border bg-haqq-black rounded-[6px] mt-[4px] shadow-lg',
+          'border border-haqq-border bg-haqq-black rounded-[6px] mt-[4px] shadow-lg',
           'text-white text-[13px] leading-[20px]',
           'overflow-hidden',
         );

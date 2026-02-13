@@ -40,7 +40,7 @@ export function ConfirmModal({
         />
 
         <div className="flex w-full flex-col">
-          <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
+          <div className="pt-[24px] pb-[24px] sm:pt-[4px]">
             <ModalHeading>
               {t('select-wallet-heading', 'Select wallet', { ns: 'common' })}
             </ModalHeading>
@@ -68,7 +68,7 @@ export function ConfirmModal({
                 <button
                   className={clsx(
                     'relative h-[40px] rounded-[6px] px-[16px] py-[13px] outline-none md:px-[32px]',
-                    'font-clash text-[14px] font-[500] uppercase leading-[14px] tracking-[0.01em]',
+                    'font-clash text-[14px] leading-[14px] font-medium tracking-[0.01em] uppercase',
                     'user-select-none cursor-pointer',
                     'w-full',
                     'bg-[#FF5454] text-[#0D0D0E]',

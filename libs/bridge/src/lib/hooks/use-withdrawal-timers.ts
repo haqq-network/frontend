@@ -27,7 +27,7 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
   const [timers, setTimers] = useState<Map<string, TimerInfo>>(() => {
     return new Map();
   });
-  const { publicClientReadonlyL2, publicClientReadonlyL1, chains } =
+  const { getChains, getPublicClientReadonlyL1, getPublicClientReadonlyL2 } =
     useOpStackClients();
 
   const formatTimeRemaining = useCallback((seconds: number): string => {
@@ -54,6 +54,10 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
       }
 
       try {
+        const chains = getChains();
+        const publicClientReadonlyL1 = getPublicClientReadonlyL1();
+        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+
         // Get withdrawal receipt from L2
         const receipt = await publicClientReadonlyL2.getTransactionReceipt({
           hash: order.initiateHash as `0x${string}`,
@@ -88,9 +92,9 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
       }
     },
     [
-      publicClientReadonlyL1,
-      publicClientReadonlyL2,
-      chains.L2_WITH_CONTRACTS,
+      getChains,
+      getPublicClientReadonlyL1,
+      getPublicClientReadonlyL2,
       formatTimeRemaining,
     ],
   );
@@ -102,6 +106,10 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
       }
 
       try {
+        const chains = getChains();
+        const publicClientReadonlyL1 = getPublicClientReadonlyL1();
+        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+
         // Get withdrawal receipt from L2
         const receipt = await publicClientReadonlyL2.getTransactionReceipt({
           hash: order.initiateHash as `0x${string}`,
@@ -139,9 +147,9 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
       }
     },
     [
-      publicClientReadonlyL1,
-      publicClientReadonlyL2,
-      chains.L2_WITH_CONTRACTS,
+      getChains,
+      getPublicClientReadonlyL1,
+      getPublicClientReadonlyL2,
       formatTimeRemaining,
     ],
   );

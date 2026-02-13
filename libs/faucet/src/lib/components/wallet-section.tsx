@@ -32,7 +32,7 @@ export function WalletSection({
 
         {!isNetworkSupported && (
           <OrangeLink
-            className="font-clash mb-[-2px] text-end !text-[12px] uppercase"
+            className="font-clash mb-[-2px] text-end text-[12px]! uppercase"
             onClick={onNetworkSwitch}
           >
             {t('switch-chain', 'Switch to {chain}', {

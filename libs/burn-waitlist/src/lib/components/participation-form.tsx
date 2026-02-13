@@ -54,7 +54,7 @@ export function ParticipationForm({
     <div className="space-y-[20px]">
       <WaitlistBalances balances={balances} />
       <div>
-        <label className="mb-[8px] block text-[14px] font-[500] text-[#0D0D0E]">
+        <label className="mb-[8px] block text-[14px] font-medium text-[#0D0D0E]">
           Amount
         </label>
         <ModalInput
@@ -94,7 +94,7 @@ export function ParticipationForm({
       {/* Only show Funds Source selection if ucDAO balance is greater than 0 */}
       {balances && (
         <div>
-          <label className="mb-[8px] block text-[14px] font-[500] text-[#0D0D0E]">
+          <label className="mb-[8px] block text-[14px] font-medium text-[#0D0D0E]">
             Funds Source
           </label>
           <div className="space-y-[8px]">
@@ -133,7 +133,7 @@ export function ParticipationForm({
       {/* Warning for negative available balance */}
       {availableBalance !== undefined && availableBalance < 0n && (
         <div className="mt-[24px] rounded-[8px] bg-[#FEF3C7] p-[16px]">
-          <div className="text-[14px] font-[500] text-[#92400E]">
+          <div className="text-[14px] font-medium text-[#92400E]">
             Need to fill balance {formatEthDecimal(-availableBalance, 4)} ISLM
             for request creation
           </div>
@@ -142,7 +142,7 @@ export function ParticipationForm({
 
       {error && (
         <div className="rounded-[8px] bg-[#FEE2E2] p-[12px]">
-          <div className="text-[14px] font-[500] text-[#DC2626]">{error}</div>
+          <div className="text-[14px] font-medium text-[#DC2626]">{error}</div>
         </div>
       )}
 

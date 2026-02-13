@@ -1,0 +1,17 @@
+[14:57:54.535] [INFO] [36mInitializing Storybook[39m
+[14:57:54.980] [DEBUG] Getting package.json info for /private/var/www/haqq/frontend/package.json...
+[14:57:54.980] [DEBUG] Getting CLI versions from NPM for storybook...
+[14:57:54.981] [DEBUG] Executing command: pnpm info storybook version
+[14:57:55.747] [INFO] Adding Storybook version 10.2.8 to your project
+[14:57:55.748] [ERROR] [38;2;241;97;97mSB_CLI_INIT_0001 (NxProjectDetectedError): We have detected Nx in your project. Nx has its own Storybook initializer, so please use it instead.
+Run "nx g @nx/storybook:configuration <your-project-name>" to add Storybook to a given Nx app or lib.
+
+More info: https://nx.dev/nx-api/storybook#generating-storybook-configuration
+[39m
+    at ProjectTypeService.autoDetectProjectType (file:///Users/rinatrahimulin/Library/Caches/pnpm/dlx/08bf48375b8a7981db92eadf0abf122e3e3880b2b49088f26fa0c86dc7d7c2ad/19c51a16879-1f14/node_modules/.pnpm/create-storybook@10.2.8_@testing-library+dom@10.4.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/create-storybook/dist/_node-chunks/chunk-M7TYML2Y.js:735:15)
+    at async ProjectDetectionCommand.execute (file:///Users/rinatrahimulin/Library/Caches/pnpm/dlx/08bf48375b8a7981db92eadf0abf122e3e3880b2b49088f26fa0c86dc7d7c2ad/19c51a16879-1f14/node_modules/.pnpm/create-storybook@10.2.8_@testing-library+dom@10.4.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/create-storybook/dist/_node-chunks/chunk-M7TYML2Y.js:830:22)
+    at async doInitiate (file:///Users/rinatrahimulin/Library/Caches/pnpm/dlx/08bf48375b8a7981db92eadf0abf122e3e3880b2b49088f26fa0c86dc7d7c2ad/19c51a16879-1f14/node_modules/.pnpm/create-storybook@10.2.8_@testing-library+dom@10.4.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/create-storybook/dist/_node-chunks/chunk-M7TYML2Y.js:2830:143)
+    at async file:///Users/rinatrahimulin/Library/Caches/pnpm/dlx/08bf48375b8a7981db92eadf0abf122e3e3880b2b49088f26fa0c86dc7d7c2ad/19c51a16879-1f14/node_modules/.pnpm/create-storybook@10.2.8_@testing-library+dom@10.4.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/create-storybook/dist/_node-chunks/chunk-M7TYML2Y.js:2882:20
+    at async withTelemetry (file:///Users/rinatrahimulin/Library/Caches/pnpm/dlx/08bf48375b8a7981db92eadf0abf122e3e3880b2b49088f26fa0c86dc7d7c2ad/19c51a16879-1f14/node_modules/.pnpm/storybook@10.2.8_@testing-library+dom@10.4.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/storybook/dist/_node-chunks/chunk-KIOKJLL5.js:218:12)
+    at async initiate (file:///Users/rinatrahimulin/Library/Caches/pnpm/dlx/08bf48375b8a7981db92eadf0abf122e3e3880b2b49088f26fa0c86dc7d7c2ad/19c51a16879-1f14/node_modules/.pnpm/create-storybook@10.2.8_@testing-library+dom@10.4.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/create-storybook/dist/_node-chunks/chunk-M7TYML2Y.js:2875:24)
+    at async _Command.<anonymous> (file:///Users/rinatrahimulin/Library/Caches/pnpm/dlx/08bf48375b8a7981db92eadf0abf122e3e3880b2b49088f26fa0c86dc7d7c2ad/19c51a16879-1f14/node_modules/.pnpm/create-storybook@10.2.8_@testing-library+dom@10.4.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/create-storybook/dist/_node-chunks/run-6WTLCWSW.js:2684:144)

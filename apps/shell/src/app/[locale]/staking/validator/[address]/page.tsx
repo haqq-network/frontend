@@ -15,15 +15,17 @@ import { ValidatorDetailsPage } from '@haqq/shell-staking';
 import { supportedChainsIds } from '../../../../../config/wagmi-config';
 
 export default async function ValidatorDetails({
-  params: { address },
+  params,
 }: {
-  params: { address: string };
+  params: Promise<{ address: string }>;
 }) {
+  const { address } = await params;
+
   if (!address) {
     return notFound();
   }
 
-  const cookies = headers().get('cookie');
+  const cookies = (await headers()).get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
   const chainIdToUse =
     chainId && supportedChainsIds.includes(chainId)

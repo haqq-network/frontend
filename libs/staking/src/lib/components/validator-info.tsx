@@ -122,7 +122,7 @@ function CommissionCardInnerBlock({
 }) {
   return (
     <div className="flex flex-col gap-y-[6px] px-[24px] lg:px-[32px]">
-      <div className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
+      <div className="text-[10px] leading-[12px] font-semibold text-white/50 uppercase lg:text-[12px] lg:leading-[14px]">
         {title}
       </div>
       <div
@@ -244,7 +244,7 @@ export function ValidatorInfoComponent({
                 </div>
 
                 <div>
-                  <h1 className="font-clash text-[18px] font-[500] leading-[24px] md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
+                  <h1 className="font-clash text-[18px] leading-[24px] font-medium md:text-[24px] md:leading-[30px] lg:text-[32px] lg:leading-[42px]">
                     {validatorInfo.description?.moniker}
                   </h1>
                 </div>
@@ -390,7 +390,7 @@ export function ValidatorInfoComponent({
       </Container>
 
       {!isDesktop && (
-        <div className="sticky bottom-0 end-0 start-0 z-30">
+        <div className="sticky start-0 end-0 bottom-0 z-30">
           <div className="transform-gpu bg-[#FFFFFF07] backdrop-blur">
             {isConnected ? (
               <Swiper
@@ -398,7 +398,7 @@ export function ValidatorInfoComponent({
                 modules={[Pagination]}
                 autoHeight={true}
                 pagination={true}
-                className={clsx(styles['slider'], '!pb-[20px]')}
+                className={clsx(styles['slider'], 'pb-[20px]!')}
               >
                 <SwiperSlide>
                   <ValidatorBlockMobile
@@ -747,9 +747,9 @@ export function ValidatorInfo({
 
   if (!validatorInfo) {
     return (
-      <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
+      <div className="pointer-events-none flex min-h-[320px] flex-1 flex-col items-center justify-center space-y-8 select-none">
         <SpinnerLoader />
-        <div className="font-guise text-[10px] uppercase leading-[1.2em]">
+        <div className="font-guise text-[10px] leading-[1.2em] uppercase">
           {t('validator-info-loading', 'Fetching validator information')}
         </div>
       </div>
@@ -842,10 +842,10 @@ export function ValidatorBlockDesktop({
 
       <div className="flex flex-col gap-y-[12px]">
         <div className="flex flex-col gap-y-[6px]">
-          <span className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
+          <span className="text-[10px] leading-[12px] font-semibold text-white/50 uppercase lg:text-[12px] lg:leading-[14px]">
             {t('my-delegation', 'My delegation', { ns: 'staking' })}
           </span>
-          <span className="font-clash text-[24px] uppercase leading-[30px] text-white">
+          <span className="font-clash text-[24px] leading-[30px] text-white uppercase">
             {formatNumber(delegation)} {symbol.toLocaleUpperCase()}
           </span>
         </div>
@@ -907,10 +907,10 @@ export function ValidatorBlockDesktop({
       </div>
       <div className="flex flex-col gap-y-[12px]">
         <div className="flex flex-col gap-y-[6px]">
-          <span className="text-[10px] font-semibold uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
+          <span className="text-[10px] leading-[12px] font-semibold text-white/50 uppercase lg:text-[12px] lg:leading-[14px]">
             {t('my-rewards', 'My rewards', { ns: 'staking' })}
           </span>
-          <span className="font-clash text-[24px] uppercase leading-[30px] text-[#01B26E]">
+          <span className="font-clash text-[24px] leading-[30px] text-[#01B26E] uppercase">
             {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
           </span>
         </div>

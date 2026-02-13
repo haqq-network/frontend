@@ -1,17 +1,9 @@
-const { join } = require('path');
-
-// Note: If you use library-specific PostCSS/Tailwind configuration then you should remove the `postcssConfig` build
-// option from your application's configuration (i.e. project.json).
-//
+// Tailwind v4: use @tailwindcss/postcss. Config path is set in CSS via @config.
 // See: https://nx.dev/guides/using-tailwind-css-in-react#step-4:-applying-configuration-to-libraries
 
 module.exports = {
   plugins: {
-    'postcss-import': {},
-    'tailwindcss/nesting': {},
-    tailwindcss: {
-      config: join(__dirname, 'tailwind.config.js'),
-    },
+    '@tailwindcss/postcss': {},
     'postcss-preset-env': {
       stage: 3,
       features: {

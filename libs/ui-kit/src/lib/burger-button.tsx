@@ -11,7 +11,7 @@ export function BurgerButton({
 }) {
   return (
     <button
-      className={clsx('cursor-pointer leading-[0]', className)}
+      className={clsx('cursor-pointer leading-0', className)}
       onClick={onClick}
     >
       <svg
@@ -31,7 +31,7 @@ export function BurgerButton({
           strokeLinecap="round"
           className={clsx(
             'origin-top-right duration-100 ease-in-out',
-            isOpen && 'translate-x-[-3px] rotate-[-45deg] scale-x-[1.275]',
+            isOpen && 'translate-x-[-3px] scale-x-[1.275] -rotate-45',
           )}
         />
         <line
@@ -55,7 +55,7 @@ export function BurgerButton({
           strokeLinecap="round"
           className={clsx(
             'origin-bottom-right duration-100 ease-in-out',
-            isOpen && 'translate-x-[-3px] rotate-[45deg] scale-x-[1.275]',
+            isOpen && 'translate-x-[-3px] scale-x-[1.275] rotate-45',
           )}
         />
       </svg>

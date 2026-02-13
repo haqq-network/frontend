@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createPublicClient, http, formatEther, Chain } from 'viem';
-import { haqqMainnet, haqqTestedge2, mainnet, sepolia } from 'viem/chains';
-import { haqqEthiq, haqqTestethiq } from '@haqq/shell-shared';
-
-// Mark route as dynamic since it uses request.url
-export const dynamic = 'force-dynamic';
+import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
+import { haqqEthiq, haqqTestethiq, mainnet } from '@haqq/shell-shared';
 
 export interface TokenBalance {
   symbol: string;

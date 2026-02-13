@@ -42,11 +42,11 @@ export function RequestItem({
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <div className="mb-[8px] flex items-center space-x-[8px]">
-            <span className="text-[14px] font-[500] text-[#0D0D0E]">
+            <span className="text-[14px] font-medium text-[#0D0D0E]">
               Request #{requestId.toString()}
             </span>
             {isCancelled && (
-              <span className="rounded-[4px] bg-[#FEE2E2] px-[8px] py-[2px] text-[12px] font-[500] text-[#DC2626]">
+              <span className="rounded-[4px] bg-[#FEE2E2] px-[8px] py-[2px] text-[12px] font-medium text-[#DC2626]">
                 Cancelled
               </span>
             )}
@@ -54,11 +54,11 @@ export function RequestItem({
           <div className="space-y-[4px] text-[14px] text-[#6B7280]">
             <div>
               Amount:{' '}
-              <span className="font-[500] text-[#0D0D0E]">{amount} ISLM</span>
+              <span className="font-medium text-[#0D0D0E]">{amount} ISLM</span>
             </div>
             <div>
               Source:{' '}
-              <span className="font-[500] text-[#0D0D0E]">{sourceLabel}</span>
+              <span className="font-medium text-[#0D0D0E]">{sourceLabel}</span>
             </div>
           </div>
         </div>

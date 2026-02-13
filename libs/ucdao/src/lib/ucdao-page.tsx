@@ -19,7 +19,7 @@ export function UCDaoPage() {
           <Container>
             <div
               dir="ltr"
-              className="font-clash text-[28px] uppercase leading-none sm:text-[48px] lg:text-[70px]"
+              className="font-clash text-[28px] leading-none uppercase sm:text-[48px] lg:text-[70px]"
             >
               {t('dao-page-title', 'UnitedContributors DAO', { ns: 'uc-dao' })}
             </div>
