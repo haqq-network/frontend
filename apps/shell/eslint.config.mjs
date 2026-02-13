@@ -11,7 +11,7 @@ export default [
   ...nx.configs['flat/react'],
 
   // Ignore build output and Next.js generated types
-  { ignores: ['.next/**/*', 'next-env.d.ts'] },
+  { ignores: ['.next/**/*', 'next-env.d.ts', 'storybook-static/**/*'] },
 
   // All source files
   {
