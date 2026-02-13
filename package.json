@@ -12,6 +12,7 @@
     "start": "pnpm start:shell",
     "start:shell": "pnpm exec nx dev shell",
     "start:vesting": "pnpm exec nx serve vesting",
+    "start:vesting:prod": "pnpm exec nx run vesting:build && pnpm exec nx run vesting:preview",
     "lint": "pnpm exec nx run-many --target lint --verbose",
     "test": "pnpm exec nx run-many --target test --verbose",
     "format": "pnpm exec prettier --write '**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html}'",
