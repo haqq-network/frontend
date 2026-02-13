@@ -35,7 +35,7 @@ function GrayDescription({
   return (
     <div
       className={clsx(
-        'font-guise text-[12px] font-[600] uppercase leading-[1.2em] text-white/50',
+        'font-guise text-[12px] leading-[1.2em] font-semibold text-white/50 uppercase',
         className,
       )}
     >
@@ -52,7 +52,7 @@ function DescriptionAmount({
   return (
     <div
       className={clsx(
-        'font-clash text-[16px] font-[500] uppercase leading-[20px] text-white',
+        'font-clash text-[16px] leading-[20px] font-medium text-white uppercase',
         className,
       )}
     >
@@ -126,7 +126,7 @@ export function ValidatorBlockMobileComponent({
             <GrayDescription>
               {t('my-rewards', 'My rewards', { ns: 'staking' })}
             </GrayDescription>
-            <DescriptionAmount className="!text-[#01B26E]">
+            <DescriptionAmount className="text-[#01B26E]!">
               {formatNumber(rewards)} {symbol.toLocaleUpperCase()}
             </DescriptionAmount>
           </div>
@@ -137,7 +137,7 @@ export function ValidatorBlockMobileComponent({
             <div className="flex-1">
               <Button
                 variant={2}
-                className="w-full !px-[16px]"
+                className="w-full px-[16px]!"
                 onClick={onDelegateClick}
                 disabled={isDelegateDisabled}
                 data-attr="delegate"
@@ -148,7 +148,7 @@ export function ValidatorBlockMobileComponent({
             <div className="flex-1">
               <Button
                 variant={2}
-                className="w-full !px-[16px]"
+                className="w-full px-[16px]!"
                 onClick={onUndelegateClick}
                 disabled={isUndelegateDisabled}
                 data-attr="undelegate"

@@ -680,7 +680,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     <Container>
       <div className="mx-auto max-w-[1200px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <h1 className="mb-[24px] text-[24px] font-[600] text-[#0D0D0E]">
+          <h1 className="mb-[24px] text-[24px] font-semibold text-[#0D0D0E]">
             Burn Waitlist
           </h1>
 
@@ -748,7 +748,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                     <div className="text-[12px] text-[#6B7280]">
                       Your Applications
                     </div>
-                    <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                    <div className="text-[18px] font-semibold text-[#0D0D0E]">
                       {userAggregates.totalCount}
                     </div>
                   </div>
@@ -756,7 +756,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                     <div className="text-[12px] text-[#6B7280]">
                       Your Total Amount
                     </div>
-                    <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                    <div className="text-[18px] font-semibold text-[#0D0D0E]">
                       {formatEthDecimal(userAggregates.totalAmount, 4)} ISLM
                     </div>
                   </div>
@@ -766,7 +766,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
               <div className="grid grid-cols-1 gap-[32px] lg:grid-cols-2">
                 {/* First Column: Form */}
                 <div>
-                  <h2 className="mb-[16px] text-[18px] font-[600] text-[#0D0D0E]">
+                  <h2 className="mb-[16px] text-[18px] font-semibold text-[#0D0D0E]">
                     Participate in Waitlist
                   </h2>
                   {isLoadingBalances && !waitlistBalances ? (
@@ -814,7 +814,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                 {/* Second Column: Applications List */}
                 {isConnected ? (
                   <div>
-                    <h2 className="mb-[16px] text-[18px] font-[600] text-[#0D0D0E]">
+                    <h2 className="mb-[16px] text-[18px] font-semibold text-[#0D0D0E]">
                       Your Requests
                     </h2>
                     {isLoadingApplications && !applicationsData ? (

@@ -91,12 +91,6 @@ export function useL2ToL1Withdrawal({
 
   const initiateWithdrawal = useCallback(
     async (amount: number, toAddress: string): Promise<string> => {
-      const walletClient = await getWalletClientL2();
-
-      if (!walletClient) {
-        throw new Error('Wallet not connected or wallet client not available');
-      }
-
       setIsProcessing(true);
       setError(null);
 
@@ -105,6 +99,26 @@ export function useL2ToL1Withdrawal({
         const chains = getChains();
         const publicClientReadonlyL1 = getPublicClientReadonlyL1();
         const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+
+        // Try to switch to L2 chain (may fail in Safe which only supports one chain)
+        try {
+          console.log(
+            `${LOG_PREFIX} Attempting to switch to L2 chain ${chains.L2.id} (${chains.L2.name})`,
+          );
+          await switchChainAsync({ chainId: chains.L2.id });
+        } catch (switchError) {
+          console.log(
+            `${LOG_PREFIX} Chain switch not supported (Safe wallet?), continuing with current chain`,
+          );
+        }
+
+        const walletClient = await getWalletClientL2();
+
+        if (!walletClient) {
+          throw new Error(
+            'Wallet not connected or wallet client not available',
+          );
+        }
 
         // Step 1: Build parameters to initiate the withdrawal transaction on the L1
         // According to Viem docs: "Build parameters to initiate the withdrawal transaction on the L1"
@@ -204,6 +218,18 @@ export function useL2ToL1Withdrawal({
       try {
         const chains = getChains();
         const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+
+        // Try to switch to L2 chain (may fail in Safe which only supports one chain)
+        try {
+          console.log(
+            `${LOG_PREFIX} Attempting to switch to L2 chain ${chains.L2.id} (${chains.L2.name})`,
+          );
+          await switchChainAsync({ chainId: chains.L2.id });
+        } catch (switchError) {
+          console.log(
+            `${LOG_PREFIX} Chain switch not supported (Safe wallet?), continuing with current chain`,
+          );
+        }
 
         // Step 1: Parse the token amount with correct decimals
         console.log(

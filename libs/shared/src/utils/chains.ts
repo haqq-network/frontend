@@ -1,6 +1,7 @@
-import { haqqMainnet, haqqTestedge2, mainnet, sepolia } from 'viem/chains';
+import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
 import { haqqEthiq } from './bridge';
 import { haqqTestethiq } from './bridge-testethiq';
+import { mainnet } from './ethereum-mainnet';
 
 export const bridgeSupportedChains = [
   haqqTestethiq,

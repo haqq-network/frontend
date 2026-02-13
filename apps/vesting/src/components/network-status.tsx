@@ -34,7 +34,7 @@ function SupportedNetworkStatus({ onClick }: { onClick?: () => void }) {
       <div
         className={clsx(
           'invisible absolute mt-1 w-max cursor-default opacity-0',
-          'left-1/2 top-full -translate-x-1/2 translate-y-2',
+          'top-full left-1/2 -translate-x-1/2 translate-y-2',
           'transition duration-100 ease-out',
           'group-hover:visible group-hover:z-50 group-hover:translate-y-0 group-hover:opacity-100',
           'bg-primary rounded-md px-[12px] py-[6px] text-xs leading-snug text-white shadow-xl',
@@ -79,7 +79,7 @@ function UnsupportedNetworkStatus({ onClick }: { onClick?: () => void }) {
       <div
         className={clsx(
           'invisible absolute mt-1 w-max cursor-default opacity-0',
-          'left-1/2 top-full -translate-x-1/2 translate-y-2',
+          'top-full left-1/2 -translate-x-1/2 translate-y-2',
           'transition duration-100 ease-out',
           'group-hover:visible group-hover:z-50 group-hover:translate-y-0 group-hover:opacity-100',
           'bg-danger rounded-md px-[12px] py-[6px] text-xs leading-snug text-white shadow-xl',

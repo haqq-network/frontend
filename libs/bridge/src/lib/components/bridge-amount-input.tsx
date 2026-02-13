@@ -21,7 +21,7 @@ export function BridgeAmountInput({
 }: BridgeAmountInputProps) {
   return (
     <div>
-      <label className="mb-[8px] block text-[14px] font-[500] text-[#0D0D0E]">
+      <label className="mb-[8px] block text-[14px] font-medium text-[#0D0D0E]">
         Amount to Bridge
       </label>
       <ModalInput

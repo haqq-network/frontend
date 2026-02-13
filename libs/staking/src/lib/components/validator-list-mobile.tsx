@@ -48,7 +48,7 @@ export function ValidatorsListMobile({
   if (validators.length === 0) {
     return (
       <div className="flex min-h-full flex-1 flex-col items-center justify-center space-y-8">
-        <div className="font-guise text-[10px] uppercase leading-[1.2em]">
+        <div className="font-guise text-[10px] leading-[1.2em] uppercase">
           {t('nothing-found', 'Nothing found')}
         </div>
       </div>

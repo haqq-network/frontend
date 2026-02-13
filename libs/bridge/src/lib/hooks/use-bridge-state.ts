@@ -165,7 +165,7 @@ export function useBridgeState({
     }
   }, [urlState?.tokenIn, userTokens, isLoadingTokens]);
 
-  // Sync state changes to URL
+  // Sync state changes to URL only when something actually changed (avoids router.replace spam)
   useLayoutEffect(() => {
     // Skip if chain is not supported
     if (
@@ -177,25 +177,29 @@ export function useBridgeState({
       return;
     }
 
-    // Always update chainIn when chain changes
     const urlUpdates: Partial<BridgeUrlState> = {
       chainIn: chain.id,
     };
 
-    // Update tokenIn if we have a selected token and tokens are loaded
     if (selectedToken && !isLoadingTokens && userTokens.length > 0) {
       urlUpdates.tokenIn = selectedToken.address;
     }
 
-    // Update amount (or clear it if undefined)
     if (bridgeAmount !== undefined) {
       urlUpdates.amount = bridgeAmount.toString();
     } else {
-      // Explicitly clear amount if it's undefined
       urlUpdates.amount = undefined;
     }
 
-    updateUrlState(urlUpdates);
+    // Only trigger navigation when URL would actually change
+    const chainChanged = urlState?.chainIn !== urlUpdates.chainIn;
+    const tokenChanged =
+      (urlUpdates.tokenIn ?? '') !== (urlState?.tokenIn ?? '');
+    const amountChanged =
+      (urlUpdates.amount ?? '') !== (urlState?.amount ?? '');
+    if (chainChanged || tokenChanged || amountChanged) {
+      updateUrlState(urlUpdates);
+    }
   }, [
     selectedToken,
     chain?.id,
@@ -203,6 +207,9 @@ export function useBridgeState({
     updateUrlState,
     isLoadingTokens,
     userTokens.length,
+    urlState?.chainIn,
+    urlState?.tokenIn,
+    urlState?.amount,
   ]);
 
   // Get available tokens for current chain (dynamically fetched with fallback)

@@ -311,7 +311,7 @@ export function AuthzGrantsActions() {
     >
       <Container>
         <div className="flex flex-col gap-[16px] lg:flex-row lg:gap-[36px]">
-          <div className="flex flex-1 flex-col gap-[32px] py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px]">
+          <div className="flex flex-1 flex-col gap-[32px] py-[32px] sm:py-[22px] lg:pt-[32px] lg:pb-[40px]">
             <div>
               <Heading level={3} className="mb-[-2px]">
                 {t('grant-access', 'Grant access', { ns: 'authz' })}
@@ -325,7 +325,7 @@ export function AuthzGrantsActions() {
                     <div>
                       <label
                         htmlFor="grantee"
-                        className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
+                        className="cursor-pointer text-[12px] leading-[24px] font-medium text-white/50 uppercase"
                       >
                         {t('grantee-address', 'Grantee address', {
                           ns: 'authz',
@@ -390,7 +390,7 @@ export function AuthzGrantsActions() {
                     <div>
                       <label
                         htmlFor="memo"
-                        className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
+                        className="cursor-pointer text-[12px] leading-[24px] font-medium text-white/50 uppercase"
                       >
                         {t('memo', 'Memo', { ns: 'authz' })}
                       </label>
@@ -439,7 +439,7 @@ export function AuthzGrantsActions() {
               className={clsx(
                 'xl:absolute xl:end-0 xl:top-[50%] xl:min-w-full xl:translate-y-[-50%]',
                 '2xl:translate-x-[-10%]',
-                'py-[32px] sm:py-[22px] lg:pb-[40px] lg:pt-[32px] xl:py-[0px]',
+                'py-[32px] sm:py-[22px] lg:pt-[32px] lg:pb-[40px] xl:py-0',
               )}
             >
               {!isGranteeValid ? (

@@ -14,16 +14,20 @@ export const supportedChainsIds = supportedChains.map((chain): number => {
 });
 const supportedChainsTransports = supportedChains.reduce(
   (acc, chain) => {
-    acc[chain.id] = http();
+    const url = chain.rpcUrls?.default?.http?.[0];
+    acc[chain.id] = url ? http(url, { batch: true }) : http();
     return acc;
   },
   {} as Record<number, Transport>,
 );
 
+/** Skip WalletConnect on server (SSR) — it uses indexedDB which is not defined in Node. */
+const isClient = typeof window !== 'undefined';
+
 export function createWagmiConfig(walletConnectProjectId?: string) {
   const connectors: CreateConnectorFn[] = [];
 
-  if (walletConnectProjectId) {
+  if (isClient && walletConnectProjectId) {
     connectors.push(
       walletConnect({
         projectId: walletConnectProjectId,

@@ -21,8 +21,8 @@ export function SearchInput({
         className={clsx(
           'w-full rounded-[6px] outline-none',
           'transition-colors duration-100 ease-in',
-          'text-[#fff] placeholder:text-[#FFFFFF3D]',
-          'py-[12px] pe-[16px] ps-[48px] text-[14px] font-[500] leading-[22px]',
+          'text-white placeholder:text-[#FFFFFF3D]',
+          'py-[12px] ps-[48px] pe-[16px] text-[14px] leading-[22px] font-medium',
           'bg-[#252528] hover:bg-[#3A3A3A] focus:bg-[#3A3A3A]',
           className,
         )}

@@ -9,7 +9,7 @@ export function Card({
     <div
       className={clsx(
         'cursor-pointer rounded-lg p-[16px] transition-colors duration-150 ease-out hover:border-[#EC5728] lg:p-[28px]',
-        'border-haqq-border bg-haqq-black/15 border-[1px] backdrop-blur',
+        'border-haqq-border bg-haqq-black/15 border backdrop-blur',
         className,
       )}
     >
@@ -25,7 +25,7 @@ export function CardHeading({
   return (
     <div
       className={clsx(
-        'font-guise text-[14px] font-[500] leading-[22px] text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]',
+        'font-guise text-[14px] leading-[22px] font-medium text-white md:text-[17px] md:leading-[26px] lg:text-[18px] lg:leading-[28px]',
         className,
       )}
     >
@@ -52,7 +52,7 @@ export function CardSubText({
   return (
     <div
       className={clsx(
-        'text-[11px] leading-[1.5] lg:text-[12px] lg:leading-[17px]',
+        'text-[11px] leading-normal lg:text-[12px] lg:leading-[17px]',
         className,
       )}
     >

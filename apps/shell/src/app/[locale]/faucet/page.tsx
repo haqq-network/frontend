@@ -24,7 +24,7 @@ const FaucetPage = dynamic(async () => {
 });
 
 export default async function Faucet() {
-  const cookies = headers().get('cookie');
+  const cookies = (await headers()).get('cookie');
   const { chainId, walletAddress } = parseWagmiCookies(cookies);
   const chainIdToUse =
     chainId && supportedChainsIds.includes(chainId)

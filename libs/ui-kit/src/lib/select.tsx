@@ -47,7 +47,7 @@ export function Select({
 }) {
   const formatGroupLabel = useCallback((data: GroupBase<SelectOption>) => {
     return (
-      <div className="px-[16px] py-[6px] text-start text-[10px] font-[500] uppercase leading-[18px] text-white/50">
+      <div className="px-[16px] py-[6px] text-start text-[10px] leading-[18px] font-medium text-white/50 uppercase">
         {data.label}
       </div>
     );
@@ -70,14 +70,14 @@ export function Select({
         return 'text-white/25';
       },
       valueContainer: () => {
-        return 'text-white text-[14px] font-[500] leading-[22px] min-h-[46px] px-[16px]';
+        return 'text-white text-[14px] font-medium leading-[22px] min-h-[46px] px-[16px]';
       },
       indicatorsContainer: () => {
         return 'pe-[10px] text-white/25';
       },
       menu: () => {
         return clsx(
-          'border-[1px] border-haqq-border bg-haqq-black rounded-[6px] mt-[4px] shadow-lg',
+          'border border-haqq-border bg-haqq-black rounded-[6px] mt-[4px] shadow-lg',
           'text-white text-[13px] leading-[20px]',
           'overflow-hidden',
         );
@@ -103,7 +103,7 @@ export function Select({
         <div>
           <label
             htmlFor={id}
-            className="cursor-pointer text-[12px] font-[500] uppercase leading-[24px] text-white/50"
+            className="cursor-pointer text-[12px] leading-[24px] font-medium text-white/50 uppercase"
           >
             {label}
           </label>
@@ -164,14 +164,14 @@ export function ModalSelect({
         return 'text-[#0D0D0E80]';
       },
       valueContainer: () => {
-        return 'text-[14px] font-[500] leading-[22px] text-[#0D0D0E] min-h-[46px] px-[16px]';
+        return 'text-[14px] font-medium leading-[22px] text-[#0D0D0E] min-h-[46px] px-[16px]';
       },
       indicatorsContainer: () => {
         return 'pe-[10px] text-[#0D0D0E80]';
       },
       menu: () => {
         return clsx(
-          'border-[1px] border-haqq-border bg-haqq-black rounded-[6px] mt-[4px] shadow-lg',
+          'border border-haqq-border bg-haqq-black rounded-[6px] mt-[4px] shadow-lg',
           'text-white text-[13px] leading-[20px]',
           'overflow-hidden',
         );
@@ -197,7 +197,7 @@ export function ModalSelect({
         <div>
           <label
             htmlFor={id}
-            className="text-haqq-black font-guise cursor-pointer text-[13px] font-[500] leading-[22px]"
+            className="text-haqq-black font-guise cursor-pointer text-[13px] leading-[22px] font-medium"
           >
             {label}
           </label>

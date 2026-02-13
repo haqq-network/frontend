@@ -26,7 +26,7 @@ export function Button({
 }: ButtonProps) {
   const classNames = clsx(
     outline
-      ? 'bg-transparent text-primary border-[1px] border-solid border-primary hover:text-[#20d775] hover:border-[#20d775] py-[10px]'
+      ? 'bg-transparent text-primary border border-solid border-primary hover:text-[#20d775] hover:border-[#20d775] py-[10px]'
       : 'bg-primary text-white hover:bg-[#20d775] py-[11px]',
     'text-[14px] font-semibold font-sans leading-[20px]',
     'rounded-[8px] px-[16px] appearance-none relative',
@@ -48,7 +48,7 @@ export function Button({
 
       <Loader
         className={clsx(
-          'pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
+          'pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
           isPending ? 'visible' : 'invisible',
         )}
       />
@@ -67,7 +67,7 @@ export function DangerButton({
 }: ButtonProps) {
   const classNames = clsx(
     outline
-      ? 'bg-transparent text-danger border-[1px] border-solid border-danger hover:text-[#ff0000] hover:border-[#ff0000] py-[10px]'
+      ? 'bg-transparent text-danger border border-solid border-danger hover:text-[#ff0000] hover:border-[#ff0000] py-[10px]'
       : 'bg-danger text-white hover:bg-[#ff0000] py-[11px]',
     'text-[14px] font-semibold font-sans leading-[20px]',
     'rounded-[8px] px-[16px] appearance-none box-border',

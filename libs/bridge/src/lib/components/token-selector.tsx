@@ -56,7 +56,7 @@ export function TokenSelectOption({
     <tokenSelectComponents.Option {...rest}>
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[14px] font-[500] text-[#0D0D0E]">
+          <div className="text-[14px] font-medium text-[#0D0D0E]">
             {token.symbol} {token.name && `(${token.name})`}
           </div>
           <div className="text-[10px] leading-[12px] text-[#0D0D0E80]">
@@ -122,14 +122,14 @@ export function TokenSelector({
         return 'text-[#0D0D0E80]';
       },
       valueContainer: () => {
-        return 'text-[16px] font-[500] text-[#0D0D0E] min-h-[54px] px-[16px] py-[18px]';
+        return 'text-[16px] font-medium text-[#0D0D0E] min-h-[54px] px-[16px] py-[18px]';
       },
       indicatorsContainer: () => {
         return 'pe-[16px] text-[#0D0D0E80]';
       },
       menu: () => {
         return clsx(
-          'border-[1px] border-[#E8E8E8] bg-white rounded-[12px] mt-[4px] shadow-lg',
+          'border border-[#E8E8E8] bg-white rounded-[12px] mt-[4px] shadow-lg',
           'text-[#0D0D0E] text-[14px] leading-[20px]',
           'overflow-hidden',
         );
@@ -183,7 +183,7 @@ export function TokenSelector({
 
   return (
     <div className="space-y-[8px]">
-      <label className="block text-[14px] font-[500] text-[#0D0D0E]">
+      <label className="block text-[14px] font-medium text-[#0D0D0E]">
         {t('select-token', 'Select Token')}
       </label>
       <Select
@@ -199,7 +199,7 @@ export function TokenSelector({
       />
 
       {tokens.length > 0 && (
-        <div className="!mt-0 h-[20px] text-xs leading-[20px] text-[#0D0D0E80]">
+        <div className="mt-0! h-[20px] text-xs leading-[20px] text-[#0D0D0E80]">
           Loaded {tokens.length} token{tokens.length !== 1 ? 's' : ''} from your
           wallet
         </div>

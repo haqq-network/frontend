@@ -53,7 +53,7 @@ export function ValidatorListItemDesktop({
 
   return (
     <tr
-      className="border-haqq-border cursor-pointer border-t text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white hover:bg-opacity-[2.5%] md:text-[16px] md:leading-[26px]"
+      className="border-haqq-border cursor-pointer border-t text-[11px] leading-[18px] transition-[background] duration-75 hover:bg-white/2.5 md:text-[16px] md:leading-[26px]"
       onClick={() => {
         onClick(validator.operator_address);
       }}
@@ -61,14 +61,14 @@ export function ValidatorListItemDesktop({
       {index && <td className="p-[8px] text-center md:p-[12px]">{index}</td>}
       <td className="p-[8px] md:p-[12px]">
         <div className="w-full overflow-hidden">
-          <p className="overflow-ellipsis">{validator.description?.moniker}</p>
+          <p className="text-ellipsis">{validator.description?.moniker}</p>
         </div>
       </td>
       <td className="p-[8px] text-start md:p-[12px]">
         <ValidatorListStatus
           jailed={validator.jailed}
           status={bondStatusFromJSON(validator.status)}
-          className="!text-[11px] !leading-[18px] md:!text-[16px] md:!leading-[26px]"
+          className="text-[11px]! leading-[18px]! md:text-[16px]! md:leading-[26px]!"
         />
       </td>
       <td className="max-w-[80px] p-[8px] text-end md:p-[12px]">

@@ -2,7 +2,7 @@ import { Keplr } from '@keplr-wallet/types';
 import type { Window as KeplrWindow } from '@keplr-wallet/types';
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
   interface Window extends KeplrWindow {}
 }
 

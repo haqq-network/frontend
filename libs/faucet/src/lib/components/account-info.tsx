@@ -19,7 +19,7 @@ export function MyAccountCardBlock({
   return (
     <div className="flex flex-1 flex-col items-start gap-y-[6px]">
       {title ? (
-        <div className="text-[10px] font-[500] uppercase leading-[12px] text-white/50 lg:text-[12px] lg:leading-[14px]">
+        <div className="text-[10px] leading-[12px] font-medium text-white/50 uppercase lg:text-[12px] lg:leading-[14px]">
           {title}
         </div>
       ) : null}
@@ -78,7 +78,7 @@ export function AccountInfo() {
                   }
                 >
                   <div
-                    className="font-guise inline-flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[18px] font-[500] leading-[28px] text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    className="font-guise inline-flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[18px] leading-[28px] font-medium text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
                     onClick={handleEthAddressCopy}
                   >
                     <div>{getFormattedAddress(ethAddress, 6, 6, '...')}</div>
@@ -98,7 +98,7 @@ export function AccountInfo() {
                   }
                 >
                   <div
-                    className="font-guise inline-flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[18px] font-[500] leading-[28px] text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
+                    className="font-guise inline-flex cursor-pointer flex-row items-center gap-[8px] overflow-hidden text-[18px] leading-[28px] font-medium text-white transition-colors duration-100 ease-in-out hover:text-[#FFFFFF80]"
                     onClick={handleHaqqAddressCopy}
                   >
                     <div>{getFormattedAddress(haqqAddress, 6, 6, '...')}</div>
@@ -113,7 +113,7 @@ export function AccountInfo() {
 
       {balance !== undefined && (
         <MyAccountCardBlock title={t('balance', 'Balance', { ns: 'common' })}>
-          <div className="font-clash flex flex-1 flex-row items-center text-[20px] font-[500] leading-[30px]">
+          <div className="font-clash flex flex-1 flex-row items-center text-[20px] leading-[30px] font-medium">
             {formatEthDecimal(balance, 2, balancesData.data?.decimals ?? 18)}
             &nbsp; {balancesData.data?.symbol}
           </div>

@@ -74,7 +74,7 @@ export function WaitlistBalances({ balances }: WaitlistBalancesProps) {
 
   return (
     <div className="mb-[24px] rounded-[8px] border border-[#E5E7EB] bg-[#F9FAFB] p-[16px]">
-      <div className="mb-[12px] text-[14px] font-[600] text-[#0D0D0E]">
+      <div className="mb-[12px] text-[14px] font-semibold text-[#0D0D0E]">
         Your Balances
       </div>
       <div className="grid grid-cols-1 gap-[12px] sm:grid-cols-2 lg:grid-cols-3">
@@ -102,11 +102,11 @@ export function WaitlistBalances({ balances }: WaitlistBalancesProps) {
               key={key}
               className="flex flex-col rounded-[6px] bg-white p-[12px]"
             >
-              <div className="mb-[4px] text-[12px] font-[500] text-[#6B7280]">
+              <div className="mb-[4px] text-[12px] font-medium text-[#6B7280]">
                 {balance.label}
               </div>
               <div
-                className={`text-[16px] font-[600] ${
+                className={`text-[16px] font-semibold ${
                   isNegative ? 'text-[#DC2626]' : 'text-[#0D0D0E]'
                 }`}
               >

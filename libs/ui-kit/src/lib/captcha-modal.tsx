@@ -47,14 +47,14 @@ export const CaptchaModal = ({
           className="absolute end-[16px] top-[16px]"
         />
         <div className="flex w-full flex-col">
-          <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
+          <div className="pt-[24px] pb-[24px] sm:pt-[4px]">
             <ModalHeading>
               {t('complete-captcha-title', 'Complete the captcha')}
             </ModalHeading>
           </div>
 
           <div className="flex flex-col space-y-[12px]">
-            <div className="font-guise text-[12px] font-[500] text-black">
+            <div className="font-guise text-[12px] font-medium text-black">
               {t(
                 'complete-captcha-message',
                 'Please complete the captcha to verify that you are not a robot.',

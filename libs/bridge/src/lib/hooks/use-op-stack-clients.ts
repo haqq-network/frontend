@@ -1,7 +1,13 @@
 'use client';
 
 import { useCallback } from 'react';
-import { createPublicClient, createWalletClient, custom, http } from 'viem';
+import {
+  createPublicClient,
+  createWalletClient,
+  custom,
+  http,
+  type EIP1193Provider,
+} from 'viem';
 import {
   publicActionsL1,
   publicActionsL2,
@@ -18,7 +24,7 @@ const LOG_PREFIX = '[OP Stack Clients]';
  * Provides getter functions that create clients on demand (no memoization).
  */
 export function useOpStackClients() {
-  const { address, chain } = useAccount();
+  const { address, chain, connector } = useAccount();
   const { data: walletClient } = useWalletClient();
 
   const getChains = useCallback(() => {
@@ -90,40 +96,60 @@ export function useOpStackClients() {
   }, [walletClient, address, chain?.id]);
 
   const getWalletClientL1 = useCallback(async () => {
-    if (!address || typeof window === 'undefined' || !window.ethereum) {
+    if (!address || !connector) {
       console.log(
-        `${LOG_PREFIX} getWalletClientL1() → skipped (address: ${!!address}, ethereum: ${typeof window !== 'undefined' && !!window?.ethereum})`,
+        `${LOG_PREFIX} getWalletClientL1() → skipped (address: ${!!address}, connector: ${!!connector})`,
       );
       return null;
     }
+
+    // Get provider from the connected connector (works with Safe, MetaMask, etc.)
+    const provider = await connector.getProvider();
+    if (!provider) {
+      console.log(
+        `${LOG_PREFIX} getWalletClientL1() → skipped (no provider from connector)`,
+      );
+      return null;
+    }
+
     const opChainL1 = getOpStackChains(chain?.id).L1;
     console.log(
-      `${LOG_PREFIX} getWalletClientL1() → creating wallet client for L1 ${opChainL1.id} (${opChainL1.name})`,
+      `${LOG_PREFIX} getWalletClientL1() → creating wallet client for L1 ${opChainL1.id} (${opChainL1.name}) using ${connector.name} connector`,
     );
     return createWalletClient({
       account: address as `0x${string}`,
       chain: opChainL1,
-      transport: custom(window.ethereum),
+      transport: custom(provider as EIP1193Provider),
     }).extend(walletActionsL1());
-  }, [address, chain?.id]);
+  }, [address, chain?.id, connector]);
 
   const getWalletClientL2 = useCallback(async () => {
-    if (!address || typeof window === 'undefined' || !window.ethereum) {
+    if (!address || !connector) {
       console.log(
-        `${LOG_PREFIX} getWalletClientL2() → skipped (address: ${!!address}, ethereum: ${typeof window !== 'undefined' && !!window?.ethereum})`,
+        `${LOG_PREFIX} getWalletClientL2() → skipped (address: ${!!address}, connector: ${!!connector})`,
       );
       return null;
     }
+
+    // Get provider from the connected connector (works with Safe, MetaMask, etc.)
+    const provider = await connector.getProvider();
+    if (!provider) {
+      console.log(
+        `${LOG_PREFIX} getWalletClientL2() → skipped (no provider from connector)`,
+      );
+      return null;
+    }
+
     const opChainL2 = getOpStackChains(chain?.id).L2;
     console.log(
-      `${LOG_PREFIX} getWalletClientL2() → creating wallet client for L2 ${opChainL2.id} (${opChainL2.name})`,
+      `${LOG_PREFIX} getWalletClientL2() → creating wallet client for L2 ${opChainL2.id} (${opChainL2.name}) using ${connector.name} connector`,
     );
     return createWalletClient({
       account: address as `0x${string}`,
       chain: opChainL2,
-      transport: custom(window.ethereum),
+      transport: custom(provider as EIP1193Provider),
     }).extend(walletActionsL2());
-  }, [address, chain?.id]);
+  }, [address, chain?.id, connector]);
 
   return {
     getChains,

@@ -16,15 +16,15 @@ export const fetchCache = 'force-no-store';
 export default async function ProposalDetails({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const proposalId = params.id;
+  const { id: proposalId } = await params;
 
   if (!proposalId) {
     notFound();
   }
 
-  const cookies = headers().get('cookie');
+  const cookies = (await headers()).get('cookie');
   const { chainId } = parseWagmiCookies(cookies);
   const chainIdToUse =
     chainId && supportedChainsIds.includes(chainId)

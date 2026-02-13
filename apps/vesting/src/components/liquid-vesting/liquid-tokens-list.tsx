@@ -13,7 +13,7 @@ export function AddedToken({
 }) {
   return (
     <div className="flex flex-row items-center justify-between py-[6px]">
-      <div className="text-[16px] font-[600] leading-[24px]">
+      <div className="text-[16px] leading-[24px] font-semibold">
         {token.amount} {token.denom.toUpperCase()}
       </div>
       <div>
@@ -49,13 +49,13 @@ export function LiquidTokensList({
     <div className="flex flex-col gap-[6px] rounded-[12px] bg-[#F4F4F480] px-[16px] py-[8px]">
       <div className="flex flex-row items-center justify-between">
         <div>
-          <div className="font-messiri mb-[-4px] text-[18px] font-[600] leading-[30px]">
+          <div className="font-messiri mb-[-4px] text-[18px] leading-[30px] font-semibold">
             Your tokens
           </div>
         </div>
 
         <div
-          className="text-islamic-green cursor-pointer select-none text-[14px] leading-[30px]"
+          className="text-islamic-green cursor-pointer text-[14px] leading-[30px] select-none"
           onClick={() => {
             setOpen(!isOpen);
           }}
@@ -72,7 +72,7 @@ export function LiquidTokensList({
                 key={`${index}-${token.denom}`}
                 className="flex flex-row items-center justify-between py-[6px]"
               >
-                <div className="text-[16px] font-[600] leading-[30px]">
+                <div className="text-[16px] leading-[30px] font-semibold">
                   {formatLocaleNumber(
                     Number.parseInt(formatUnits(BigInt(token.amount), 18)),
                   )}{' '}
@@ -81,7 +81,7 @@ export function LiquidTokensList({
 
                 <div className="flex flex-row gap-4">
                   <div
-                    className="block cursor-pointer text-[14px] leading-[30px] text-[#0389D4] hover:text-opacity-80"
+                    className="hover:text-opacity-80 block cursor-pointer text-[14px] leading-[30px] text-[#0389D4]"
                     onClick={() => {
                       onTokenAddClick(token.denom);
                     }}
@@ -89,7 +89,7 @@ export function LiquidTokensList({
                     Add to wallet
                   </div>
                   <div
-                    className="block cursor-pointer text-[14px] leading-[30px] text-[#0389D4] hover:text-opacity-80"
+                    className="hover:text-opacity-80 block cursor-pointer text-[14px] leading-[30px] text-[#0389D4]"
                     onClick={() => {
                       onTokenRedeemClick(token.denom);
                     }}

@@ -127,7 +127,7 @@ export function DelegationsBlock({
                   ns: 'main',
                 })}
               </div>
-              <Link href="/staking" className="leading-[0]">
+              <Link href="/staking" className="leading-0">
                 <OrangeLink>
                   {t('link-to-staking', 'Go to Staking', {
                     ns: 'main',

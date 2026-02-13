@@ -1,0 +1,90 @@
+@use 'tailwindcss';
+
+@source '../../../libs/**/*.{ts,tsx}';
+@source './**/*.{ts,tsx}';
+
+@plugin '@tailwindcss/typography';
+
+@theme {
+  /* Vesting app */
+  --font-sans: var(--ui-kit-font-sans);
+  --font-messiri: var(--font-messiri);
+  --color-primary: var(--ui-kit-color-primary);
+  --color-islamic-green: var(--ui-kit-color-primary);
+  --color-danger: var(--ui-kit-color-danger);
+  --color-black: var(--color-black);
+  --color-light-green: var(--color-light-green);
+  --color-light-gray: var(--color-light-gray);
+  --color-dark-gray: var(--color-dark-gray);
+  --color-haqq-black: #0d0d0e;
+  --color-islamic-modal-overlay: #0c0c0c66;
+  /* Shared HAQQ tokens (for ui-kit and shell-shared components) */
+  --font-guise: var(--guise-font);
+  --font-clash: var(--clash-font);
+  --color-haqq-border: #ffffff1a;
+  --color-haqq-modal-border: #c5c5c5;
+  --color-haqq-orange: #ec5728;
+  --color-haqq-blue: #091d53;
+  --color-haqq-seaweed: #157c83;
+  --color-haqq-bigfoot-feet: #e98c50;
+  --color-haqq-azure: #ecfefe;
+  --color-haqq-modal-overlay: #0d0d0ecc;
+  --breakpoint-3xl: 2048px;
+}
+
+@layer base {
+  input[type='number'] {
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+    }
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --font-apple: -apple-system, 'BlinkMacSystemFont';
+  --font-fallback:
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-family-base:
+    var(--font-apple), var(--font-fallback), var(--font-emoji);
+
+  /* Colors from figma */
+  --color-black: #0c0c0c;
+  --color-green: #04d484;
+  --color-light-green: #eef9f5;
+  --color-light-gray: #e6e6e6;
+  --color-dark-gray: #545d59;
+  --color-red: #f50000;
+
+  --ui-kit-font-sans: 'Open Sans', var(--font-family-base);
+  --font-messiri: 'El Messiri', var(--font-family-base);
+  --ui-kit-text-color: var(--color-black);
+  --ui-kit-color-primary: var(--color-green);
+  --ui-kit-color-stroke: var(--color-light-gray);
+  --ui-kit-color-danger: var(--color-red);
+  --ui-kit-transition-duration: 125ms;
+
+  /* Placeholder for shared components that expect guise/clash (vesting uses sans/messiri) */
+  --guise-font: var(--ui-kit-font-sans);
+  --clash-font: var(--font-messiri);
+}
+
+html,
+body,
+#root {
+  @apply min-h-screen w-full;
+}
+
+body {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  font-family: var(--ui-kit-font-sans);
+  color: var(--ui-kit-text-color);
+  background-color: #ffffff;
+}

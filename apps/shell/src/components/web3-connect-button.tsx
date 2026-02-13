@@ -71,7 +71,7 @@ export function Web3ConnectButtons() {
 
   if (!isConnected || !ethAddress) {
     return (
-      <div className="leading-[0]">
+      <div className="leading-0">
         <Button onClick={openSelectWallet}>
           {t('connect-wallet-button', 'Connect Wallet')}
         </Button>
@@ -87,7 +87,7 @@ export function Web3ConnectButtons() {
 
   return (
     <div className="flex flex-row gap-[24px]">
-      <div className="leading-[0]">
+      <div className="leading-0">
         <SelectChainButton
           isSupported={isSupported}
           currentChain={
@@ -107,7 +107,7 @@ export function Web3ConnectButtons() {
       {isEthiqSupportedPage ? (
         <BridgePageAccountBtn withoutDropdown={false} />
       ) : (
-        <div className="leading-[0]">
+        <div className="leading-0">
           <AccountBtnWrapper
             balance={balance ? formatNumber(balance.balance) : undefined}
             withoutDropdown={false}
@@ -131,7 +131,7 @@ export function Web3ConnectButtonsMobile() {
 
   if (!isConnected || !ethAddress) {
     return (
-      <div className="leading-[0]">
+      <div className="leading-0">
         <Button onClick={openSelectWallet}>
           {t('connect-wallet-button', 'Connect Wallet')}
         </Button>
@@ -141,7 +141,7 @@ export function Web3ConnectButtonsMobile() {
 
   return (
     <div className="flex flex-col gap-[24px]">
-      <div className="leading-[0]">
+      <div className="leading-0">
         <SelectChainButton
           isSupported={chain !== undefined}
           currentChain={
@@ -162,7 +162,7 @@ export function Web3ConnectButtonsMobile() {
       {isEthiqSupportedPage ? (
         <BridgePageAccountBtn withoutDropdown={true} />
       ) : (
-        <div className="leading-[0]">
+        <div className="leading-0">
           <AccountBtnWrapper
             balance={balance ? formatNumber(balance.balance) : undefined}
             withoutDropdown={true}
@@ -170,7 +170,7 @@ export function Web3ConnectButtonsMobile() {
           />
         </div>
       )}
-      <div className="leading-[0]">
+      <div className="leading-0">
         <Button onClick={disconnect}>{t('disconnect', 'Disconnect')}</Button>
       </div>
     </div>

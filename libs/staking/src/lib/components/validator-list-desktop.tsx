@@ -15,7 +15,7 @@ function SortDirectionArrow({ direction }: { direction: SortDirection }) {
   }
 
   return (
-    <span className="absolute end-[-16px] top-[0px] text-[12px] leading-[14px]">
+    <span className="absolute end-[-16px] top-0 text-[12px] leading-[14px]">
       {direction === 'asc' ? '▲' : '▼'}
     </span>
   );
@@ -65,7 +65,7 @@ export function ValidatorsListDesktop({
 
   return (
     <table className="w-full table-fixed">
-      <thead className="text-[10px] uppercase leading-[1.2em] text-white/50 md:text-[12px]">
+      <thead className="text-[10px] leading-[1.2em] text-white/50 uppercase md:text-[12px]">
         <tr>
           {sortState.key !== 'random' && (
             <th className="w-[40px] p-[8px] text-center lg:p-[12px]">

@@ -122,8 +122,8 @@ export function Tooltip({
       <TooltipContent
         className={clsx(
           'pointer-events-none select-none',
-          'font-guise rounded-[4px] p-[8px] text-[12px] font-[500] leading-[18px] shadow-sm',
-          'bg-haqq-black border-haqq-border transform-gpu border bg-opacity-90 text-white backdrop-blur',
+          'font-guise rounded-[4px] p-[8px] text-[12px] leading-[18px] font-medium shadow-sm',
+          'bg-haqq-black/90 border-haqq-border transform-gpu border text-white backdrop-blur',
           'z-50',
         )}
       >

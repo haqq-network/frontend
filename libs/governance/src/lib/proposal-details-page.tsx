@@ -109,7 +109,7 @@ function ProposalDatesText({
   return (
     <div
       className={clsx(
-        'font-guise text-[10px] font-[600] uppercase leading-[1.2em]',
+        'font-guise text-[10px] leading-[1.2em] font-semibold uppercase',
         className,
       )}
     >
@@ -370,7 +370,7 @@ export function ProposalDetailsComponent({
                 )}
                 <div className="mb-[8px] flex flex-row items-center gap-[16px]">
                   <div>
-                    <div className="font-clash text-[16px] font-[500] leading-[22px] md:text-[20px] md:leading-[26px]">
+                    <div className="font-clash text-[16px] leading-[22px] font-medium md:text-[20px] md:leading-[26px]">
                       #
                       {(proposalDetails as any).proposal_id ||
                         (proposalDetails as any).id}
@@ -385,7 +385,7 @@ export function ProposalDetailsComponent({
                   </div>
                 </div>
 
-                <h1 className="font-clash text-[24px] font-[500] leading-[30px] md:text-[32px] md:leading-[42px]">
+                <h1 className="font-clash text-[24px] leading-[30px] font-medium md:text-[32px] md:leading-[42px]">
                   {proposalDetails.content?.title || ''}
                 </h1>
 
@@ -440,7 +440,7 @@ export function ProposalDetailsComponent({
                       <div
                         dir="ltr"
                         className={clsx(
-                          'prose prose-sm max-w-none text-[12px] font-[500] leading-[18px] text-white md:text-[14px] md:leading-[22px]',
+                          'prose prose-sm max-w-none text-[12px] leading-[18px] font-medium text-white md:text-[14px] md:leading-[22px]',
                           'prose-headings:text-white prose-a:text-[#EC5728] hover:prose-a:text-[#FF8D69] prose-a:break-words prose-strong:text-white',
                           'prose-code:text-white prose-code:text-[12px] prose-code:font-mono prose-code:md:leading-[22px] prose-code:md:text-[14px] prose-code:leading-[18px]',
                           'rtl:text-end',
@@ -753,7 +753,7 @@ export function ProposalDetailsComponent({
                 )} */}
 
                 {isCanVote && (
-                  <div className="bg-white bg-opacity-[15%] px-[28px] py-[32px]">
+                  <div className="bg-white/15 px-[28px] py-[32px]">
                     <VoteActions
                       proposalId={Number.parseInt(
                         (proposalDetails as any).proposal_id ||
@@ -771,7 +771,7 @@ export function ProposalDetailsComponent({
       </Container>
 
       {!isDesktop && (
-        <div className="sticky bottom-0 left-0 right-0 z-30">
+        <div className="sticky right-0 bottom-0 left-0 z-30">
           <ProposalActionsMobile
             proposalDetails={proposalDetails}
             isConnected={isConnected}
@@ -946,9 +946,9 @@ function ProposalInfo({ proposalId }: { proposalId: string }) {
   }, [proposalTally]);
 
   return !proposalDetails || !proposalTally || !govParams ? (
-    <div className="pointer-events-none flex min-h-[320px] flex-1 select-none flex-col items-center justify-center space-y-8">
+    <div className="pointer-events-none flex min-h-[320px] flex-1 flex-col items-center justify-center space-y-8 select-none">
       <SpinnerLoader />
-      <div className="font-guise text-[10px] uppercase leading-[1.2em]">
+      <div className="font-guise text-[10px] leading-[1.2em] uppercase">
         {t('fetching-proposal-details', 'Fetching proposal details')}
       </div>
     </div>
@@ -1086,7 +1086,7 @@ export function VoteActions({
         <CardHeading className="mb-[2px]">
           {t('cast-vote', 'Cast your vote', { ns: 'governance' })}
         </CardHeading>
-        <div className="text-[12px] font-[500] leading-[18px] text-white/50">
+        <div className="text-[12px] leading-[18px] font-medium text-white/50">
           {t(
             'change-vote-message',
             'You can change your vote while the voting is in progress',
@@ -1096,9 +1096,9 @@ export function VoteActions({
       </div>
 
       {!isMemoVisible ? (
-        <div className="mb-[16px] leading-[0]">
+        <div className="mb-[16px] leading-0">
           <OrangeLink
-            // className="!text-[12px] !font-[500] !leading-[16px]"
+            // className="text-[12px]! font-medium! leading-[16px]!"
             onClick={() => {
               setMemoVisible(true);
             }}
@@ -1107,7 +1107,7 @@ export function VoteActions({
           </OrangeLink>
         </div>
       ) : (
-        <div className="mb-[16px] leading-[0]">
+        <div className="mb-[16px] leading-0">
           <input
             type="text"
             value={memo}
@@ -1115,8 +1115,8 @@ export function VoteActions({
               setMemo(e.target.value);
             }}
             className={clsx(
-              'px-[16px] pb-[12px] pt-[14px]',
-              'w-full text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
+              'px-[16px] pt-[14px] pb-[12px]',
+              'w-full text-[14px] leading-[22px] font-medium text-white outline-none placeholder:text-[#FFFFFF3D]',
               'rounded-[6px] bg-[#252528]',
               'disabled:cursor-not-allowed',
             )}
@@ -1219,14 +1219,14 @@ export function DepositActionsDesktop({
   const { executeIfNetworkSupported } = useNetworkAwareAction();
 
   return (
-    <div className="flex flex-col gap-[16px] bg-white bg-opacity-[15%] px-[28px] py-[32px]">
+    <div className="flex flex-col gap-[16px] bg-white/15 px-[28px] py-[32px]">
       <div>
         <CardHeading className="mb-[2px]">
           {t('enter-deposit-message', 'Enter the amount you want to deposit', {
             ns: 'governance',
           })}
         </CardHeading>
-        <div className="text-[12px] font-[500] leading-[18px] text-white/50">
+        <div className="text-[12px] leading-[18px] font-medium text-white/50">
           {t('your-balance', 'Your balance: {balance} {symbol}', {
             ns: 'governance',
             balance: balance.toLocaleString(),
@@ -1276,8 +1276,8 @@ export function DepositInput({
         type="number"
         placeholder={t('enter-amount', 'Enter Amount')}
         className={clsx(
-          'px-[16px] pb-[12px] pt-[14px]',
-          'w-full text-[14px] font-[500] leading-[22px] text-white outline-none placeholder:text-[#FFFFFF3D]',
+          'px-[16px] pt-[14px] pb-[12px]',
+          'w-full text-[14px] leading-[22px] font-medium text-white outline-none placeholder:text-[#FFFFFF3D]',
           'rounded-[6px] bg-[#252528]',
           'disabled:cursor-not-allowed',
         )}
@@ -1289,7 +1289,7 @@ export function DepositInput({
       />
       <div
         className={clsx(
-          'pointer-events-none absolute right-[16px] top-[13px] select-none uppercase leading-[22px]',
+          'pointer-events-none absolute top-[13px] right-[16px] leading-[22px] uppercase select-none',
           value ? 'text-white' : 'text-[#FFFFFF3D]',
         )}
       >
@@ -1312,7 +1312,7 @@ export function DepositButton({
   return (
     <button
       className={clsx(
-        'text-haqq-black font-clash rounded-[6px] px-[24px] py-[12px] text-[14px] uppercase leading-[1em]',
+        'text-haqq-black font-clash rounded-[6px] px-[24px] py-[12px] text-[14px] leading-[1em] uppercase',
         'transition-colors duration-100 ease-linear',
         !disabled
           ? 'cursor-pointer bg-white'
@@ -1347,14 +1347,14 @@ export function VoteButton({
         'font-clash rounded-[6px] bg-[#FFFFFF26] px-[24px] py-[12px] text-[14px] leading-[1em] text-white',
         'cursor-pointer uppercase transition-colors duration-100 ease-in',
         'w-full',
-        disabled && '!cursor-not-allowed',
+        disabled && 'cursor-not-allowed!',
         disabled && !isActive && 'bg-[#FFFFFF26] hover:bg-[#FFFFFF26]',
         isActive
           ? {
-              '!bg-[#01B26E]': color === 'green',
-              '!bg-[#AAABB2]': color === 'gray',
-              '!bg-[#FF5454]': color === 'red',
-              '!bg-[#E3A13F]': color === 'yellow',
+              'bg-[#01B26E]!': color === 'green',
+              'bg-[#AAABB2]!': color === 'gray',
+              'bg-[#FF5454]!': color === 'red',
+              'bg-[#E3A13F]!': color === 'yellow',
             }
           : {
               'hover:bg-[#01B26E]': color === 'green',
@@ -1379,7 +1379,7 @@ function CardHeading({
   return (
     <h3
       className={clsx(
-        'font-clash text-[20px] font-[500] leading-[26px] text-white',
+        'font-clash text-[20px] leading-[26px] font-medium text-white',
         className,
       )}
     >

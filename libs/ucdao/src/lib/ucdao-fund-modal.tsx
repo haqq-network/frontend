@@ -193,7 +193,7 @@ export function FundModal({
         />
 
         <div className="flex w-full flex-col">
-          <div className="pb-[24px] pt-[24px] sm:pt-[4px]">
+          <div className="pt-[24px] pb-[24px] sm:pt-[4px]">
             <ModalHeading>
               {t('deposit-dao', 'Deposit to DAO', { ns: 'uc-dao' })}
             </ModalHeading>
@@ -218,7 +218,7 @@ export function FundModal({
                 <div>
                   <label
                     htmlFor="amount"
-                    className="text-haqq-black font-guise cursor-pointer text-[13px] font-[500] leading-[22px]"
+                    className="text-haqq-black font-guise cursor-pointer text-[13px] leading-[22px] font-medium"
                   >
                     {t('amount', 'Amount', { ns: 'uc-dao' })}
                   </label>

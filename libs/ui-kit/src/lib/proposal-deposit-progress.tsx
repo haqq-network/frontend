@@ -46,7 +46,7 @@ export function ProposalDepositProgress({
         <div
           className={clsx(
             'absolute start-0 top-0 h-[8px] transform-gpu rounded-[4px] bg-[#0489D4]',
-            'duration-250 transition-[width] ease-out',
+            'transition-[width] duration-250 ease-out',
           )}
           style={{ width: `${percent}%` }}
         />
