@@ -142,7 +142,7 @@ export function PriceChart({
   return (
     <div className="border-haqq-border bg-haqq-black/95 w-full overflow-hidden rounded-xl border shadow-lg">
       <div className="border-haqq-border flex flex-wrap items-center justify-between gap-2 border-b px-4 py-3">
-        <span className="text-haqq-modal-border text-xs font-medium uppercase tracking-wider">
+        <span className="text-haqq-modal-border text-xs font-medium tracking-wider uppercase">
           Price history
         </span>
         <div className="flex items-baseline gap-2">
