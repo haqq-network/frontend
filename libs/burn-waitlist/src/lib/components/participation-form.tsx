@@ -3,16 +3,21 @@
 import { useMemo } from 'react';
 import { Button } from '@haqq/shell-ui-kit';
 import { ModalInput } from '@haqq/shell-ui-kit';
+import { formatUnits } from 'viem';
 import { FundsSource } from '../constants/waitlist-config';
 import { WaitlistBalances } from './waitlist-balances';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
-import { formatEthDecimal } from '@haqq/shell-shared';
+import { formatEthDecimal, formatNumberWithSuffix } from '@haqq/shell-shared';
 
 export interface ParticipationFormProps {
   amount: string;
   source: FundsSource;
   availableBalance?: bigint;
   balances?: WaitlistBalancesResponse;
+  /** Current price per token (atto) from API - used to show price at submission and estimated receive */
+  currentPriceAtto?: string;
+  /** User amount in wei - used with currentPriceAtto to compute estimated receive */
+  formattedAmount?: bigint;
   onAmountChange: (amount: string) => void;
   onSourceChange: (source: FundsSource) => void;
   onMaxClick: () => void;
@@ -29,6 +34,8 @@ export function ParticipationForm({
   source,
   availableBalance,
   balances,
+  currentPriceAtto,
+  formattedAmount,
   onAmountChange,
   onSourceChange,
   onMaxClick,
@@ -50,9 +57,42 @@ export function ParticipationForm({
     return formatEthDecimal(availableBalance, 4);
   }, [availableBalance]);
 
+  const priceDisplay = useMemo(() => {
+    if (!currentPriceAtto) return null;
+    try {
+      const priceWei = BigInt(currentPriceAtto);
+      if (priceWei === 0n) return null;
+      return formatEthDecimal(priceWei, 4, 0);
+    } catch {
+      return null;
+    }
+  }, [currentPriceAtto]);
+
+  const estimatedReceiveDisplay = useMemo(() => {
+    if (!formattedAmount || !currentPriceAtto) return null;
+    try {
+      const priceWei = BigInt(currentPriceAtto);
+      if (priceWei === 0n) return null;
+      // Use BigInt division to avoid Number precision loss for large values
+      const tokensWei = formattedAmount / priceWei;
+
+      return formatEthDecimal(tokensWei, 4, 18);
+    } catch {
+      return null;
+    }
+  }, [formattedAmount, currentPriceAtto]);
+
   return (
     <div className="space-y-[20px]">
       <WaitlistBalances balances={balances} />
+      {priceDisplay !== null && (
+        <div className="rounded-[8px] bg-[#F3F4F6] p-[12px]">
+          <div className="text-[12px] text-[#6B7280]">Price at submission</div>
+          <div className="text-[14px] font-[500] text-[#0D0D0E]">
+            {priceDisplay} ISLM per token
+          </div>
+        </div>
+      )}
       <div>
         <label className="mb-[8px] block text-[14px] font-medium text-[#0D0D0E]">
           Amount
@@ -89,6 +129,15 @@ export function ParticipationForm({
           }
           disabled={disabled}
         />
+        {estimatedReceiveDisplay !== null && (
+          <div className="mt-[8px] text-[13px] text-[#6B7280]">
+            Estimated receive:{' '}
+            <span className="font-[500] text-[#0D0D0E]">
+              {estimatedReceiveDisplay}
+            </span>{' '}
+            tokens
+          </div>
+        )}
       </div>
 
       {/* Only show Funds Source selection if ucDAO balance is greater than 0 */}

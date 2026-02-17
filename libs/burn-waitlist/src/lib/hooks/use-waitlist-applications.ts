@@ -9,8 +9,14 @@ export interface Application {
   author: string;
   source: number; // 0 for OwnBalance, 1 for ucDAO
   cancelled: boolean;
+  cancelledAt?: string;
+  createdAt?: string;
   valid: boolean;
   ready: boolean;
+  /** Minting price (cost, in atto) */
+  price?: string;
+  /** Expected tokens to receive (in atto) */
+  receiveAmount?: string;
 }
 
 export interface ApplicationsListResponse {
@@ -61,6 +67,7 @@ export function useWaitlistApplications({
       params.append('pageSize', pageSize.toString());
 
       const queryString = params.toString();
+      console.log('chainId', chainId);
       const apiUrl = getBackendApiUrl(chainId);
       const url = queryString
         ? `${apiUrl}/api/v1/applications?${queryString}`
@@ -82,7 +89,6 @@ export function useWaitlistApplications({
 
       return response.json();
     },
-    enabled: !!address, // Only fetch if address is provided
     staleTime: 0, // Always refetch to get latest data
   });
 }

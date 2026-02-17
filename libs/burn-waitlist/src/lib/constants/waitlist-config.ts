@@ -8,7 +8,7 @@ export const WAITLIST_CONTRACT_ADDRESSES: Record<number, `0x${string}`> = {
   [haqqMainnet.id]:
     '0xe974fc272bA869E638f402e2818161EB88b2A392' as `0x${string}`,
   [haqqTestedge2.id]:
-    '0xCAFec7F6C482507fB5E6B5ed02250487Fd883C9f' as `0x${string}`,
+    '0xeCad76E45BcD709B6c1662397FBbb890C684a9aB' as `0x${string}`,
   // Add more chain deployments here as they become available
 };
 
@@ -48,8 +48,9 @@ export function isWaitlistChainSupported(chainId?: number): boolean {
 /**
  * Default chain ID for waitlist (first supported chain)
  */
-export const WAITLIST_DEFAULT_CHAIN_ID =
-  WAITLIST_SUPPORTED_CHAIN_IDS[0] || haqqMainnet.id;
+
+// TODO: Change to mainnet when ready
+export const WAITLIST_DEFAULT_CHAIN_ID = haqqTestedge2.id;
 
 /**
  * Backend API base URL
@@ -58,12 +59,12 @@ export const WAITLIST_DEFAULT_CHAIN_ID =
  */
 export const getBackendApiUrl = (chainId?: number): string => {
   // Return chain-specific URL based on chain ID
-  if (chainId === haqqTestedge2.id) {
-    return 'https://waitlist.vorobevsa.com';
+  if (chainId === haqqMainnet.id) {
+    return 'https://waitlist.haqq.network';
   }
 
-  // Default to production URL for mainnet or unknown chains
-  return 'https://waitlist.haqq.network';
+  // Default to production URL for testnet or unknown chains
+  return 'https://waitlist.vorobevsa.com';
 };
 
 /**

@@ -81,6 +81,7 @@
     "react-success-indicator": "1.1.0",
     "react-text-mask": "5.5.0",
     "reaptcha": "1.12.1",
+    "recharts": "3.7.0",
     "seedrandom": "3.0.5",
     "sharp": "0.33.5",
     "store2": "2.14.4",
