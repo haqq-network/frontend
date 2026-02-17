@@ -17,8 +17,11 @@ export interface RequestsListProps {
   >;
   canCancel: boolean;
   onCancel: (requestId: bigint) => void;
+  onMintHaqq?: (applicationId: bigint) => void;
   isCancelling?: boolean;
   cancellingRequestId?: bigint;
+  isMinting?: boolean;
+  mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
   locale?: string;
 }
@@ -27,8 +30,11 @@ export function RequestsList({
   applications,
   canCancel,
   onCancel,
+  onMintHaqq,
   isCancelling = false,
   cancellingRequestId,
+  isMinting = false,
+  mintingApplicationId,
   balances,
   locale = 'en',
 }: RequestsListProps) {
@@ -140,17 +146,36 @@ export function RequestsList({
                     )}
                   </div>
                 </div>
-                {canCancel && !isCancelled && !isPending && (
-                  <Button
-                    variant={3}
-                    onClick={() => onCancel(requestId)}
-                    disabled={isCancelling}
-                    isLoading={isCancellingThis}
-                    className="w-full sm:w-auto"
-                  >
-                    Cancel
-                  </Button>
-                )}
+                <div className="flex flex-col gap-[8px] sm:flex-row">
+                  {onMintHaqq &&
+                    !isPending &&
+                    !isCancelled &&
+                    app.valid &&
+                    app.ready && (
+                      <Button
+                        variant={5}
+                        onClick={() => onMintHaqq(requestId)}
+                        disabled={isMinting}
+                        isLoading={
+                          isMinting && mintingApplicationId === requestId
+                        }
+                        className="w-full sm:w-auto"
+                      >
+                        Mint HAQQ
+                      </Button>
+                    )}
+                  {canCancel && !isCancelled && !isPending && (
+                    <Button
+                      variant={3}
+                      onClick={() => onCancel(requestId)}
+                      disabled={isCancelling}
+                      isLoading={isCancellingThis}
+                      className="w-full sm:w-auto"
+                    >
+                      Cancel
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           );

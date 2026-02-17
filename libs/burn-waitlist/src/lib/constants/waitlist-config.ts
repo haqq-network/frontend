@@ -50,7 +50,7 @@ export function isWaitlistChainSupported(chainId?: number): boolean {
  */
 
 // TODO: Change to mainnet when ready
-export const WAITLIST_DEFAULT_CHAIN_ID = haqqTestedge2.id;
+export const WAITLIST_DEFAULT_CHAIN_ID = haqqMainnet.id;
 
 /**
  * Backend API base URL

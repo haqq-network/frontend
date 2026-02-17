@@ -7,3 +7,4 @@ export * from './use-waitlist-applications';
 export * from './use-waitlist-price';
 export * from './use-waitlist-price-chart';
 export * from './use-waitlist-global-stats';
+export * from './use-ethiq-contract';
