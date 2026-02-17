@@ -13,6 +13,7 @@ import {
   useWaitlistPrice,
   useWaitlistPriceChart,
   useWaitlistGlobalStats,
+  useMintHaqqByApplication,
 } from './hooks';
 import type { Application } from './hooks/use-waitlist-applications';
 import { useBackendSignature } from './hooks/use-backend-signature';
@@ -186,7 +187,20 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     error: cancelError,
   } = useCancelWaitlistRequest();
 
+  // Mint HAQQ by application
+  const {
+    mintHaqqByApplication: mintHaqqByApplicationTx,
+    isPending: isMintingByApp,
+    isConfirming: isConfirmingMintByApp,
+    isSuccess: isMintByAppSuccess,
+    hash: mintByAppHash,
+    error: mintByAppError,
+  } = useMintHaqqByApplication();
+
   const [cancellingRequestId, setCancellingRequestId] = useState<
+    bigint | undefined
+  >();
+  const [mintingApplicationId, setMintingApplicationId] = useState<
     bigint | undefined
   >();
 
@@ -413,6 +427,45 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     ],
   );
 
+  // Handle mint HAQQ by application
+  const handleMintHaqqByApplication = useCallback(
+    async (applicationId: bigint) => {
+      if (!address) {
+        return;
+      }
+
+      try {
+        setMintingApplicationId(applicationId);
+        await mintHaqqByApplicationTx(address, address, applicationId);
+
+        // Refetch after successful mint
+        refetchApplications();
+        refetchBalances();
+        refetchContractState();
+
+        const intervalId = setInterval(() => {
+          refetchApplications();
+          refetchBalances();
+        }, 2000);
+
+        setTimeout(() => {
+          clearInterval(intervalId);
+        }, 10000);
+      } catch (error) {
+        console.error('Failed to mint HAQQ by application:', error);
+      } finally {
+        setMintingApplicationId(undefined);
+      }
+    },
+    [
+      address,
+      mintHaqqByApplicationTx,
+      refetchApplications,
+      refetchBalances,
+      refetchContractState,
+    ],
+  );
+
   // Automatically remove pending applications when they appear in backend data
   // This ensures smooth transition from pending to confirmed state
   useEffect(() => {
@@ -608,8 +661,11 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
   const isSubmitting = isCreating || isConfirmingCreate || isLoadingSignature;
   const errorMessage = useMemo(
-    () => sanitizeErrorMessage(createError || cancelError || undefined),
-    [createError, cancelError],
+    () =>
+      sanitizeErrorMessage(
+        createError || cancelError || mintByAppError || undefined,
+      ),
+    [createError, cancelError, mintByAppError],
   );
 
   // Merge applications with pending ones, sort by requestId descending (newest first)
@@ -824,8 +880,11 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                         applications={mergedApplications}
                         canCancel={canWithdraw || false}
                         onCancel={handleCancel}
+                        onMintHaqq={handleMintHaqqByApplication}
                         isCancelling={isCancelling || isConfirmingCancel}
                         cancellingRequestId={cancellingRequestId}
+                        isMinting={isMintingByApp || isConfirmingMintByApp}
+                        mintingApplicationId={mintingApplicationId}
                         balances={waitlistBalances}
                         locale={locale}
                       />

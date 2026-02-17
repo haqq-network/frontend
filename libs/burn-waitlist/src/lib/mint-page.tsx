@@ -1,0 +1,310 @@
+'use client';
+
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { useAccount, useBalance, useSwitchChain } from 'wagmi';
+import { parseEther } from 'viem';
+import { Container } from '@haqq/shell-ui-kit/server';
+import { Button, ModalInput } from '@haqq/shell-ui-kit';
+import { formatEthDecimal } from '@haqq/shell-shared';
+import { useEthiqCalculate, useMintHaqq } from './hooks';
+import {
+  WAITLIST_DEFAULT_CHAIN_ID,
+  isWaitlistChainSupported,
+} from './constants/waitlist-config';
+import { WalletConnectionWarning } from './components/wallet-connection-warning';
+import { NetworkWarning } from './components/network-warning';
+
+function sanitizeErrorMessage(
+  error: Error | null | undefined,
+): string | undefined {
+  if (!error) {
+    return undefined;
+  }
+
+  const message = error instanceof Error ? error.message : String(error || '');
+
+  if (!message || message.trim() === '') {
+    return undefined;
+  }
+
+  const messageLower = message.toLowerCase();
+
+  if (
+    messageLower.includes('user rejected') ||
+    messageLower.includes('user denied') ||
+    messageLower.includes('denied transaction signature') ||
+    messageLower.includes('rejected the request')
+  ) {
+    return 'Transaction rejected by user';
+  }
+
+  if (messageLower.includes('network') || messageLower.includes('fetch')) {
+    return 'Network error. Please check your connection and try again';
+  }
+
+  if (
+    messageLower.includes('insufficient funds') ||
+    messageLower.includes('insufficient balance')
+  ) {
+    return 'Insufficient balance';
+  }
+
+  if (
+    messageLower.includes('execution reverted') ||
+    messageLower.includes('revert')
+  ) {
+    const revertMatch = message.match(/execution reverted:?\s*(.+?)(?:\n|$)/i);
+    if (revertMatch && revertMatch[1] && revertMatch[1].trim().length < 100) {
+      return `Transaction failed: ${revertMatch[1].trim()}`;
+    }
+    return 'Transaction failed. Please try again';
+  }
+
+  if (messageLower.includes('timeout') || messageLower.includes('expired')) {
+    return 'Transaction timed out. Please try again';
+  }
+
+  return message.length > 200 ? `${message.substring(0, 200)}...` : message;
+}
+
+export function MintPage() {
+  const { address, isConnected, chain } = useAccount();
+  const { switchChainAsync } = useSwitchChain();
+  const isCorrectChain = isWaitlistChainSupported(chain?.id);
+  const hasAttemptedSwitch = useRef<number | undefined>(undefined);
+
+  const [amount, setAmount] = useState('');
+
+  // Parse user input to bigint (wei)
+  const parsedAmount = useMemo(() => {
+    if (!amount || amount.trim() === '') {
+      return undefined;
+    }
+    try {
+      return parseEther(amount);
+    } catch {
+      return undefined;
+    }
+  }, [amount]);
+
+  // Wallet balance
+  const { data: walletBalance, refetch: refetchBalance } = useBalance({
+    address: address as `0x${string}` | undefined,
+    chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
+  });
+
+  // Calculate estimated HAQQ amount
+  const {
+    estimatedHaqqAmount,
+    supplyBefore,
+    supplyAfter,
+    pricePerUnit,
+    isLoading: isCalculating,
+  } = useEthiqCalculate(parsedAmount);
+
+  // Mint hook
+  const {
+    mintHaqq: mintHaqqTx,
+    isPending: isMinting,
+    isConfirming,
+    isSuccess,
+    hash: mintHash,
+    error: mintError,
+  } = useMintHaqq();
+
+  const hasProcessedSuccess = useRef(false);
+
+  // Handle successful mint
+  useEffect(() => {
+    if (isSuccess && mintHash && !hasProcessedSuccess.current) {
+      hasProcessedSuccess.current = true;
+      setAmount('');
+      refetchBalance();
+    }
+
+    if (!isSuccess) {
+      hasProcessedSuccess.current = false;
+    }
+  }, [isSuccess, mintHash, refetchBalance]);
+
+  const handleSwitchChain = useCallback(async () => {
+    try {
+      await switchChainAsync({ chainId: WAITLIST_DEFAULT_CHAIN_ID });
+      if (chain?.id) {
+        hasAttemptedSwitch.current = chain.id;
+      }
+    } catch (error) {
+      console.error('Failed to switch chain:', error);
+    }
+  }, [switchChainAsync, chain?.id]);
+
+  // Auto switch chain
+  useEffect(() => {
+    if (
+      isConnected &&
+      chain?.id &&
+      !isCorrectChain &&
+      hasAttemptedSwitch.current !== chain.id
+    ) {
+      hasAttemptedSwitch.current = chain.id;
+      handleSwitchChain();
+    }
+  }, [isConnected, chain?.id, isCorrectChain, handleSwitchChain]);
+
+  const handleMaxClick = useCallback(() => {
+    if (walletBalance?.value && walletBalance.value > 0n) {
+      const formatted = formatEthDecimal(walletBalance.value, 18);
+      setAmount(formatted);
+    }
+  }, [walletBalance?.value]);
+
+  const handleSubmit = useCallback(async () => {
+    if (!address || !parsedAmount || parsedAmount <= 0n) {
+      return;
+    }
+
+    try {
+      await mintHaqqTx(address, address, parsedAmount);
+    } catch (error) {
+      console.error('Failed to mint HAQQ:', error);
+    }
+  }, [address, parsedAmount, mintHaqqTx]);
+
+  const isSubmitting = isMinting || isConfirming;
+  const errorMessage = useMemo(
+    () => sanitizeErrorMessage(mintError || undefined),
+    [mintError],
+  );
+
+  const isValid =
+    parsedAmount !== undefined &&
+    parsedAmount > 0n &&
+    walletBalance?.value !== undefined &&
+    parsedAmount <= walletBalance.value;
+
+  const formattedBalance = useMemo(() => {
+    if (!walletBalance?.value) {
+      return '0';
+    }
+    return formatEthDecimal(walletBalance.value, 4);
+  }, [walletBalance?.value]);
+
+  return (
+    <Container>
+      <div className="mx-auto max-w-[600px] px-[16px] py-[40px]">
+        <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
+          <h1 className="mb-[8px] text-[24px] font-semibold text-[#0D0D0E]">
+            Burn ISLM &amp; Mint HAQQ
+          </h1>
+          <p className="mb-[24px] text-[14px] text-[#6B7280]">
+            Burn your ISLM tokens and receive HAQQ tokens in return. The
+            exchange rate is determined by the bonding curve.
+          </p>
+
+          {!isConnected && <WalletConnectionWarning />}
+
+          {isConnected && !isCorrectChain && (
+            <NetworkWarning onSwitchChain={handleSwitchChain} />
+          )}
+
+          {isConnected && isCorrectChain && (
+            <div className="space-y-[20px]">
+              {/* Amount input */}
+              <div>
+                <label className="mb-[8px] block text-[14px] font-medium text-[#0D0D0E]">
+                  Amount to burn
+                </label>
+                <ModalInput
+                  symbol="ISLM"
+                  value={amount || undefined}
+                  onChange={(value) => {
+                    if (value === undefined || value === '') {
+                      setAmount('');
+                    } else {
+                      setAmount(value);
+                    }
+                  }}
+                  onMaxButtonClick={handleMaxClick}
+                  hint={
+                    <span className="text-[#6B7280]">
+                      Available Balance: {formattedBalance} ISLM
+                    </span>
+                  }
+                  isMaxButtonDisabled={
+                    !walletBalance?.value || walletBalance.value <= 0n
+                  }
+                />
+              </div>
+
+              {/* Calculation results */}
+              {parsedAmount && parsedAmount > 0n && (
+                <div className="space-y-[8px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+                  <div className="flex items-center justify-between text-[14px]">
+                    <span className="text-[#6B7280]">
+                      Estimated HAQQ to receive
+                    </span>
+                    <span className="font-[500] text-[#0D0D0E]">
+                      {isCalculating
+                        ? 'Calculating...'
+                        : estimatedHaqqAmount !== undefined
+                          ? `${formatEthDecimal(estimatedHaqqAmount, 4, 18)} HAQQ`
+                          : '—'}
+                    </span>
+                  </div>
+                  {pricePerUnit && (
+                    <div className="flex items-center justify-between text-[14px]">
+                      <span className="text-[#6B7280]">Price per HAQQ</span>
+                      <span className="font-[500] text-[#0D0D0E]">
+                        {pricePerUnit} ISLM
+                      </span>
+                    </div>
+                  )}
+                  {supplyBefore !== undefined && supplyAfter !== undefined && (
+                    <div className="flex items-center justify-between text-[14px]">
+                      <span className="text-[#6B7280]">Supply change</span>
+                      <span className="font-[500] text-[#0D0D0E]">
+                        {formatEthDecimal(supplyBefore, 2, 18)} →{' '}
+                        {formatEthDecimal(supplyAfter, 2, 18)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Success message */}
+              {isSuccess && mintHash && (
+                <div className="rounded-[8px] bg-[#D1FAE5] p-[12px]">
+                  <div className="text-[14px] font-medium text-[#065F46]">
+                    HAQQ tokens minted successfully!
+                  </div>
+                </div>
+              )}
+
+              {/* Error */}
+              {errorMessage && (
+                <div className="rounded-[8px] bg-[#FEE2E2] p-[12px]">
+                  <div className="text-[14px] font-medium text-[#DC2626]">
+                    {errorMessage}
+                  </div>
+                </div>
+              )}
+
+              {/* Submit */}
+              <div className="pt-[8px]">
+                <Button
+                  variant={5}
+                  onClick={handleSubmit}
+                  className="w-full"
+                  disabled={!isValid || isSubmitting}
+                  isLoading={isSubmitting}
+                >
+                  {isSubmitting ? 'Minting...' : 'Burn ISLM & Mint HAQQ'}
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </Container>
+  );
+}
