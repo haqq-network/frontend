@@ -102,7 +102,7 @@ export function RequestsList({
                   </div>
                   <div className="space-y-[4px] text-[14px] text-[#6B7280]">
                     <div>
-                      Amount:{' '}
+                      Burn Amount:{' '}
                       <span className="font-medium text-[#0D0D0E]">
                         {amount} ISLM
                       </span>
@@ -118,7 +118,7 @@ export function RequestsList({
                     {app.receiveAmount !== undefined &&
                       app.receiveAmount !== '' && (
                         <div>
-                          Expected receive:{' '}
+                          Mint amount:{' '}
                           <span className="font-[500] text-[#0D0D0E]">
                             {formatEthDecimal(BigInt(app.receiveAmount), 4, 18)}{' '}
                             HAQQ
@@ -126,7 +126,7 @@ export function RequestsList({
                         </div>
                       )}
                     <div>
-                      Source:{' '}
+                      Funds Source:{' '}
                       <span className="font-medium text-[#0D0D0E]">
                         {sourceLabel}
                       </span>

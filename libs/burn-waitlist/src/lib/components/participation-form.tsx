@@ -87,7 +87,7 @@ export function ParticipationForm({
       <WaitlistBalances balances={balances} />
       {priceDisplay !== null && (
         <div className="rounded-[8px] bg-[#F3F4F6] p-[12px]">
-          <div className="text-[12px] text-[#6B7280]">Price at submission</div>
+          <div className="text-[12px] text-[#6B7280]">Submission Price</div>
           <div className="text-[14px] font-[500] text-[#0D0D0E]">
             {priceDisplay} ISLM per token
           </div>
