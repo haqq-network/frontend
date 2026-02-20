@@ -120,8 +120,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     refetchAll: refetchContractState,
   } = useWaitlistContractState();
 
-  console.log('chain', chain);
-
   // Get balances from backend API
   const {
     data: waitlistBalances,
