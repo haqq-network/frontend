@@ -7,6 +7,7 @@ import { FundsSource } from '../constants/waitlist-config';
 import type { Application } from '../hooks/use-waitlist-applications';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
 import { formatEthDecimal } from '@haqq/shell-shared';
+import { formatWaitlistPrice } from '../utils/format-waitlist-price';
 
 export interface RequestsListProps {
   applications: Array<
@@ -111,7 +112,8 @@ export function RequestsList({
                       <div>
                         Minting price:{' '}
                         <span className="font-[500] text-[#0D0D0E]">
-                          {formatEthDecimal(BigInt(app.price), 0, 0)} ISLM/HAQQ
+                          {formatWaitlistPrice(app.price, { precision: 0 })}{' '}
+                          ISLM/HAQQ
                         </span>
                       </div>
                     )}

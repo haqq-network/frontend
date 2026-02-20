@@ -11,7 +11,7 @@ import {
   YAxis,
 } from 'recharts';
 import type { PriceChartPoint } from '../hooks/use-waitlist-price-chart';
-import { formatEthDecimal } from '@haqq/shell-shared';
+import { formatWaitlistPrice } from '../utils/format-waitlist-price';
 
 export interface PriceChartProps {
   data: PriceChartPoint[];
@@ -93,7 +93,7 @@ export function PriceChart({
 
   const formatPrice = useMemo(
     () => (p: number) =>
-      priceInAtto && p > 0 ? formatEthDecimal(BigInt(p), 2, 0) : p.toFixed(2),
+      formatWaitlistPrice(p, { asAtto: priceInAtto, precision: 2 }),
     [priceInAtto],
   );
 
