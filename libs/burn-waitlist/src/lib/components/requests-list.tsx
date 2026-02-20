@@ -6,6 +6,7 @@ import { Button } from '@haqq/shell-ui-kit';
 import { FundsSource } from '../constants/waitlist-config';
 import type { Application } from '../hooks/use-waitlist-applications';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
+import { formatEthDecimal } from '@haqq/shell-shared';
 
 export interface RequestsListProps {
   applications: Array<
@@ -16,8 +17,11 @@ export interface RequestsListProps {
   >;
   canCancel: boolean;
   onCancel: (requestId: bigint) => void;
+  onMintHaqq?: (applicationId: bigint) => void;
   isCancelling?: boolean;
   cancellingRequestId?: bigint;
+  isMinting?: boolean;
+  mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
   locale?: string;
 }
@@ -26,8 +30,11 @@ export function RequestsList({
   applications,
   canCancel,
   onCancel,
+  onMintHaqq,
   isCancelling = false,
   cancellingRequestId,
+  isMinting = false,
+  mintingApplicationId,
   balances,
   locale = 'en',
 }: RequestsListProps) {
@@ -95,13 +102,31 @@ export function RequestsList({
                   </div>
                   <div className="space-y-[4px] text-[14px] text-[#6B7280]">
                     <div>
-                      Amount:{' '}
+                      Burn Amount:{' '}
                       <span className="font-medium text-[#0D0D0E]">
                         {amount} ISLM
                       </span>
                     </div>
+                    {app.price !== undefined && app.price !== '' && (
+                      <div>
+                        Minting price:{' '}
+                        <span className="font-[500] text-[#0D0D0E]">
+                          {formatEthDecimal(BigInt(app.price), 0, 0)} ISLM/HAQQ
+                        </span>
+                      </div>
+                    )}
+                    {app.receiveAmount !== undefined &&
+                      app.receiveAmount !== '' && (
+                        <div>
+                          Mint amount:{' '}
+                          <span className="font-[500] text-[#0D0D0E]">
+                            {formatEthDecimal(BigInt(app.receiveAmount), 4, 18)}{' '}
+                            HAQQ
+                          </span>
+                        </div>
+                      )}
                     <div>
-                      Source:{' '}
+                      Funds Source:{' '}
                       <span className="font-medium text-[#0D0D0E]">
                         {sourceLabel}
                       </span>
@@ -121,17 +146,36 @@ export function RequestsList({
                     )}
                   </div>
                 </div>
-                {canCancel && !isCancelled && !isPending && (
-                  <Button
-                    variant={3}
-                    onClick={() => onCancel(requestId)}
-                    disabled={isCancelling}
-                    isLoading={isCancellingThis}
-                    className="w-full sm:w-auto"
-                  >
-                    Cancel
-                  </Button>
-                )}
+                <div className="flex flex-col gap-[8px] sm:flex-row">
+                  {onMintHaqq &&
+                    !isPending &&
+                    !isCancelled &&
+                    app.valid &&
+                    app.ready && (
+                      <Button
+                        variant={5}
+                        onClick={() => onMintHaqq(requestId)}
+                        disabled={isMinting}
+                        isLoading={
+                          isMinting && mintingApplicationId === requestId
+                        }
+                        className="w-full sm:w-auto"
+                      >
+                        Mint HAQQ
+                      </Button>
+                    )}
+                  {canCancel && !isCancelled && !isPending && (
+                    <Button
+                      variant={3}
+                      onClick={() => onCancel(requestId)}
+                      disabled={isCancelling}
+                      isLoading={isCancellingThis}
+                      className="w-full sm:w-auto"
+                    >
+                      Cancel
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           );

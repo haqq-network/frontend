@@ -10,6 +10,10 @@ import {
   useCancelWaitlistRequest,
   useWaitlistBalances,
   useWaitlistApplications,
+  useWaitlistPrice,
+  useWaitlistPriceChart,
+  useWaitlistGlobalStats,
+  useMintHaqqByApplication,
 } from './hooks';
 import type { Application } from './hooks/use-waitlist-applications';
 import { useBackendSignature } from './hooks/use-backend-signature';
@@ -17,6 +21,7 @@ import { useWaitlistForm } from './hooks/use-waitlist-form';
 import {
   ParticipationForm,
   ParticipationFormSkeleton,
+  PriceChart,
   RequestsList,
   RequestsListSkeleton,
   StatusMessages,
@@ -115,6 +120,8 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     refetchAll: refetchContractState,
   } = useWaitlistContractState();
 
+  console.log('chain', chain);
+
   // Get balances from backend API
   const {
     data: waitlistBalances,
@@ -132,6 +139,27 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     status: 'active',
     chainId: chain?.id,
   });
+
+  // Current price (cost per token at submission)
+  const { data: priceData } = useWaitlistPrice({ chainId: chain?.id });
+
+  // Price chart data (use default chain when not connected so guests see chart)
+  const {
+    data: chartData,
+    isLoading: isLoadingChart,
+    error: chartError,
+  } = useWaitlistPriceChart({
+    chainId: chain?.id ?? WAITLIST_DEFAULT_CHAIN_ID,
+    granularity: 'hour',
+    limit: 500,
+  });
+
+  // Global stats from backend for anonymous users (contract read may not run without wallet)
+  const { data: globalStats, isLoading: isLoadingGlobalStats } =
+    useWaitlistGlobalStats({
+      chainId: WAITLIST_DEFAULT_CHAIN_ID,
+      enabled: !isConnected,
+    });
 
   // User wallet balance (EVM) - for display purposes
   const { data: walletBalance, refetch: refetchBalance } = useBalance({
@@ -159,7 +187,20 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     error: cancelError,
   } = useCancelWaitlistRequest();
 
+  // Mint HAQQ by application
+  const {
+    mintHaqqByApplication: mintHaqqByApplicationTx,
+    isPending: isMintingByApp,
+    isConfirming: isConfirmingMintByApp,
+    isSuccess: isMintByAppSuccess,
+    hash: mintByAppHash,
+    error: mintByAppError,
+  } = useMintHaqqByApplication();
+
   const [cancellingRequestId, setCancellingRequestId] = useState<
+    bigint | undefined
+  >();
+  const [mintingApplicationId, setMintingApplicationId] = useState<
     bigint | undefined
   >();
 
@@ -386,6 +427,45 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     ],
   );
 
+  // Handle mint HAQQ by application
+  const handleMintHaqqByApplication = useCallback(
+    async (applicationId: bigint) => {
+      if (!address) {
+        return;
+      }
+
+      try {
+        setMintingApplicationId(applicationId);
+        await mintHaqqByApplicationTx(address, address, applicationId);
+
+        // Refetch after successful mint
+        refetchApplications();
+        refetchBalances();
+        refetchContractState();
+
+        const intervalId = setInterval(() => {
+          refetchApplications();
+          refetchBalances();
+        }, 2000);
+
+        setTimeout(() => {
+          clearInterval(intervalId);
+        }, 10000);
+      } catch (error) {
+        console.error('Failed to mint HAQQ by application:', error);
+      } finally {
+        setMintingApplicationId(undefined);
+      }
+    },
+    [
+      address,
+      mintHaqqByApplicationTx,
+      refetchApplications,
+      refetchBalances,
+      refetchContractState,
+    ],
+  );
+
   // Automatically remove pending applications when they appear in backend data
   // This ensures smooth transition from pending to confirmed state
   useEffect(() => {
@@ -581,8 +661,11 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
   const isSubmitting = isCreating || isConfirmingCreate || isLoadingSignature;
   const errorMessage = useMemo(
-    () => sanitizeErrorMessage(createError || cancelError || undefined),
-    [createError, cancelError],
+    () =>
+      sanitizeErrorMessage(
+        createError || cancelError || mintByAppError || undefined,
+      ),
+    [createError, cancelError, mintByAppError],
   );
 
   // Merge applications with pending ones, sort by requestId descending (newest first)
@@ -657,7 +740,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
             Burn Waitlist
           </h1>
 
-          {/* Display total stats before wallet connection */}
+          {/* Display total stats before wallet connection (from backend API) */}
           {!isConnected && (
             <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
               <div className="grid grid-cols-2 gap-[16px]">
@@ -665,16 +748,22 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                   <div className="text-[12px] text-[#6B7280]">
                     Total Applications
                   </div>
-                  <div className="text-[18px] font-semibold text-[#0D0D0E]">
-                    {totalCount !== undefined ? totalCount.toString() : '—'}
+                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                    {isLoadingGlobalStats
+                      ? '—'
+                      : globalStats?.totalCount !== undefined
+                        ? globalStats.totalCount.toString()
+                        : '—'}
                   </div>
                 </div>
                 <div>
                   <div className="text-[12px] text-[#6B7280]">Total Amount</div>
-                  <div className="text-[18px] font-semibold text-[#0D0D0E]">
-                    {totalAmount !== undefined
-                      ? `${formatEthDecimal(totalAmount, 4)} ISLM`
-                      : '—'}
+                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                    {isLoadingGlobalStats
+                      ? '—'
+                      : globalStats?.totalAmount !== undefined
+                        ? `${formatEthDecimal(BigInt(globalStats.totalAmount), 4)} ISLM`
+                        : '—'}
                   </div>
                 </div>
               </div>
@@ -682,6 +771,16 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
           )}
 
           {!isConnected && <WalletConnectionWarning />}
+
+          {/* Price chart - visible to all (uses default chain when not connected) */}
+          <div className="mb-[24px]">
+            <PriceChart
+              data={chartData?.data ?? []}
+              isLoading={isLoadingChart}
+              error={chartError}
+              priceInAtto
+            />
+          </div>
 
           {isConnected ? (
             <>
@@ -734,6 +833,12 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       source={formState.source}
                       availableBalance={availableBalance}
                       balances={waitlistBalances}
+                      currentPriceAtto={
+                        priceData?.currentPrice != null
+                          ? String(priceData.currentPrice)
+                          : undefined
+                      }
+                      formattedAmount={formattedAmount}
                       onAmountChange={(amount) => {
                         setAmount(amount);
                       }}
@@ -775,8 +880,11 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                         applications={mergedApplications}
                         canCancel={canWithdraw || false}
                         onCancel={handleCancel}
+                        onMintHaqq={handleMintHaqqByApplication}
                         isCancelling={isCancelling || isConfirmingCancel}
                         cancellingRequestId={cancellingRequestId}
+                        isMinting={isMintingByApp || isConfirmingMintByApp}
+                        mintingApplicationId={mintingApplicationId}
                         balances={waitlistBalances}
                         locale={locale}
                       />

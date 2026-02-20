@@ -7,3 +7,4 @@ export * from './status-messages';
 export * from './wallet-connection-warning';
 export * from './network-warning';
 export * from './waitlist-balances';
+export * from './price-chart';
