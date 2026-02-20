@@ -7,19 +7,7 @@ import { FundsSource } from '../constants/waitlist-config';
 import type { Application } from '../hooks/use-waitlist-applications';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
 import { formatEthDecimal } from '@haqq/shell-shared';
-
-/** Format price for display: supports decimal strings (e.g. "3.00") or atto integer strings. */
-function formatPriceDisplay(price: string): string {
-  if (price.includes('.')) {
-    const n = Number(price);
-    return Number.isFinite(n) ? n.toFixed(2) : price;
-  }
-  try {
-    return formatEthDecimal(BigInt(price), 0, 0);
-  } catch {
-    return price;
-  }
-}
+import { formatWaitlistPrice } from '../utils/format-waitlist-price';
 
 export interface RequestsListProps {
   applications: Array<
@@ -124,7 +112,8 @@ export function RequestsList({
                       <div>
                         Minting price:{' '}
                         <span className="font-[500] text-[#0D0D0E]">
-                          {formatPriceDisplay(app.price)} ISLM/HAQQ
+                          {formatWaitlistPrice(app.price, { precision: 0 })}{' '}
+                          ISLM/HAQQ
                         </span>
                       </div>
                     )}
