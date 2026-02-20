@@ -13,7 +13,7 @@ export interface Application {
   createdAt?: string;
   valid: boolean;
   ready: boolean;
-  /** Minting price (cost, in atto) */
+  /** Minting price: decimal string (e.g. "3.00" ISLM) or atto integer string */
   price?: string;
   /** Expected tokens to receive (in atto) */
   receiveAmount?: string;

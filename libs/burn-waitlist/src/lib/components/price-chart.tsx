@@ -92,8 +92,14 @@ export function PriceChart({
   );
 
   const formatPrice = useMemo(
-    () => (p: number) =>
-      priceInAtto && p > 0 ? formatEthDecimal(BigInt(p), 2, 0) : p.toFixed(2),
+    () => (p: number) => {
+      if (p <= 0) return p.toFixed(2);
+      // API may return decimal prices (e.g. 8.5) or atto integers
+      if (priceInAtto && Number.isInteger(p)) {
+        return formatEthDecimal(BigInt(p), 2, 0);
+      }
+      return p.toFixed(2);
+    },
     [priceInAtto],
   );
 
