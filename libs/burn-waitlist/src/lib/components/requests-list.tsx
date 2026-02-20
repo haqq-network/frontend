@@ -112,7 +112,7 @@ export function RequestsList({
                       <div>
                         Minting price:{' '}
                         <span className="font-[500] text-[#0D0D0E]">
-                          {formatWaitlistPrice(app.price, { precision: 0 })}{' '}
+                          {formatWaitlistPrice(app.price, { precision: 4 })}{' '}
                           ISLM/HAQQ
                         </span>
                       </div>
@@ -149,23 +149,6 @@ export function RequestsList({
                   </div>
                 </div>
                 <div className="flex flex-col gap-[8px] sm:flex-row">
-                  {onMintHaqq &&
-                    !isPending &&
-                    !isCancelled &&
-                    app.valid &&
-                    app.ready && (
-                      <Button
-                        variant={5}
-                        onClick={() => onMintHaqq(requestId)}
-                        disabled={isMinting}
-                        isLoading={
-                          isMinting && mintingApplicationId === requestId
-                        }
-                        className="w-full sm:w-auto"
-                      >
-                        Mint HAQQ
-                      </Button>
-                    )}
                   {canCancel && !isCancelled && !isPending && (
                     <Button
                       variant={3}
