@@ -8,13 +8,14 @@ import { FundsSource } from '../constants/waitlist-config';
 import { WaitlistBalances } from './waitlist-balances';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
 import { formatEthDecimal, formatNumberWithSuffix } from '@haqq/shell-shared';
+import { formatWaitlistPrice } from '../utils/format-waitlist-price';
 
 export interface ParticipationFormProps {
   amount: string;
   source: FundsSource;
   availableBalance?: bigint;
   balances?: WaitlistBalancesResponse;
-  /** Current price per token (atto) from API - used to show price at submission and estimated receive */
+  /** Current price per token from API (decimal e.g. "8.5" or atto string) - used to show price at submission and estimated receive */
   currentPriceAtto?: string;
   /** User amount in wei - used with currentPriceAtto to compute estimated receive */
   formattedAmount?: bigint;
@@ -59,28 +60,33 @@ export function ParticipationForm({
 
   const priceDisplay = useMemo(() => {
     if (!currentPriceAtto) return null;
+    const formatted = formatWaitlistPrice(currentPriceAtto, { precision: 4 });
+    if (formatted === '' || formatted === '0') return null;
+    return formatted;
+  }, [currentPriceAtto]);
+
+  /** Price as number (ISLM per token): decimal string (e.g. "8.5") or atto string → ISLM */
+  const priceNum = useMemo(() => {
+    if (!currentPriceAtto) return null;
+    if (currentPriceAtto.includes('.')) {
+      const n = Number(currentPriceAtto);
+      return Number.isFinite(n) && n > 0 ? n : null;
+    }
     try {
-      const priceWei = BigInt(currentPriceAtto);
-      if (priceWei === 0n) return null;
-      return formatEthDecimal(priceWei, 4, 0);
+      const wei = BigInt(currentPriceAtto);
+      if (wei === 0n) return null;
+      return Number(wei) / 1e18;
     } catch {
       return null;
     }
   }, [currentPriceAtto]);
 
   const estimatedReceiveDisplay = useMemo(() => {
-    if (!formattedAmount || !currentPriceAtto) return null;
-    try {
-      const priceWei = BigInt(currentPriceAtto);
-      if (priceWei === 0n) return null;
-      // Use BigInt division to avoid Number precision loss for large values
-      const tokensWei = formattedAmount / priceWei;
-
-      return formatEthDecimal(tokensWei, 4, 18);
-    } catch {
-      return null;
-    }
-  }, [formattedAmount, currentPriceAtto]);
+    if (!formattedAmount || priceNum == null || priceNum <= 0) return null;
+    const amountIslm = Number(formattedAmount) / 1e18;
+    const tokens = amountIslm / priceNum;
+    return formatWaitlistPrice(tokens, { precision: 4 });
+  }, [formattedAmount, priceNum]);
 
   return (
     <div className="space-y-[20px]">
