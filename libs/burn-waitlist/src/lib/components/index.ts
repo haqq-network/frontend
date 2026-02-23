@@ -2,6 +2,7 @@ export * from './participation-form';
 export * from './participation-form-skeleton';
 export * from './requests-list';
 export * from './requests-list-skeleton';
+export * from './status-badge';
 export * from './request-item';
 export * from './status-messages';
 export * from './wallet-connection-warning';

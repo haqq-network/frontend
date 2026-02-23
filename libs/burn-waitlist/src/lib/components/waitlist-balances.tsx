@@ -1,8 +1,8 @@
 'use client';
 
 import { useMemo } from 'react';
-import { formatEther } from 'viem';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
+import { formatEthDecimal } from '@haqq/shell-shared';
 
 export interface WaitlistBalancesProps {
   balances?: WaitlistBalancesResponse;
@@ -17,42 +17,42 @@ export function WaitlistBalances({ balances }: WaitlistBalancesProps) {
     return {
       balance: {
         label: 'Balance',
-        value: formatEther(BigInt(balances.balance)),
+        value: formatEthDecimal(BigInt(balances.balance)),
         valueBn: BigInt(balances.balance),
       },
       delegations: {
         label: 'Delegations',
-        value: formatEther(BigInt(balances.delegations)),
+        value: formatEthDecimal(BigInt(balances.delegations)),
         valueBn: BigInt(balances.delegations),
       },
       rewards: {
         label: 'Rewards',
-        value: formatEther(BigInt(balances.rewards)),
+        value: formatEthDecimal(BigInt(balances.rewards)),
         valueBn: BigInt(balances.rewards),
       },
       unbonding_delegations: {
         label: 'Unbonding',
-        value: formatEther(BigInt(balances.unbonding_delegations)),
+        value: formatEthDecimal(BigInt(balances.unbonding_delegations)),
         valueBn: BigInt(balances.unbonding_delegations),
       },
       ucdao: {
         label: 'ucDAO',
-        value: formatEther(BigInt(balances.ucdao)),
+        value: formatEthDecimal(BigInt(balances.ucdao)),
         valueBn: BigInt(balances.ucdao),
       },
       total_balance: {
         label: 'Total Balance',
-        value: formatEther(BigInt(balances.total_balance)),
+        value: formatEthDecimal(BigInt(balances.total_balance)),
         valueBn: BigInt(balances.total_balance),
       },
       available_balance: {
         label: 'Available Balance',
-        value: formatEther(BigInt(balances.available_balance)),
+        value: formatEthDecimal(BigInt(balances.available_balance)),
         valueBn: BigInt(balances.available_balance),
       },
       available_ucdao_balance: {
         label: 'Available ucDAO',
-        value: formatEther(BigInt(balances.available_ucdao_balance)),
+        value: formatEthDecimal(BigInt(balances.available_ucdao_balance)),
         valueBn: BigInt(balances.available_ucdao_balance),
       },
     };

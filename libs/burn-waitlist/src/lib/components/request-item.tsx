@@ -1,9 +1,9 @@
 'use client';
 
 import { useWaitlistRequest } from '../hooks/use-waitlist-contract';
-import { formatEther } from 'viem';
 import { FundsSource } from '../constants/waitlist-config';
 import { Button } from '@haqq/shell-ui-kit';
+import { formatEthDecimal } from '@haqq/shell-shared';
 
 export interface RequestItemProps {
   requestId: bigint;
@@ -32,7 +32,7 @@ export function RequestItem({
     return null;
   }
 
-  const amount = formatEther(request.amount);
+  const amount = formatEthDecimal(request.amount);
   const sourceLabel =
     request.source === FundsSource.OwnBalance ? 'Own Balance' : 'ucDAO';
   const isCancelled = request.cancelled;

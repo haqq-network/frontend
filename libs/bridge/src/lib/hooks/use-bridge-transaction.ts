@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { formatEther, parseEther, parseGwei, parseUnits } from 'viem';
+import { parseEther, parseUnits } from 'viem';
 import { sepolia } from 'viem/chains';
 import { useSendTransaction, useWriteContract, usePublicClient } from 'wagmi';
 import { L1StandardBridgeAbi, CHAIN_CONFIG } from '@haqq/shell-shared';

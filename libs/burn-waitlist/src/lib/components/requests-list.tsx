@@ -1,13 +1,13 @@
 'use client';
 
-import { formatEther } from 'viem';
 import Link from 'next/link';
-import { Button, Tooltip } from '@haqq/shell-ui-kit';
+import { Button } from '@haqq/shell-ui-kit';
 import { FundsSource } from '../constants/waitlist-config';
 import type { Application } from '../hooks/use-waitlist-applications';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
 import { formatEthDecimal } from '@haqq/shell-shared';
 import { formatWaitlistPrice } from '../utils/format-waitlist-price';
+import { StatusBadge } from './status-badge';
 
 export interface RequestsListProps {
   applications: Array<
@@ -55,7 +55,7 @@ export function RequestsList({
         {applications.map((app) => {
           const requestId =
             app.requestId === 'pending' ? 0n : BigInt(app.requestId);
-          const amount = formatEther(BigInt(app.amount));
+          const amount = formatEthDecimal(BigInt(app.amount));
           const sourceLabel =
             app.source === FundsSource.OwnBalance ? 'Own Balance' : 'ucDAO';
           const isCancelled = app.cancelled;
@@ -76,41 +76,39 @@ export function RequestsList({
                         : `Request #${app.requestId}`}
                     </span>
                     {isPending && (
-                      <span className="rounded-[4px] bg-[#FEF3C7] px-[8px] py-[2px] text-[12px] font-medium text-[#92400E]">
-                        Waiting
-                      </span>
+                      <StatusBadge
+                        label="Waiting"
+                        tooltip="Your request is being processed on the blockchain. It will appear here once confirmed."
+                        className="bg-[#FEF3C7] text-[#92400E]"
+                      />
                     )}
                     {!isPending && isCancelled && (
-                      <span className="rounded-[4px] bg-[#FEE2E2] px-[8px] py-[2px] text-[12px] font-medium text-[#DC2626]">
-                        Cancelled
-                      </span>
+                      <StatusBadge
+                        label="Cancelled"
+                        tooltip="This request was cancelled and will not be fulfilled."
+                        className="bg-[#FEE2E2] text-[#DC2626]"
+                      />
                     )}
                     {!isPending && !isCancelled && !app.valid && (
-                      <span className="rounded-[4px] bg-[#FEF3C7] px-[8px] py-[2px] text-[12px] font-medium text-[#92400E]">
-                        Invalid
-                      </span>
+                      <StatusBadge
+                        label="Invalid"
+                        tooltip="This request is no longer valid (e.g. conditions have changed). It will not be fulfilled."
+                        className="bg-[#FEF3C7] text-[#92400E]"
+                      />
                     )}
                     {!isPending && !isCancelled && app.valid && app.ready && (
-                      <span className="rounded-[4px] bg-[#D1FAE5] px-[8px] py-[2px] text-[12px] font-medium text-[#065F46]">
-                        Ready
-                      </span>
+                      <StatusBadge
+                        label="Ready"
+                        tooltip="This request is valid and your balance is sufficient. You can mint HAQQ when the burn period opens."
+                        className="bg-[#D1FAE5] text-[#065F46]"
+                      />
                     )}
                     {!isPending && !isCancelled && app.valid && !app.ready && (
-                      <Tooltip
-                        text={
-                          <span className="block max-w-[min(280px,90vw)]">
-                            All your requests have been accepted and are valid,
-                            but your wallet balance is insufficient to fulfill
-                            them as some of your coins are currently staked. We
-                            recommend starting the undelegate process now.
-                          </span>
-                        }
-                        placement="top"
-                      >
-                        <span className="cursor-help rounded-[4px] bg-[#DBEAFE] px-[8px] py-[2px] text-[12px] font-medium text-[#1E40AF]">
-                          Not Ready
-                        </span>
-                      </Tooltip>
+                      <StatusBadge
+                        label="Not Ready"
+                        tooltip="All your requests have been accepted and are valid, but your wallet balance is insufficient to fulfill them as some of your coins are currently staked. We recommend starting the undelegate process now."
+                        className="bg-[#DBEAFE] text-[#1E40AF]"
+                      />
                     )}
                   </div>
                   <div className="space-y-[4px] text-[14px] text-[#6B7280]">
