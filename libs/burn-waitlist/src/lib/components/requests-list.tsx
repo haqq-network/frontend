@@ -2,7 +2,7 @@
 
 import { formatEther } from 'viem';
 import Link from 'next/link';
-import { Button } from '@haqq/shell-ui-kit';
+import { Button, Tooltip } from '@haqq/shell-ui-kit';
 import { FundsSource } from '../constants/waitlist-config';
 import type { Application } from '../hooks/use-waitlist-applications';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
@@ -96,9 +96,14 @@ export function RequestsList({
                       </span>
                     )}
                     {!isPending && !isCancelled && app.valid && !app.ready && (
-                      <span className="rounded-[4px] bg-[#DBEAFE] px-[8px] py-[2px] text-[12px] font-medium text-[#1E40AF]">
-                        Not Ready
-                      </span>
+                      <Tooltip
+                        text="All your requests have been accepted and are valid, but your wallet balance is insufficient to fulfill them as some of your coins are currently staked. We recommend starting the undelegate process now."
+                        placement="top"
+                      >
+                        <span className="cursor-help rounded-[4px] bg-[#DBEAFE] px-[8px] py-[2px] text-[12px] font-medium text-[#1E40AF]">
+                          Not Ready
+                        </span>
+                      </Tooltip>
                     )}
                   </div>
                   <div className="space-y-[4px] text-[14px] text-[#6B7280]">
