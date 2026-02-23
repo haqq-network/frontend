@@ -3,7 +3,6 @@
 import { useMemo } from 'react';
 import { Button } from '@haqq/shell-ui-kit';
 import { ModalInput } from '@haqq/shell-ui-kit';
-import { formatUnits } from 'viem';
 import { FundsSource } from '../constants/waitlist-config';
 import { WaitlistBalances } from './waitlist-balances';
 import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
@@ -65,20 +64,8 @@ export function ParticipationForm({
     return formatted;
   }, [currentPriceAtto]);
 
-  /** Price as number (ISLM per token): decimal string (e.g. "8.5") or atto string → ISLM */
   const priceNum = useMemo(() => {
-    if (!currentPriceAtto) return null;
-    if (currentPriceAtto.includes('.')) {
-      const n = Number(currentPriceAtto);
-      return Number.isFinite(n) && n > 0 ? n : null;
-    }
-    try {
-      const wei = BigInt(currentPriceAtto);
-      if (wei === 0n) return null;
-      return Number(wei) / 1e18;
-    } catch {
-      return null;
-    }
+    return Number(currentPriceAtto);
   }, [currentPriceAtto]);
 
   const estimatedReceiveDisplay = useMemo(() => {
