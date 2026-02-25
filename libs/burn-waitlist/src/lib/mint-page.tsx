@@ -6,7 +6,7 @@ import { parseEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { Button, ModalInput } from '@haqq/shell-ui-kit';
 import { formatEthDecimal } from '@haqq/shell-shared';
-import { useEthiqCalculate, useMintHaqq } from './hooks';
+import { useEthiqCalculate, useMintHaqq, useEthiqTotalBurned } from './hooks';
 import {
   WAITLIST_DEFAULT_CHAIN_ID,
   isWaitlistChainSupported,
@@ -101,6 +101,11 @@ export function MintPage() {
     pricePerUnit,
     isLoading: isCalculating,
   } = useEthiqCalculate(parsedAmount);
+
+  // Total burned stats
+  const { data: totalBurnedData } = useEthiqTotalBurned({
+    chainId: chain?.id ?? WAITLIST_DEFAULT_CHAIN_ID,
+  });
 
   // Mint hook
   const {
@@ -200,6 +205,38 @@ export function MintPage() {
             Burn your ISLM tokens and receive HAQQ tokens in return. The
             exchange rate is determined by the bonding curve.
           </p>
+
+          {/* Total burned stats */}
+          {totalBurnedData && (
+            <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+              <div className="grid grid-cols-2 gap-[16px]">
+                <div>
+                  <div className="text-[12px] text-[#6B7280]">Total Burned</div>
+                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                    {formatEthDecimal(
+                      BigInt(totalBurnedData.total_burned.amount),
+                      4,
+                    )}{' '}
+                    ISLM
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[12px] text-[#6B7280]">
+                    Burned from Applications
+                  </div>
+                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                    {formatEthDecimal(
+                      BigInt(
+                        totalBurnedData.total_burned_from_applications.amount,
+                      ),
+                      4,
+                    )}{' '}
+                    ISLM
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {!isConnected && <WalletConnectionWarning />}
 
