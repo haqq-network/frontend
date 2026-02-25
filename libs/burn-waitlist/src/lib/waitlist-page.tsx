@@ -978,7 +978,11 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                         applications={mergedApplications}
                         canCancel={canWithdraw || false}
                         onCancel={handleCancel}
-                        onMintHaqq={handleMintHaqqByApplication}
+                        onMintHaqq={
+                          isWaitlistStopped
+                            ? handleMintHaqqByApplication
+                            : undefined
+                        }
                         isCancelling={isCancelling || isConfirmingCancel}
                         cancellingRequestId={cancellingRequestId}
                         isMinting={isMintingByApp || isConfirmingMintByApp}

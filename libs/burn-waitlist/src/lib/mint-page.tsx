@@ -2,11 +2,15 @@
 
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
-import { parseEther } from 'viem';
+import { parseEther, formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { Button, ModalInput } from '@haqq/shell-ui-kit';
 import { formatEthDecimal } from '@haqq/shell-shared';
-import { useEthiqCalculate, useMintHaqq, useEthiqTotalBurned } from './hooks';
+import {
+  useMintHaqq,
+  useEthiqTotalBurned,
+  useEthiqCalculateRest,
+} from './hooks';
 import {
   WAITLIST_DEFAULT_CHAIN_ID,
   isWaitlistChainSupported,
@@ -75,13 +79,14 @@ export function MintPage() {
 
   const [amount, setAmount] = useState('');
 
-  // Parse user input to bigint (wei)
+  // Parse user input to bigint (wei) — strip commas from ModalInput formatting
   const parsedAmount = useMemo(() => {
     if (!amount || amount.trim() === '') {
       return undefined;
     }
     try {
-      return parseEther(amount);
+      const cleaned = amount.replace(/,/g, '');
+      return parseEther(cleaned);
     } catch {
       return undefined;
     }
@@ -93,14 +98,29 @@ export function MintPage() {
     chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
   });
 
-  // Calculate estimated HAQQ amount
+  // Calculate estimated HAQQ amount via REST API
+  const amountString = useMemo(() => {
+    if (parsedAmount === undefined || parsedAmount <= 0n) {
+      return undefined;
+    }
+    return parsedAmount.toString();
+  }, [parsedAmount]);
+
   const {
-    estimatedHaqqAmount,
-    supplyBefore,
-    supplyAfter,
-    pricePerUnit,
+    data: calculateData,
     isLoading: isCalculating,
-  } = useEthiqCalculate(parsedAmount);
+    error: calculateError,
+  } = useEthiqCalculateRest({
+    amount: amountString,
+    chainId: chain?.id,
+  });
+
+  console.log('calculateRest', { amountString, calculateData, calculateError });
+
+  const estimatedHaqqAmount = calculateData?.estimated_haqq_amount;
+  const supplyBefore = calculateData?.supply_before;
+  const supplyAfter = calculateData?.supply_after;
+  const pricePerUnit = calculateData?.average_price;
 
   // Total burned stats
   const { data: totalBurnedData } = useEthiqTotalBurned({
@@ -158,8 +178,7 @@ export function MintPage() {
 
   const handleMaxClick = useCallback(() => {
     if (walletBalance?.value && walletBalance.value > 0n) {
-      const formatted = formatEthDecimal(walletBalance.value, 18);
-      setAmount(formatted);
+      setAmount(formatEther(walletBalance.value));
     }
   }, [walletBalance?.value]);
 
@@ -283,9 +302,11 @@ export function MintPage() {
                     <span className="text-haqq-black font-medium">
                       {isCalculating
                         ? 'Calculating...'
-                        : estimatedHaqqAmount !== undefined
-                          ? `${formatEthDecimal(estimatedHaqqAmount, 4, 18)} HAQQ`
-                          : '—'}
+                        : calculateError
+                          ? 'Failed to calculate'
+                          : estimatedHaqqAmount !== undefined
+                            ? `${formatEthDecimal(BigInt(estimatedHaqqAmount), 4, 18)} HAQQ`
+                            : '—'}
                     </span>
                   </div>
                   {pricePerUnit && (
@@ -300,8 +321,8 @@ export function MintPage() {
                     <div className="flex items-center justify-between text-[14px]">
                       <span className="text-gray-500">Supply change</span>
                       <span className="text-haqq-black font-medium">
-                        {formatEthDecimal(supplyBefore, 2, 18)} →{' '}
-                        {formatEthDecimal(supplyAfter, 2, 18)}
+                        {formatEthDecimal(BigInt(supplyBefore), 2, 18)} →{' '}
+                        {formatEthDecimal(BigInt(supplyAfter), 2, 18)}
                       </span>
                     </div>
                   )}

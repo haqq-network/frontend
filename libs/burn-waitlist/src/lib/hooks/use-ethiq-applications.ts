@@ -159,6 +159,7 @@ export function useEthiqCalculateRest({
     },
     enabled: enabled && !!amount,
     staleTime: 0,
+    retry: false,
   });
 }
 
