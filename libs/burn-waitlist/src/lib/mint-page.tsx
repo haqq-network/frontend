@@ -198,21 +198,21 @@ export function MintPage() {
     <Container>
       <div className="mx-auto max-w-[600px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <h1 className="mb-[8px] text-[24px] font-semibold text-[#0D0D0E]">
+          <h1 className="text-haqq-black mb-[8px] text-[24px] font-semibold">
             Burn ISLM &amp; Mint HAQQ
           </h1>
-          <p className="mb-[24px] text-[14px] text-[#6B7280]">
+          <p className="mb-[24px] text-[14px] text-gray-500">
             Burn your ISLM tokens and receive HAQQ tokens in return. The
             exchange rate is determined by the bonding curve.
           </p>
 
           {/* Total burned stats */}
           {totalBurnedData && (
-            <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+            <div className="mb-[24px] rounded-[8px] bg-gray-100 p-[16px]">
               <div className="grid grid-cols-2 gap-[16px]">
                 <div>
-                  <div className="text-[12px] text-[#6B7280]">Total Burned</div>
-                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                  <div className="text-[12px] text-gray-500">Total Burned</div>
+                  <div className="text-haqq-black text-[18px] font-[600]">
                     {formatEthDecimal(
                       BigInt(totalBurnedData.total_burned.amount),
                       4,
@@ -221,10 +221,10 @@ export function MintPage() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-[12px] text-[#6B7280]">
+                  <div className="text-[12px] text-gray-500">
                     Burned from Applications
                   </div>
-                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                  <div className="text-haqq-black text-[18px] font-[600]">
                     {formatEthDecimal(
                       BigInt(
                         totalBurnedData.total_burned_from_applications.amount,
@@ -248,7 +248,7 @@ export function MintPage() {
             <div className="space-y-[20px]">
               {/* Amount input */}
               <div>
-                <label className="mb-[8px] block text-[14px] font-medium text-[#0D0D0E]">
+                <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
                   Amount to burn
                 </label>
                 <ModalInput
@@ -263,7 +263,7 @@ export function MintPage() {
                   }}
                   onMaxButtonClick={handleMaxClick}
                   hint={
-                    <span className="text-[#6B7280]">
+                    <span className="text-gray-500">
                       Available Balance: {formattedBalance} ISLM
                     </span>
                   }
@@ -275,12 +275,12 @@ export function MintPage() {
 
               {/* Calculation results */}
               {parsedAmount && parsedAmount > 0n && (
-                <div className="space-y-[8px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+                <div className="space-y-[8px] rounded-[8px] bg-gray-100 p-[16px]">
                   <div className="flex items-center justify-between text-[14px]">
-                    <span className="text-[#6B7280]">
+                    <span className="text-gray-500">
                       Estimated HAQQ to receive
                     </span>
-                    <span className="font-[500] text-[#0D0D0E]">
+                    <span className="text-haqq-black font-[500]">
                       {isCalculating
                         ? 'Calculating...'
                         : estimatedHaqqAmount !== undefined
@@ -290,16 +290,16 @@ export function MintPage() {
                   </div>
                   {pricePerUnit && (
                     <div className="flex items-center justify-between text-[14px]">
-                      <span className="text-[#6B7280]">Price per HAQQ</span>
-                      <span className="font-[500] text-[#0D0D0E]">
+                      <span className="text-gray-500">Price per HAQQ</span>
+                      <span className="text-haqq-black font-[500]">
                         {pricePerUnit} ISLM
                       </span>
                     </div>
                   )}
                   {supplyBefore !== undefined && supplyAfter !== undefined && (
                     <div className="flex items-center justify-between text-[14px]">
-                      <span className="text-[#6B7280]">Supply change</span>
-                      <span className="font-[500] text-[#0D0D0E]">
+                      <span className="text-gray-500">Supply change</span>
+                      <span className="text-haqq-black font-[500]">
                         {formatEthDecimal(supplyBefore, 2, 18)} →{' '}
                         {formatEthDecimal(supplyAfter, 2, 18)}
                       </span>
@@ -310,8 +310,8 @@ export function MintPage() {
 
               {/* Success message */}
               {isSuccess && mintHash && (
-                <div className="rounded-[8px] bg-[#D1FAE5] p-[12px]">
-                  <div className="text-[14px] font-medium text-[#065F46]">
+                <div className="rounded-[8px] bg-green-100 p-[12px]">
+                  <div className="text-[14px] font-medium text-emerald-800">
                     HAQQ tokens minted successfully!
                   </div>
                 </div>
@@ -319,8 +319,8 @@ export function MintPage() {
 
               {/* Error */}
               {errorMessage && (
-                <div className="rounded-[8px] bg-[#FEE2E2] p-[12px]">
-                  <div className="text-[14px] font-medium text-[#DC2626]">
+                <div className="rounded-[8px] bg-red-100 p-[12px]">
+                  <div className="text-[14px] font-medium text-red-600">
                     {errorMessage}
                   </div>
                 </div>
