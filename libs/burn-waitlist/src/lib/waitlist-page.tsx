@@ -798,19 +798,19 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     <Container>
       <div className="mx-auto max-w-[1200px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <h1 className="mb-[24px] text-[24px] font-semibold text-[#0D0D0E]">
+          <h1 className="text-haqq-black mb-[24px] text-[24px] font-semibold">
             Burn Waitlist
           </h1>
 
           {/* Display total stats before wallet connection (from backend API) */}
           {!isConnected && (
-            <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+            <div className="mb-[24px] rounded-[8px] bg-gray-100 p-[16px]">
               <div className="grid grid-cols-2 gap-[16px] sm:grid-cols-4">
                 <div>
-                  <div className="text-[12px] text-[#6B7280]">
+                  <div className="text-[12px] text-gray-500">
                     Total Applications
                   </div>
-                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                  <div className="text-haqq-black text-[18px] font-semibold">
                     {isLoadingGlobalStats
                       ? '—'
                       : globalStats?.totalCount !== undefined
@@ -819,8 +819,8 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                   </div>
                 </div>
                 <div>
-                  <div className="text-[12px] text-[#6B7280]">Total Amount</div>
-                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                  <div className="text-[12px] text-gray-500">Total Amount</div>
+                  <div className="text-haqq-black text-[18px] font-semibold">
                     {isLoadingGlobalStats
                       ? '—'
                       : globalStats?.totalAmount !== undefined
@@ -831,10 +831,10 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                 {totalBurnedData && (
                   <>
                     <div>
-                      <div className="text-[12px] text-[#6B7280]">
+                      <div className="text-[12px] text-gray-500">
                         Total Burned
                       </div>
-                      <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                      <div className="text-haqq-black text-[18px] font-semibold">
                         {formatEthDecimal(
                           BigInt(totalBurnedData.total_burned.amount),
                           4,
@@ -843,10 +843,10 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       </div>
                     </div>
                     <div>
-                      <div className="text-[12px] text-[#6B7280]">
+                      <div className="text-[12px] text-gray-500">
                         Burned from Applications
                       </div>
-                      <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                      <div className="text-haqq-black text-[18px] font-semibold">
                         {formatEthDecimal(
                           BigInt(
                             totalBurnedData.total_burned_from_applications
@@ -891,21 +891,21 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
               )}
 
               {/* User Aggregates (5.1) */}
-              <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+              <div className="mb-[24px] rounded-[8px] bg-gray-100 p-[16px]">
                 <div className="grid grid-cols-1 gap-[16px] sm:grid-cols-2">
                   <div>
-                    <div className="text-[12px] text-[#6B7280]">
+                    <div className="text-[12px] text-gray-500">
                       Your Applications
                     </div>
-                    <div className="text-[18px] font-semibold text-[#0D0D0E]">
+                    <div className="text-haqq-black text-[18px] font-semibold">
                       {userAggregates.totalCount}
                     </div>
                   </div>
                   <div>
-                    <div className="text-[12px] text-[#6B7280]">
+                    <div className="text-[12px] text-gray-500">
                       Your Total Amount
                     </div>
-                    <div className="text-[18px] font-semibold text-[#0D0D0E]">
+                    <div className="text-haqq-black text-[18px] font-semibold">
                       {formatEthDecimal(userAggregates.totalAmount, 4)} ISLM
                     </div>
                   </div>
@@ -915,7 +915,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
               <div className="grid grid-cols-1 gap-[32px] lg:grid-cols-2">
                 {/* First Column: Form */}
                 <div>
-                  <h2 className="mb-[16px] text-[18px] font-semibold text-[#0D0D0E]">
+                  <h2 className="text-haqq-black mb-[16px] text-[18px] font-semibold">
                     Participate in Waitlist
                   </h2>
                   {isLoadingBalances && !waitlistBalances ? (
@@ -963,7 +963,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                 {/* Second Column: Applications List */}
                 {isConnected ? (
                   <div>
-                    <h2 className="mb-[16px] text-[18px] font-semibold text-[#0D0D0E]">
+                    <h2 className="text-haqq-black mb-[16px] text-[18px] font-semibold">
                       Your Requests
                     </h2>
                     {(isLoadingApplications && !applicationsData) ||
@@ -987,8 +987,8 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                         locale={locale}
                       />
                     ) : (
-                      <div className="rounded-[8px] bg-[#F3F4F6] p-[16px] text-center">
-                        <div className="text-[14px] text-[#6B7280]">
+                      <div className="rounded-[8px] bg-gray-100 p-[16px] text-center">
+                        <div className="text-[14px] text-gray-500">
                           You haven't created any requests yet
                         </div>
                       </div>

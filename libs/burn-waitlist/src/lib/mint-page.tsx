@@ -212,7 +212,7 @@ export function MintPage() {
               <div className="grid grid-cols-2 gap-[16px]">
                 <div>
                   <div className="text-[12px] text-gray-500">Total Burned</div>
-                  <div className="text-haqq-black text-[18px] font-[600]">
+                  <div className="text-haqq-black text-[18px] font-semibold">
                     {formatEthDecimal(
                       BigInt(totalBurnedData.total_burned.amount),
                       4,
@@ -224,7 +224,7 @@ export function MintPage() {
                   <div className="text-[12px] text-gray-500">
                     Burned from Applications
                   </div>
-                  <div className="text-haqq-black text-[18px] font-[600]">
+                  <div className="text-haqq-black text-[18px] font-semibold">
                     {formatEthDecimal(
                       BigInt(
                         totalBurnedData.total_burned_from_applications.amount,
@@ -280,7 +280,7 @@ export function MintPage() {
                     <span className="text-gray-500">
                       Estimated HAQQ to receive
                     </span>
-                    <span className="text-haqq-black font-[500]">
+                    <span className="text-haqq-black font-medium">
                       {isCalculating
                         ? 'Calculating...'
                         : estimatedHaqqAmount !== undefined
@@ -291,7 +291,7 @@ export function MintPage() {
                   {pricePerUnit && (
                     <div className="flex items-center justify-between text-[14px]">
                       <span className="text-gray-500">Price per HAQQ</span>
-                      <span className="text-haqq-black font-[500]">
+                      <span className="text-haqq-black font-medium">
                         {pricePerUnit} ISLM
                       </span>
                     </div>
@@ -299,7 +299,7 @@ export function MintPage() {
                   {supplyBefore !== undefined && supplyAfter !== undefined && (
                     <div className="flex items-center justify-between text-[14px]">
                       <span className="text-gray-500">Supply change</span>
-                      <span className="text-haqq-black font-[500]">
+                      <span className="text-haqq-black font-medium">
                         {formatEthDecimal(supplyBefore, 2, 18)} →{' '}
                         {formatEthDecimal(supplyAfter, 2, 18)}
                       </span>
