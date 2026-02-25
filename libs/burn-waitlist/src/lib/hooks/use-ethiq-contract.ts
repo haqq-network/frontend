@@ -31,13 +31,46 @@ export function useEthiqCalculate(islmAmount?: bigint) {
 
   const result = data as [bigint, bigint, bigint, string] | undefined;
 
-  console.log('result', result, error);
+  return {
+    estimatedHaqqAmount: result?.[0],
+    supplyBefore: result?.[1],
+    supplyAfter: result?.[2],
+    pricePerUnit: result?.[3],
+    isLoading,
+    error,
+    refetch,
+  };
+}
+
+/**
+ * Hook to call calculateForApplication(applicationId) on the Ethiq precompile.
+ * Returns estimated HAQQ amount, supply before/after, price per unit, and receiver.
+ */
+export function useEthiqCalculateForApplication(applicationId?: bigint) {
+  const { chain } = useAccount();
+  const chainId = chain?.id || WAITLIST_DEFAULT_CHAIN_ID;
+
+  const { data, isLoading, error, refetch } = useReadContract({
+    address: ETHIQ_PRECOMPILE_ADDRESS,
+    abi: EthiqAbi,
+    functionName: 'calculateForApplication',
+    args: applicationId !== undefined ? [applicationId] : undefined,
+    chainId,
+    query: {
+      enabled: applicationId !== undefined,
+    },
+  });
+
+  const result = data as
+    | [bigint, bigint, bigint, string, `0x${string}`]
+    | undefined;
 
   return {
     estimatedHaqqAmount: result?.[0],
     supplyBefore: result?.[1],
     supplyAfter: result?.[2],
     pricePerUnit: result?.[3],
+    receiver: result?.[4],
     isLoading,
     error,
     refetch,
@@ -97,7 +130,7 @@ export function useMintHaqq() {
 }
 
 /**
- * Hook to call mintHaqqByApplication(sender, receiver, applicationId) on the Ethiq precompile.
+ * Hook to call mintHaqqByApplication(sender, applicationId) on the Ethiq precompile.
  * Used by waitlist participants to mint HAQQ for their approved applications.
  */
 export function useMintHaqqByApplication() {
@@ -118,7 +151,6 @@ export function useMintHaqqByApplication() {
 
   const mintHaqqByApplication = async (
     sender: `0x${string}`,
-    receiver: `0x${string}`,
     applicationId: bigint,
   ) => {
     if (!writeContractAsync) {
@@ -133,7 +165,7 @@ export function useMintHaqqByApplication() {
       address: ETHIQ_PRECOMPILE_ADDRESS,
       abi: EthiqAbi,
       functionName: 'mintHaqqByApplication',
-      args: [sender, receiver, applicationId],
+      args: [sender, applicationId],
       chainId,
     });
   };

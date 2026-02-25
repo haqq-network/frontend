@@ -8,3 +8,4 @@ export * from './use-waitlist-price';
 export * from './use-waitlist-price-chart';
 export * from './use-waitlist-global-stats';
 export * from './use-ethiq-contract';
+export * from './use-ethiq-applications';

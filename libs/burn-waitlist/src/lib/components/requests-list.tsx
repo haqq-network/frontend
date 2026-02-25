@@ -159,6 +159,23 @@ export function RequestsList({
                   </div>
                 </div>
                 <div className="flex flex-col gap-[8px] sm:flex-row">
+                  {!isPending &&
+                    !isCancelled &&
+                    app.valid &&
+                    app.ready &&
+                    onMintHaqq && (
+                      <Button
+                        variant={5}
+                        onClick={() => onMintHaqq(requestId)}
+                        disabled={isMinting}
+                        isLoading={
+                          isMinting && mintingApplicationId === requestId
+                        }
+                        className="w-full sm:w-auto"
+                      >
+                        Mint HAQQ
+                      </Button>
+                    )}
                   {canCancel && !isCancelled && !isPending && (
                     <Button
                       variant={3}
