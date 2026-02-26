@@ -77,7 +77,7 @@ export function getCosmosRestUrl(chainId?: number): string {
   //   return 'https://rest.cosmos.testedge2.haqq.network';
   // }
   // return 'https://rest.cosmos.haqq.network';
-  return 'http://128.199.216.2:31456';
+  return 'https://rest.haqqdev.subto.ru';
 }
 
 /**
