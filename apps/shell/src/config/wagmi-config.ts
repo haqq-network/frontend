@@ -22,7 +22,7 @@ const supportedChainsTransports = supportedChains.reduce(
 );
 
 // TODO: temporary RPC override for burn testing on mainnet
-supportedChainsTransports[11235] = http('https://rest.haqqdev.subto.ru', {
+supportedChainsTransports[11235] = http('https://rest-haqqdev.subto.ru', {
   batch: true,
 });
 
