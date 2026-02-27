@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
+import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
@@ -143,6 +144,7 @@ export default async function RootLayout({
           >
             <PostHogPageView />
             <PostHogIdentifyWalletUsers />
+            <Analytics />
             <SpeedInsights />
 
             {isMobileUA ? <AppHeaderMobile /> : <AppHeader />}

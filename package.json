@@ -52,6 +52,7 @@
     "@tolgee/format-icu": "6.2.2",
     "@tolgee/react": "6.2.2",
     "@tolgee/web": "6.2.2",
+    "@vercel/analytics": "1.6.1",
     "@vercel/speed-insights": "1.3.1",
     "@wagmi/core": "2.21.2",
     "bech32": "2.0.0",
