@@ -148,7 +148,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     error: chartError,
   } = useWaitlistPriceChart({
     chainId: chain?.id ?? WAITLIST_DEFAULT_CHAIN_ID,
-    granularity: 'hour',
     limit: 500,
   });
 
