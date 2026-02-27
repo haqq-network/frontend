@@ -156,7 +156,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
   const { data: globalStats, isLoading: isLoadingGlobalStats } =
     useWaitlistGlobalStats({
       chainId: WAITLIST_DEFAULT_CHAIN_ID,
-      enabled: !isConnected,
     });
 
   // User wallet balance (EVM) - for display purposes
@@ -738,35 +737,33 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
             Burn Waitlist
           </h1>
 
-          {/* Display total stats before wallet connection (from backend API) */}
-          {!isConnected && (
-            <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
-              <div className="grid grid-cols-2 gap-[16px]">
-                <div>
-                  <div className="text-[12px] text-[#6B7280]">
-                    Total Applications
-                  </div>
-                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
-                    {isLoadingGlobalStats
-                      ? '—'
-                      : globalStats?.totalCount !== undefined
-                        ? globalStats.totalCount.toString()
-                        : '—'}
-                  </div>
+          {/* Display total stats (from backend API) */}
+          <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+            <div className="grid grid-cols-2 gap-[16px]">
+              <div>
+                <div className="text-[12px] text-[#6B7280]">
+                  Total Applications
                 </div>
-                <div>
-                  <div className="text-[12px] text-[#6B7280]">Total Amount</div>
-                  <div className="text-[18px] font-[600] text-[#0D0D0E]">
-                    {isLoadingGlobalStats
-                      ? '—'
-                      : globalStats?.totalAmount !== undefined
-                        ? `${formatEthDecimal(BigInt(globalStats.totalAmount), 4)} ISLM`
-                        : '—'}
-                  </div>
+                <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                  {isLoadingGlobalStats
+                    ? '—'
+                    : globalStats?.totalCount !== undefined
+                      ? globalStats.totalCount.toString()
+                      : '—'}
+                </div>
+              </div>
+              <div>
+                <div className="text-[12px] text-[#6B7280]">Total Amount</div>
+                <div className="text-[18px] font-[600] text-[#0D0D0E]">
+                  {isLoadingGlobalStats
+                    ? '—'
+                    : globalStats?.totalAmount !== undefined
+                      ? `${formatEthDecimal(BigInt(globalStats.totalAmount), 4)} ISLM`
+                      : '—'}
                 </div>
               </div>
             </div>
-          )}
+          </div>
 
           {!isConnected && <WalletConnectionWarning />}
 
