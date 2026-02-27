@@ -9,6 +9,7 @@ export interface WaitlistBalancesProps {
 }
 
 export function WaitlistBalances({ balances }: WaitlistBalancesProps) {
+  console.log('balances', balances);
   const formattedBalances = useMemo(() => {
     if (!balances) {
       return null;
@@ -58,6 +59,8 @@ export function WaitlistBalances({ balances }: WaitlistBalancesProps) {
     };
   }, [balances]);
 
+  console.log('formattedBalances', formattedBalances);
+
   const hasAnyBalance = useMemo(() => {
     if (!formattedBalances) {
       return false;
@@ -84,18 +87,7 @@ export function WaitlistBalances({ balances }: WaitlistBalancesProps) {
           }
 
           const isNegative = balance.valueBn < 0n;
-          const displayValue = isNegative
-            ? `-${parseFloat(balance.value.replace('-', '')).toLocaleString(
-                'en-US',
-                {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 4,
-                },
-              )}`
-            : parseFloat(balance.value).toLocaleString('en-US', {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 4,
-              });
+          const displayValue = balance.value;
 
           return (
             <div
