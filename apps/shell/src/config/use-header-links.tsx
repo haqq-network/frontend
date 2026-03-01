@@ -11,6 +11,12 @@ export const useHeaderLinks = (): HeaderLink[] => {
   return [
     {
       type: 'link',
+      label: t('waitlist', 'Waitlist'),
+      href: '/waitlist',
+      chains: allowedChains,
+    },
+    {
+      type: 'link',
       label: t('bridge', 'Bridge to L2'),
       href: '/bridge',
       chains: allowedChains,

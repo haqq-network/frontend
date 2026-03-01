@@ -129,14 +129,7 @@ export function PriceChart({
   }
 
   if (!data.length) {
-    return (
-      <div
-        className="border-haqq-border bg-haqq-black/80 rounded-xl border p-6 text-center"
-        style={{ minHeight: height }}
-      >
-        <div className="text-haqq-modal-border text-sm">No chart data yet</div>
-      </div>
-    );
+    return null;
   }
 
   return (

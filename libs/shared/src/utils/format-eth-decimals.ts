@@ -3,7 +3,7 @@ import { formatUnits } from 'viem';
 export function formatEthDecimal(value: bigint, precision = 2, decimals = 18) {
   const data = +formatUnits(value, decimals);
 
-  if (data > 1) {
+  if (Math.abs(data) > 1) {
     return formatNumberWithSuffix(data, precision);
   }
 

@@ -1,11 +1,13 @@
 import { PropsWithChildren } from 'react';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
+import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
 import dynamic from 'next/dynamic';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { cookieToInitialState } from 'wagmi';
 import {
   ethToHaqq,
@@ -116,6 +118,20 @@ export default async function RootLayout({
       // dir={locale === 'ar' ? 'rtl' : 'ltr'}
       className={clsx(clashDisplayFont.variable, hkGuiseFont.variable)}
     >
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-CL3HBLV8KY"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-CL3HBLV8KY');
+          `}
+        </Script>
+      </head>
       <PHProvider>
         <body className="relative flex min-h-screen flex-col">
           <AppProviders
@@ -128,6 +144,7 @@ export default async function RootLayout({
           >
             <PostHogPageView />
             <PostHogIdentifyWalletUsers />
+            <Analytics />
             <SpeedInsights />
 
             {isMobileUA ? <AppHeaderMobile /> : <AppHeader />}
