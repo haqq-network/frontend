@@ -5,7 +5,12 @@ import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 import { parseEther, formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { Button, ModalInput } from '@haqq/shell-ui-kit';
-import { formatEthDecimal } from '@haqq/shell-shared';
+import {
+  formatEthDecimal,
+  useAddress,
+  useDaoAllBalancesQuery,
+} from '@haqq/shell-shared';
+import { useUcdaoConvertToHaqq } from '@haqq/shell-ucdao';
 import {
   useMintHaqq,
   useEthiqTotalBurned,
@@ -13,6 +18,7 @@ import {
 } from './hooks';
 import {
   WAITLIST_DEFAULT_CHAIN_ID,
+  FundsSource,
   isWaitlistChainSupported,
 } from './constants/waitlist-config';
 import { WalletConnectionWarning } from './components/wallet-connection-warning';
@@ -76,8 +82,10 @@ export function MintPage() {
   const { switchChainAsync } = useSwitchChain();
   const isCorrectChain = isWaitlistChainSupported(chain?.id);
   const hasAttemptedSwitch = useRef<number | undefined>(undefined);
+  const { haqqAddress } = useAddress();
 
   const [amount, setAmount] = useState('');
+  const [source, setSource] = useState<FundsSource>(FundsSource.OwnBalance);
 
   // Parse user input to bigint (wei) — strip commas from ModalInput formatting
   const parsedAmount = useMemo(() => {
@@ -97,6 +105,19 @@ export function MintPage() {
     address: address as `0x${string}` | undefined,
     chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
   });
+
+  // ucDAO balance
+  const { data: daoBalances, refetch: refetchDaoBalance } =
+    useDaoAllBalancesQuery(haqqAddress);
+
+  const daoIslmBalance = useMemo(() => {
+    const nativeToken = daoBalances?.find((coin) => {
+      return coin.denom === 'aISLM';
+    });
+    return nativeToken ? BigInt(nativeToken.amount) : 0n;
+  }, [daoBalances]);
+
+  const hasDaoBalance = daoIslmBalance > 0n;
 
   // Calculate estimated HAQQ amount via REST API
   const amountString = useMemo(() => {
@@ -127,7 +148,7 @@ export function MintPage() {
     chainId: chain?.id ?? WAITLIST_DEFAULT_CHAIN_ID,
   });
 
-  // Mint hook
+  // Mint hook (own balance via Ethiq precompile)
   const {
     mintHaqq: mintHaqqTx,
     isPending: isMinting,
@@ -137,20 +158,41 @@ export function MintPage() {
     error: mintError,
   } = useMintHaqq();
 
+  // Convert hook (ucDAO balance via UCDAO precompile)
+  const {
+    convertToHaqq: convertToHaqqTx,
+    isPending: isConverting,
+    isConfirming: isConvertConfirming,
+    isSuccess: isConvertSuccess,
+    hash: convertHash,
+    error: convertError,
+  } = useUcdaoConvertToHaqq();
+
+  // Unified state based on source
+  const currentIsPending =
+    source === FundsSource.ucDAO ? isConverting : isMinting;
+  const currentIsConfirming =
+    source === FundsSource.ucDAO ? isConvertConfirming : isConfirming;
+  const currentIsSuccess =
+    source === FundsSource.ucDAO ? isConvertSuccess : isSuccess;
+  const currentHash = source === FundsSource.ucDAO ? convertHash : mintHash;
+  const currentError = source === FundsSource.ucDAO ? convertError : mintError;
+
   const hasProcessedSuccess = useRef(false);
 
-  // Handle successful mint
+  // Handle successful mint/convert
   useEffect(() => {
-    if (isSuccess && mintHash && !hasProcessedSuccess.current) {
+    if (currentIsSuccess && currentHash && !hasProcessedSuccess.current) {
       hasProcessedSuccess.current = true;
       setAmount('');
       refetchBalance();
+      refetchDaoBalance();
     }
 
-    if (!isSuccess) {
+    if (!currentIsSuccess) {
       hasProcessedSuccess.current = false;
     }
-  }, [isSuccess, mintHash, refetchBalance]);
+  }, [currentIsSuccess, currentHash, refetchBalance, refetchDaoBalance]);
 
   const handleSwitchChain = useCallback(async () => {
     try {
@@ -176,11 +218,14 @@ export function MintPage() {
     }
   }, [isConnected, chain?.id, isCorrectChain, handleSwitchChain]);
 
+  const activeBalance =
+    source === FundsSource.ucDAO ? daoIslmBalance : walletBalance?.value;
+
   const handleMaxClick = useCallback(() => {
-    if (walletBalance?.value && walletBalance.value > 0n) {
-      setAmount(formatEther(walletBalance.value));
+    if (activeBalance && activeBalance > 0n) {
+      setAmount(formatEther(activeBalance));
     }
-  }, [walletBalance?.value]);
+  }, [activeBalance]);
 
   const handleSubmit = useCallback(async () => {
     if (!address || !parsedAmount || parsedAmount <= 0n) {
@@ -188,30 +233,39 @@ export function MintPage() {
     }
 
     try {
-      await mintHaqqTx(address, address, parsedAmount);
+      if (source === FundsSource.ucDAO) {
+        await convertToHaqqTx(address, address, parsedAmount);
+      } else {
+        await mintHaqqTx(address, address, parsedAmount);
+      }
     } catch (error) {
       console.error('Failed to mint HAQQ:', error);
     }
-  }, [address, parsedAmount, mintHaqqTx]);
+  }, [address, parsedAmount, source, mintHaqqTx, convertToHaqqTx]);
 
-  const isSubmitting = isMinting || isConfirming;
+  const isSubmitting = currentIsPending || currentIsConfirming;
   const errorMessage = useMemo(
-    () => sanitizeErrorMessage(mintError || undefined),
-    [mintError],
+    () => sanitizeErrorMessage(currentError || undefined),
+    [currentError],
   );
 
   const isValid =
     parsedAmount !== undefined &&
     parsedAmount > 0n &&
-    walletBalance?.value !== undefined &&
-    parsedAmount <= walletBalance.value;
+    activeBalance !== undefined &&
+    parsedAmount <= activeBalance;
 
   const formattedBalance = useMemo(() => {
-    if (!walletBalance?.value) {
+    if (!activeBalance) {
       return '0';
     }
-    return formatEthDecimal(walletBalance.value, 4);
-  }, [walletBalance?.value]);
+    return formatEthDecimal(activeBalance, 4);
+  }, [activeBalance]);
+
+  // Reset amount when source changes
+  useEffect(() => {
+    setAmount('');
+  }, [source]);
 
   return (
     <Container>
@@ -265,6 +319,57 @@ export function MintPage() {
 
           {isConnected && isCorrectChain && (
             <div className="space-y-[20px]">
+              {/* Funds Source selector */}
+              {hasDaoBalance && (
+                <div>
+                  <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
+                    Funds Source
+                  </label>
+                  <div className="space-y-[8px]">
+                    <label className="flex cursor-pointer items-center space-x-[8px]">
+                      <input
+                        type="radio"
+                        name="mintSource"
+                        value={FundsSource.OwnBalance}
+                        checked={source === FundsSource.OwnBalance}
+                        onChange={() => {
+                          setSource(FundsSource.OwnBalance);
+                        }}
+                        disabled={isSubmitting}
+                        className="h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
+                      />
+                      <span className="text-haqq-black text-[14px]">
+                        Own Balance
+                        {walletBalance?.value !== undefined && (
+                          <span className="ml-[4px] text-gray-500">
+                            ({formatEthDecimal(walletBalance.value, 4)} ISLM)
+                          </span>
+                        )}
+                      </span>
+                    </label>
+                    <label className="flex cursor-pointer items-center space-x-[8px]">
+                      <input
+                        type="radio"
+                        name="mintSource"
+                        value={FundsSource.ucDAO}
+                        checked={source === FundsSource.ucDAO}
+                        onChange={() => {
+                          setSource(FundsSource.ucDAO);
+                        }}
+                        disabled={isSubmitting}
+                        className="h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
+                      />
+                      <span className="text-haqq-black text-[14px]">
+                        ucDAO
+                        <span className="ml-[4px] text-gray-500">
+                          ({formatEthDecimal(daoIslmBalance, 4)} ISLM)
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              )}
+
               {/* Amount input */}
               <div>
                 <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
@@ -286,9 +391,7 @@ export function MintPage() {
                       Available Balance: {formattedBalance} ISLM
                     </span>
                   }
-                  isMaxButtonDisabled={
-                    !walletBalance?.value || walletBalance.value <= 0n
-                  }
+                  isMaxButtonDisabled={!activeBalance || activeBalance <= 0n}
                 />
               </div>
 
@@ -330,7 +433,7 @@ export function MintPage() {
               )}
 
               {/* Success message */}
-              {isSuccess && mintHash && (
+              {currentIsSuccess && currentHash && (
                 <div className="rounded-[8px] bg-green-100 p-[12px]">
                   <div className="text-[14px] font-medium text-emerald-800">
                     HAQQ tokens minted successfully!

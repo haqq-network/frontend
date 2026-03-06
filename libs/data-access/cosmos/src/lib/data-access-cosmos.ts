@@ -159,7 +159,11 @@ export function isClawbackVestingAccount(
   );
 }
 
-export function createCosmosService(cosmosRestEndpoint: string): CosmosService {
+// todo: replace cosmosRestEndpoint after testing
+export function createCosmosService(
+  _cosmosRestEndpoint: string,
+): CosmosService {
+  const cosmosRestEndpoint = 'https://rest.haqqdev.com';
   if (!cosmosRestEndpoint || typeof cosmosRestEndpoint !== 'string') {
     throw new Error('Invalid cosmosRestEndpoint');
   }
