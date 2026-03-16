@@ -178,8 +178,20 @@ export function MintPage() {
   } = useUcdaoConvertToHaqq();
 
   // Liquid vesting hooks
-  const { data: liquidTokens, refetch: refetchLiquidTokens } =
-    useLiquidTokenBalances({ haqqAddress, chainId: chain?.id });
+  const {
+    data: liquidTokens,
+    refetch: refetchLiquidTokens,
+    error: liquidTokensError,
+    isLoading: isLiquidTokensLoading,
+  } = useLiquidTokenBalances({ haqqAddress, chainId: chain?.id });
+
+  console.log('liquidVesting', {
+    haqqAddress,
+    chainId: chain?.id,
+    liquidTokens,
+    liquidTokensError,
+    isLiquidTokensLoading,
+  });
 
   const {
     liquidate: liquidateTx,
