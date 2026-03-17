@@ -613,251 +613,258 @@ export function MintPage() {
         </div>
 
         {/* Liquid Vesting Section */}
-        {isConnected && isCorrectChain && (
-          <div className="mt-[24px] rounded-[12px] bg-white p-[24px] shadow-lg">
-            <h2 className="text-haqq-black mb-[8px] text-[24px] font-semibold">
-              Liquid Vesting
-            </h2>
-            <p className="mb-[24px] text-[14px] text-gray-500">
-              Convert locked vesting coins into transferable liquid (aLIQUID)
-              tokens, or redeem liquid tokens back into the original vesting
-              schedule.
-            </p>
+        <div className="mt-[24px] rounded-[12px] bg-white p-[24px] shadow-lg">
+          <h2 className="text-haqq-black mb-[8px] text-[24px] font-semibold">
+            Liquid Vesting
+          </h2>
+          <p className="mb-[24px] text-[14px] text-gray-500">
+            Convert locked vesting coins into transferable liquid (aLIQUID)
+            tokens, or redeem liquid tokens back into the original vesting
+            schedule.
+          </p>
 
-            {/* Liquid tokens list */}
-            {liquidTokens && liquidTokens.length > 0 && (
-              <div className="mb-[24px]">
-                <h3 className="text-haqq-black mb-[8px] text-[14px] font-medium">
-                  Your Liquid Tokens
-                </h3>
-                <div className="space-y-[8px]">
-                  {liquidTokens.map((token) => {
-                    return (
-                      <div
-                        key={token.denom}
-                        className="flex items-center justify-between rounded-[8px] bg-gray-100 p-[12px]"
-                      >
-                        <span className="text-haqq-black text-[14px] font-medium">
-                          {token.denom}
-                        </span>
-                        <span className="text-[14px] text-gray-500">
-                          {formatEthDecimal(BigInt(token.amount), 4)}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
+          {!isConnected && <WalletConnectionWarning />}
 
-            {/* Liquid denom info */}
-            {liquidDenomInfo?.denom && (
-              <div className="mb-[24px] rounded-[8px] bg-gray-100 p-[16px]">
-                <div className="text-[12px] text-gray-500">
-                  Denom Info: {liquidDenomInfo.denom.denom}
-                </div>
-                <div className="mt-[4px] text-[14px]">
-                  <span className="text-gray-500">Display: </span>
-                  <span className="text-haqq-black font-medium">
-                    {liquidDenomInfo.denom.display_denom}
-                  </span>
-                </div>
-                <div className="text-[14px]">
-                  <span className="text-gray-500">Original: </span>
-                  <span className="text-haqq-black font-medium">
-                    {liquidDenomInfo.denom.original_denom}
-                  </span>
-                </div>
-              </div>
-            )}
+          {isConnected && !isCorrectChain && (
+            <NetworkWarning onSwitchChain={handleSwitchChain} />
+          )}
 
-            <div className="space-y-[20px]">
-              {/* Action selector */}
-              <div>
-                <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
-                  Action
-                </label>
-                <div className="space-y-[12px]">
-                  <label className="flex cursor-pointer items-start space-x-[8px]">
-                    <input
-                      type="radio"
-                      name="liquidAction"
-                      value="liquidate"
-                      checked={liquidAction === 'liquidate'}
-                      onChange={() => {
-                        setLiquidAction('liquidate');
-                        setLiquidAmount('');
-                      }}
-                      disabled={liquidIsSubmitting}
-                      className="mt-[2px] h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
-                    />
-                    <div>
-                      <span className="text-haqq-black text-[14px] font-medium">
-                        Liquidate
-                      </span>
-                      <p className="text-[12px] text-gray-500">
-                        Convert locked vesting coins into transferable aLIQUID
-                        tokens. Your locked balance will decrease, and you will
-                        receive liquid tokens that can be freely transferred.
-                      </p>
-                    </div>
-                  </label>
-                  <label className="flex cursor-pointer items-start space-x-[8px]">
-                    <input
-                      type="radio"
-                      name="liquidAction"
-                      value="redeem"
-                      checked={liquidAction === 'redeem'}
-                      onChange={() => {
-                        setLiquidAction('redeem');
-                        setLiquidAmount('');
-                      }}
-                      disabled={liquidIsSubmitting}
-                      className="mt-[2px] h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
-                    />
-                    <div>
-                      <span className="text-haqq-black text-[14px] font-medium">
-                        Redeem
-                      </span>
-                      <p className="text-[12px] text-gray-500">
-                        Burn aLIQUID tokens and return them to the original
-                        vesting schedule. Your account will be converted to a
-                        vesting account, and redeemed tokens will be locked
-                        again if the vesting period has not ended.
-                      </p>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              {/* Redeem warning */}
-              {liquidAction === 'redeem' && (
-                <div className="rounded-[8px] bg-amber-50 p-[12px]">
-                  <div className="text-[13px] text-amber-800">
-                    <span className="font-medium">Important:</span> When you
-                    redeem liquid tokens, the original vesting schedule will be
-                    re-applied. If the schedule has not ended yet, redeemed
-                    tokens will be locked until the vesting period completes.
-                    Your account will become a vesting account.
-                  </div>
-                </div>
-              )}
-
-              {/* Denom selector for redeem */}
-              {liquidAction === 'redeem' &&
-                (!liquidTokens || liquidTokens.length === 0 ? (
-                  <div className="rounded-[8px] bg-gray-100 p-[12px]">
-                    <div className="text-[14px] text-gray-500">
-                      You don&apos;t have any liquid tokens to redeem. Use
-                      Liquidate to create liquid tokens from your vesting
-                      balance first.
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
-                      Select Liquid Token
-                    </label>
-                    <select
-                      value={selectedLiquidDenom}
-                      onChange={(e) => {
-                        setSelectedLiquidDenom(e.target.value);
-                        setLiquidAmount('');
-                      }}
-                      disabled={liquidIsSubmitting}
-                      className="w-full rounded-[8px] border border-gray-300 p-[12px] text-[14px] disabled:cursor-not-allowed disabled:opacity-50"
+          {/* Liquid tokens list */}
+          {isConnected && liquidTokens && liquidTokens.length > 0 && (
+            <div className="mb-[24px]">
+              <h3 className="text-haqq-black mb-[8px] text-[14px] font-medium">
+                Your Liquid Tokens
+              </h3>
+              <div className="space-y-[8px]">
+                {liquidTokens.map((token) => {
+                  return (
+                    <div
+                      key={token.denom}
+                      className="flex items-center justify-between rounded-[8px] bg-gray-100 p-[12px]"
                     >
-                      <option value="">Select token...</option>
-                      {liquidTokens.map((token) => {
-                        return (
-                          <option key={token.denom} value={token.denom}>
-                            {token.denom} (
-                            {formatEthDecimal(BigInt(token.amount), 4)})
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                ))}
-
-              {/* Amount input */}
-              <div>
-                <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
-                  {liquidAction === 'liquidate'
-                    ? 'Amount to liquidate'
-                    : 'Amount to redeem'}
-                </label>
-                <ModalInput
-                  symbol={
-                    liquidAction === 'redeem' && selectedLiquidDenom
-                      ? selectedLiquidDenom
-                      : 'ISLM'
-                  }
-                  value={liquidAmount || undefined}
-                  onChange={(value) => {
-                    if (value === undefined || value === '') {
-                      setLiquidAmount('');
-                    } else {
-                      setLiquidAmount(value);
-                    }
-                  }}
-                  onMaxButtonClick={handleLiquidMaxClick}
-                  hint={
-                    <span className="text-gray-500">
-                      {liquidAction === 'redeem'
-                        ? `Available: ${formatEthDecimal(selectedLiquidBalance, 4)} ${selectedLiquidDenom || 'ISLM'}`
-                        : `Locked in vesting: ${formatEthDecimal(vestingLockedBalance, 4)} ISLM`}
-                    </span>
-                  }
-                  isMaxButtonDisabled={
-                    liquidAction === 'redeem'
-                      ? selectedLiquidBalance <= 0n
-                      : vestingLockedBalance <= 0n
-                  }
-                />
-              </div>
-
-              {/* Liquid Success */}
-              {liquidSuccess && (
-                <div className="rounded-[8px] bg-green-100 p-[12px]">
-                  <div className="text-[14px] font-medium text-emerald-800">
-                    {liquidAction === 'liquidate'
-                      ? 'Vesting coins liquidated successfully! You received aLIQUID tokens.'
-                      : 'Liquid tokens redeemed. The original vesting schedule has been re-applied to your account.'}
-                  </div>
-                </div>
-              )}
-
-              {/* Liquid Error */}
-              {liquidErrorMessage && (
-                <div className="rounded-[8px] bg-red-100 p-[12px]">
-                  <div className="text-[14px] font-medium text-red-600">
-                    {liquidErrorMessage}
-                  </div>
-                </div>
-              )}
-
-              {/* Submit */}
-              <div className="pt-[8px]">
-                <Button
-                  variant={5}
-                  onClick={handleLiquidSubmit}
-                  className="w-full"
-                  disabled={!liquidIsValid || liquidIsSubmitting}
-                  isLoading={liquidIsSubmitting}
-                >
-                  {liquidIsSubmitting
-                    ? liquidAction === 'liquidate'
-                      ? 'Liquidating...'
-                      : 'Redeeming...'
-                    : liquidAction === 'liquidate'
-                      ? 'Liquidate Vesting Coins'
-                      : 'Redeem Liquid Tokens'}
-                </Button>
+                      <span className="text-haqq-black text-[14px] font-medium">
+                        {token.denom}
+                      </span>
+                      <span className="text-[14px] text-gray-500">
+                        {formatEthDecimal(BigInt(token.amount), 4)}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
+          )}
+
+          {/* Liquid denom info */}
+          {isConnected && liquidDenomInfo?.denom && (
+            <div className="mb-[24px] rounded-[8px] bg-gray-100 p-[16px]">
+              <div className="text-[12px] text-gray-500">
+                Denom Info: {liquidDenomInfo.denom.denom}
+              </div>
+              <div className="mt-[4px] text-[14px]">
+                <span className="text-gray-500">Display: </span>
+                <span className="text-haqq-black font-medium">
+                  {liquidDenomInfo.denom.display_denom}
+                </span>
+              </div>
+              <div className="text-[14px]">
+                <span className="text-gray-500">Original: </span>
+                <span className="text-haqq-black font-medium">
+                  {liquidDenomInfo.denom.original_denom}
+                </span>
+              </div>
+            </div>
+          )}
+
+          <div className="space-y-[20px]">
+            {/* Action selector */}
+            <div>
+              <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
+                Action
+              </label>
+              <div className="space-y-[12px]">
+                <label className="flex cursor-pointer items-start space-x-[8px]">
+                  <input
+                    type="radio"
+                    name="liquidAction"
+                    value="liquidate"
+                    checked={liquidAction === 'liquidate'}
+                    onChange={() => {
+                      setLiquidAction('liquidate');
+                      setLiquidAmount('');
+                    }}
+                    disabled={!isConnected || liquidIsSubmitting}
+                    className="mt-[2px] h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
+                  />
+                  <div>
+                    <span className="text-haqq-black text-[14px] font-medium">
+                      Liquidate
+                    </span>
+                    <p className="text-[12px] text-gray-500">
+                      Convert locked vesting coins into transferable aLIQUID
+                      tokens. Your locked balance will decrease, and you will
+                      receive liquid tokens that can be freely transferred.
+                    </p>
+                  </div>
+                </label>
+                <label className="flex cursor-pointer items-start space-x-[8px]">
+                  <input
+                    type="radio"
+                    name="liquidAction"
+                    value="redeem"
+                    checked={liquidAction === 'redeem'}
+                    onChange={() => {
+                      setLiquidAction('redeem');
+                      setLiquidAmount('');
+                    }}
+                    disabled={!isConnected || liquidIsSubmitting}
+                    className="mt-[2px] h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
+                  />
+                  <div>
+                    <span className="text-haqq-black text-[14px] font-medium">
+                      Redeem
+                    </span>
+                    <p className="text-[12px] text-gray-500">
+                      Burn aLIQUID tokens and return them to the original
+                      vesting schedule. Your account will be converted to a
+                      vesting account, and redeemed tokens will be locked again
+                      if the vesting period has not ended.
+                    </p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* Redeem warning */}
+            {liquidAction === 'redeem' && (
+              <div className="rounded-[8px] bg-amber-50 p-[12px]">
+                <div className="text-[13px] text-amber-800">
+                  <span className="font-medium">Important:</span> When you
+                  redeem liquid tokens, the original vesting schedule will be
+                  re-applied. If the schedule has not ended yet, redeemed tokens
+                  will be locked until the vesting period completes. Your
+                  account will become a vesting account.
+                </div>
+              </div>
+            )}
+
+            {/* Denom selector for redeem */}
+            {liquidAction === 'redeem' &&
+              isConnected &&
+              (!liquidTokens || liquidTokens.length === 0 ? (
+                <div className="rounded-[8px] bg-gray-100 p-[12px]">
+                  <div className="text-[14px] text-gray-500">
+                    You don&apos;t have any liquid tokens to redeem. Use
+                    Liquidate to create liquid tokens from your vesting balance
+                    first.
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
+                    Select Liquid Token
+                  </label>
+                  <select
+                    value={selectedLiquidDenom}
+                    onChange={(e) => {
+                      setSelectedLiquidDenom(e.target.value);
+                      setLiquidAmount('');
+                    }}
+                    disabled={liquidIsSubmitting}
+                    className="w-full rounded-[8px] border border-gray-300 p-[12px] text-[14px] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <option value="">Select token...</option>
+                    {liquidTokens.map((token) => {
+                      return (
+                        <option key={token.denom} value={token.denom}>
+                          {token.denom} (
+                          {formatEthDecimal(BigInt(token.amount), 4)})
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              ))}
+
+            {/* Amount input */}
+            <div>
+              <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
+                {liquidAction === 'liquidate'
+                  ? 'Amount to liquidate'
+                  : 'Amount to redeem'}
+              </label>
+              <ModalInput
+                symbol={
+                  liquidAction === 'redeem' && selectedLiquidDenom
+                    ? selectedLiquidDenom
+                    : 'ISLM'
+                }
+                value={liquidAmount || undefined}
+                onChange={(value) => {
+                  if (value === undefined || value === '') {
+                    setLiquidAmount('');
+                  } else {
+                    setLiquidAmount(value);
+                  }
+                }}
+                onMaxButtonClick={handleLiquidMaxClick}
+                hint={
+                  <span className="text-gray-500">
+                    {liquidAction === 'redeem'
+                      ? `Available: ${formatEthDecimal(selectedLiquidBalance, 4)} ${selectedLiquidDenom || 'ISLM'}`
+                      : `Locked in vesting: ${formatEthDecimal(vestingLockedBalance, 4)} ISLM`}
+                  </span>
+                }
+                isMaxButtonDisabled={
+                  !isConnected ||
+                  (liquidAction === 'redeem'
+                    ? selectedLiquidBalance <= 0n
+                    : vestingLockedBalance <= 0n)
+                }
+                disabled={!isConnected}
+              />
+            </div>
+
+            {/* Liquid Success */}
+            {liquidSuccess && (
+              <div className="rounded-[8px] bg-green-100 p-[12px]">
+                <div className="text-[14px] font-medium text-emerald-800">
+                  {liquidAction === 'liquidate'
+                    ? 'Vesting coins liquidated successfully! You received aLIQUID tokens.'
+                    : 'Liquid tokens redeemed. The original vesting schedule has been re-applied to your account.'}
+                </div>
+              </div>
+            )}
+
+            {/* Liquid Error */}
+            {liquidErrorMessage && (
+              <div className="rounded-[8px] bg-red-100 p-[12px]">
+                <div className="text-[14px] font-medium text-red-600">
+                  {liquidErrorMessage}
+                </div>
+              </div>
+            )}
+
+            {/* Submit */}
+            <div className="pt-[8px]">
+              <Button
+                variant={5}
+                onClick={handleLiquidSubmit}
+                className="w-full"
+                disabled={!isConnected || !liquidIsValid || liquidIsSubmitting}
+                isLoading={liquidIsSubmitting}
+              >
+                {liquidIsSubmitting
+                  ? liquidAction === 'liquidate'
+                    ? 'Liquidating...'
+                    : 'Redeeming...'
+                  : liquidAction === 'liquidate'
+                    ? 'Liquidate Vesting Coins'
+                    : 'Redeem Liquid Tokens'}
+              </Button>
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </Container>
   );
