@@ -4,7 +4,7 @@ import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 import { parseEther, formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
-import { Button, ModalInput } from '@haqq/shell-ui-kit';
+import { Button, ModalInput, ModalSelect } from '@haqq/shell-ui-kit';
 import {
   formatEthDecimal,
   useAddress,
@@ -250,6 +250,22 @@ export function MintPage() {
     });
     return token ? BigInt(token.amount) : 0n;
   }, [liquidTokens, selectedLiquidDenom]);
+
+  const liquidTokenOptions = useMemo(() => {
+    if (!liquidTokens) {
+      return [];
+    }
+    return liquidTokens.map((token) => ({
+      value: token.denom,
+      label: `${token.denom} (${formatEthDecimal(BigInt(token.amount), 4)})`,
+    }));
+  }, [liquidTokens]);
+
+  const selectedLiquidOption = useMemo(() => {
+    return (
+      liquidTokenOptions.find((o) => o.value === selectedLiquidDenom) ?? null
+    );
+  }, [liquidTokenOptions, selectedLiquidDenom]);
 
   const liquidIsSubmitting =
     isLiquidating || isLiquidateConfirming || isRedeeming || isRedeemConfirming;
@@ -783,30 +799,17 @@ export function MintPage() {
                   </div>
                 </div>
               ) : (
-                <div>
-                  <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
-                    Select Liquid Token
-                  </label>
-                  <select
-                    value={selectedLiquidDenom}
-                    onChange={(e) => {
-                      setSelectedLiquidDenom(e.target.value);
-                      setLiquidAmount('');
-                    }}
-                    disabled={liquidIsSubmitting}
-                    className="w-full rounded-[8px] border border-gray-300 p-[12px] text-[14px] disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    <option value="">Select token...</option>
-                    {liquidTokens.map((token) => {
-                      return (
-                        <option key={token.denom} value={token.denom}>
-                          {token.denom} (
-                          {formatEthDecimal(BigInt(token.amount), 4)})
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
+                <ModalSelect
+                  label="Select Liquid Token"
+                  placeholder="Select token..."
+                  options={liquidTokenOptions}
+                  value={selectedLiquidOption}
+                  onChange={(option) => {
+                    setSelectedLiquidDenom(option?.value ?? '');
+                    setLiquidAmount('');
+                  }}
+                  isDisabled={liquidIsSubmitting}
+                />
               ))}
 
             {/* Amount input */}
