@@ -9,7 +9,6 @@ import {
   formatEthDecimal,
   useAddress,
   useDaoAllBalancesQuery,
-  useIndexerBalanceQuery,
 } from '@haqq/shell-shared';
 import { useUcdaoConvertToHaqq } from '@haqq/shell-ucdao';
 import {
@@ -20,6 +19,8 @@ import {
   useLiquidVestingRedeem,
   useLiquidTokenBalances,
   useLiquidDenomInfo,
+  useMinimumLiquidationAmount,
+  useVestingBalance,
 } from './hooks';
 import {
   WAITLIST_DEFAULT_CHAIN_ID,
@@ -111,9 +112,11 @@ export function MintPage() {
     chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
   });
 
-  // Vesting locked balance (from indexer)
-  const { data: indexerBalances } = useIndexerBalanceQuery(haqqAddress);
-  const vestingLockedBalance = indexerBalances?.lockedBn ?? 0n;
+  // Vesting locked balance (from cosmos auth account endpoint)
+  const { data: vestingLockedBalance = 0n } = useVestingBalance({
+    haqqAddress,
+    chainId: chain?.id,
+  });
 
   // ucDAO balance
   const { data: daoBalances, refetch: refetchDaoBalance } =
@@ -176,6 +179,11 @@ export function MintPage() {
     hash: convertHash,
     error: convertError,
   } = useUcdaoConvertToHaqq();
+
+  // Minimum liquidation amount from module params
+  const { data: minLiquidationAmount } = useMinimumLiquidationAmount({
+    chainId: chain?.id,
+  });
 
   // Liquid vesting hooks
   const {
@@ -249,6 +257,13 @@ export function MintPage() {
   const liquidSuccess = isLiquidateSuccess || isRedeemSuccess;
   const liquidError = liquidateError || redeemError;
 
+  // Auto-select first liquid token when available
+  useEffect(() => {
+    if (liquidTokens && liquidTokens.length > 0 && !selectedLiquidDenom) {
+      setSelectedLiquidDenom(liquidTokens[0].denom);
+    }
+  }, [liquidTokens, selectedLiquidDenom]);
+
   const hasProcessedLiquidSuccess = useRef(false);
 
   useEffect(() => {
@@ -306,8 +321,16 @@ export function MintPage() {
   const liquidIsValid =
     parsedLiquidAmount !== undefined &&
     parsedLiquidAmount > 0n &&
-    (liquidAction === 'liquidate' ||
-      (liquidAction === 'redeem' && !!selectedLiquidDenom));
+    (liquidAction === 'liquidate'
+      ? !minLiquidationAmount || parsedLiquidAmount >= minLiquidationAmount
+      : !!selectedLiquidDenom);
+
+  const liquidBelowMinimum =
+    liquidAction === 'liquidate' &&
+    parsedLiquidAmount !== undefined &&
+    parsedLiquidAmount > 0n &&
+    minLiquidationAmount !== undefined &&
+    parsedLiquidAmount < minLiquidationAmount;
 
   const liquidErrorMessage = useMemo(
     () => sanitizeErrorMessage(liquidError || undefined),
@@ -824,6 +847,16 @@ export function MintPage() {
                 disabled={!isConnected}
               />
             </div>
+
+            {/* Minimum amount warning */}
+            {liquidBelowMinimum && minLiquidationAmount && (
+              <div className="rounded-[8px] bg-amber-50 p-[12px]">
+                <div className="text-[13px] text-amber-800">
+                  Minimum liquidation amount is{' '}
+                  {formatEthDecimal(minLiquidationAmount, 4)} ISLM
+                </div>
+              </div>
+            )}
 
             {/* Liquid Success */}
             {liquidSuccess && (
