@@ -2,13 +2,29 @@
 
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
-import { parseEther } from 'viem';
+import { parseEther, formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
-import { Button, ModalInput } from '@haqq/shell-ui-kit';
-import { formatEthDecimal } from '@haqq/shell-shared';
-import { useEthiqCalculate, useMintHaqq } from './hooks';
+import { Button, ModalInput, ModalSelect } from '@haqq/shell-ui-kit';
+import {
+  formatEthDecimal,
+  useAddress,
+  useDaoAllBalancesQuery,
+} from '@haqq/shell-shared';
+import { useUcdaoConvertToHaqq } from '@haqq/shell-ucdao';
+import {
+  useMintHaqq,
+  useEthiqTotalBurned,
+  useEthiqCalculateRest,
+  useLiquidVestingLiquidate,
+  useLiquidVestingRedeem,
+  useLiquidTokenBalances,
+  useLiquidDenomInfo,
+  useMinimumLiquidationAmount,
+  useVestingBalance,
+} from './hooks';
 import {
   WAITLIST_DEFAULT_CHAIN_ID,
+  FundsSource,
   isWaitlistChainSupported,
 } from './constants/waitlist-config';
 import { WalletConnectionWarning } from './components/wallet-connection-warning';
@@ -72,16 +88,19 @@ export function MintPage() {
   const { switchChainAsync } = useSwitchChain();
   const isCorrectChain = isWaitlistChainSupported(chain?.id);
   const hasAttemptedSwitch = useRef<number | undefined>(undefined);
+  const { haqqAddress } = useAddress();
 
   const [amount, setAmount] = useState('');
+  const [source, setSource] = useState<FundsSource>(FundsSource.OwnBalance);
 
-  // Parse user input to bigint (wei)
+  // Parse user input to bigint (wei) — strip commas from ModalInput formatting
   const parsedAmount = useMemo(() => {
     if (!amount || amount.trim() === '') {
       return undefined;
     }
     try {
-      return parseEther(amount);
+      const cleaned = amount.replace(/,/g, '');
+      return parseEther(cleaned);
     } catch {
       return undefined;
     }
@@ -93,16 +112,55 @@ export function MintPage() {
     chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
   });
 
-  // Calculate estimated HAQQ amount
-  const {
-    estimatedHaqqAmount,
-    supplyBefore,
-    supplyAfter,
-    pricePerUnit,
-    isLoading: isCalculating,
-  } = useEthiqCalculate(parsedAmount);
+  // Vesting locked balance (from cosmos auth account endpoint)
+  const { data: vestingLockedBalance = 0n } = useVestingBalance({
+    haqqAddress,
+    chainId: chain?.id,
+  });
 
-  // Mint hook
+  // ucDAO balance
+  const { data: daoBalances, refetch: refetchDaoBalance } =
+    useDaoAllBalancesQuery(haqqAddress);
+
+  const daoIslmBalance = useMemo(() => {
+    const nativeToken = daoBalances?.find((coin) => {
+      return coin.denom === 'aISLM';
+    });
+    return nativeToken ? BigInt(nativeToken.amount) : 0n;
+  }, [daoBalances]);
+
+  const hasDaoBalance = daoIslmBalance > 0n;
+
+  // Calculate estimated HAQQ amount via REST API
+  const amountString = useMemo(() => {
+    if (parsedAmount === undefined || parsedAmount <= 0n) {
+      return undefined;
+    }
+    return parsedAmount.toString();
+  }, [parsedAmount]);
+
+  const {
+    data: calculateData,
+    isLoading: isCalculating,
+    error: calculateError,
+  } = useEthiqCalculateRest({
+    amount: amountString,
+    chainId: chain?.id,
+  });
+
+  console.log('calculateRest', { amountString, calculateData, calculateError });
+
+  const estimatedHaqqAmount = calculateData?.estimated_haqq_amount;
+  const supplyBefore = calculateData?.supply_before;
+  const supplyAfter = calculateData?.supply_after;
+  const pricePerUnit = calculateData?.average_price;
+
+  // Total burned stats
+  const { data: totalBurnedData } = useEthiqTotalBurned({
+    chainId: chain?.id ?? WAITLIST_DEFAULT_CHAIN_ID,
+  });
+
+  // Mint hook (own balance via Ethiq precompile)
   const {
     mintHaqq: mintHaqqTx,
     isPending: isMinting,
@@ -112,20 +170,214 @@ export function MintPage() {
     error: mintError,
   } = useMintHaqq();
 
-  const hasProcessedSuccess = useRef(false);
+  // Convert hook (ucDAO balance via UCDAO precompile)
+  const {
+    convertToHaqq: convertToHaqqTx,
+    isPending: isConverting,
+    isConfirming: isConvertConfirming,
+    isSuccess: isConvertSuccess,
+    hash: convertHash,
+    error: convertError,
+  } = useUcdaoConvertToHaqq();
 
-  // Handle successful mint
+  // Minimum liquidation amount from module params
+  const { data: minLiquidationAmount } = useMinimumLiquidationAmount({
+    chainId: chain?.id,
+  });
+
+  // Liquid vesting hooks
+  const {
+    data: liquidTokens,
+    refetch: refetchLiquidTokens,
+    error: liquidTokensError,
+    isLoading: isLiquidTokensLoading,
+  } = useLiquidTokenBalances({ haqqAddress, chainId: chain?.id });
+
+  console.log('liquidVesting', {
+    haqqAddress,
+    chainId: chain?.id,
+    liquidTokens,
+    liquidTokensError,
+    isLiquidTokensLoading,
+  });
+
+  const {
+    liquidate: liquidateTx,
+    isPending: isLiquidating,
+    isConfirming: isLiquidateConfirming,
+    isSuccess: isLiquidateSuccess,
+    error: liquidateError,
+  } = useLiquidVestingLiquidate();
+
+  const {
+    redeem: redeemTx,
+    isPending: isRedeeming,
+    isConfirming: isRedeemConfirming,
+    isSuccess: isRedeemSuccess,
+    error: redeemError,
+  } = useLiquidVestingRedeem();
+
+  const [selectedLiquidDenom, setSelectedLiquidDenom] = useState<string>('');
+  const [liquidAction, setLiquidAction] = useState<'liquidate' | 'redeem'>(
+    'liquidate',
+  );
+
+  const [liquidAmount, setLiquidAmount] = useState('');
+
+  const parsedLiquidAmount = useMemo(() => {
+    if (!liquidAmount || liquidAmount.trim() === '') {
+      return undefined;
+    }
+    try {
+      const cleaned = liquidAmount.replace(/,/g, '');
+      return parseEther(cleaned);
+    } catch {
+      return undefined;
+    }
+  }, [liquidAmount]);
+
+  const { data: liquidDenomInfo } = useLiquidDenomInfo({
+    denom: selectedLiquidDenom || undefined,
+    chainId: chain?.id,
+  });
+
+  const selectedLiquidBalance = useMemo(() => {
+    if (!liquidTokens || !selectedLiquidDenom) {
+      return 0n;
+    }
+    const token = liquidTokens.find((t) => {
+      return t.denom === selectedLiquidDenom;
+    });
+    return token ? BigInt(token.amount) : 0n;
+  }, [liquidTokens, selectedLiquidDenom]);
+
+  const liquidTokenOptions = useMemo(() => {
+    if (!liquidTokens) {
+      return [];
+    }
+    return liquidTokens.map((token) => ({
+      value: token.denom,
+      label: `${token.denom} (${formatEthDecimal(BigInt(token.amount), 4)})`,
+    }));
+  }, [liquidTokens]);
+
+  const selectedLiquidOption = useMemo(() => {
+    return (
+      liquidTokenOptions.find((o) => o.value === selectedLiquidDenom) ?? null
+    );
+  }, [liquidTokenOptions, selectedLiquidDenom]);
+
+  const liquidIsSubmitting =
+    isLiquidating || isLiquidateConfirming || isRedeeming || isRedeemConfirming;
+
+  const liquidSuccess = isLiquidateSuccess || isRedeemSuccess;
+  const liquidError = liquidateError || redeemError;
+
+  // Auto-select first liquid token when available
   useEffect(() => {
-    if (isSuccess && mintHash && !hasProcessedSuccess.current) {
-      hasProcessedSuccess.current = true;
-      setAmount('');
+    if (liquidTokens && liquidTokens.length > 0 && !selectedLiquidDenom) {
+      setSelectedLiquidDenom(liquidTokens[0].denom);
+    }
+  }, [liquidTokens, selectedLiquidDenom]);
+
+  const hasProcessedLiquidSuccess = useRef(false);
+
+  useEffect(() => {
+    if (liquidSuccess && !hasProcessedLiquidSuccess.current) {
+      hasProcessedLiquidSuccess.current = true;
+      setLiquidAmount('');
+      refetchLiquidTokens();
       refetchBalance();
     }
 
-    if (!isSuccess) {
+    if (!liquidSuccess) {
+      hasProcessedLiquidSuccess.current = false;
+    }
+  }, [liquidSuccess, refetchLiquidTokens, refetchBalance]);
+
+  const handleLiquidSubmit = useCallback(async () => {
+    if (!address || !parsedLiquidAmount || parsedLiquidAmount <= 0n) {
+      return;
+    }
+
+    try {
+      if (liquidAction === 'liquidate') {
+        await liquidateTx(address, address, parsedLiquidAmount);
+      } else {
+        if (!selectedLiquidDenom) {
+          return;
+        }
+        await redeemTx(
+          address,
+          address,
+          selectedLiquidDenom,
+          parsedLiquidAmount,
+        );
+      }
+    } catch (error) {
+      console.error('Liquid vesting action failed:', error);
+    }
+  }, [
+    address,
+    parsedLiquidAmount,
+    liquidAction,
+    selectedLiquidDenom,
+    liquidateTx,
+    redeemTx,
+  ]);
+
+  const handleLiquidMaxClick = useCallback(() => {
+    if (liquidAction === 'liquidate' && vestingLockedBalance > 0n) {
+      setLiquidAmount(formatEther(vestingLockedBalance));
+    } else if (liquidAction === 'redeem' && selectedLiquidBalance > 0n) {
+      setLiquidAmount(formatEther(selectedLiquidBalance));
+    }
+  }, [liquidAction, vestingLockedBalance, selectedLiquidBalance]);
+
+  const liquidIsValid =
+    parsedLiquidAmount !== undefined &&
+    parsedLiquidAmount > 0n &&
+    (liquidAction === 'liquidate'
+      ? !minLiquidationAmount || parsedLiquidAmount >= minLiquidationAmount
+      : !!selectedLiquidDenom);
+
+  const liquidBelowMinimum =
+    liquidAction === 'liquidate' &&
+    parsedLiquidAmount !== undefined &&
+    parsedLiquidAmount > 0n &&
+    minLiquidationAmount !== undefined &&
+    parsedLiquidAmount < minLiquidationAmount;
+
+  const liquidErrorMessage = useMemo(
+    () => sanitizeErrorMessage(liquidError || undefined),
+    [liquidError],
+  );
+
+  // Unified state based on source
+  const currentIsPending =
+    source === FundsSource.ucDAO ? isConverting : isMinting;
+  const currentIsConfirming =
+    source === FundsSource.ucDAO ? isConvertConfirming : isConfirming;
+  const currentIsSuccess =
+    source === FundsSource.ucDAO ? isConvertSuccess : isSuccess;
+  const currentHash = source === FundsSource.ucDAO ? convertHash : mintHash;
+  const currentError = source === FundsSource.ucDAO ? convertError : mintError;
+
+  const hasProcessedSuccess = useRef(false);
+
+  // Handle successful mint/convert
+  useEffect(() => {
+    if (currentIsSuccess && currentHash && !hasProcessedSuccess.current) {
+      hasProcessedSuccess.current = true;
+      setAmount('');
+      refetchBalance();
+      refetchDaoBalance();
+    }
+
+    if (!currentIsSuccess) {
       hasProcessedSuccess.current = false;
     }
-  }, [isSuccess, mintHash, refetchBalance]);
+  }, [currentIsSuccess, currentHash, refetchBalance, refetchDaoBalance]);
 
   const handleSwitchChain = useCallback(async () => {
     try {
@@ -151,12 +403,14 @@ export function MintPage() {
     }
   }, [isConnected, chain?.id, isCorrectChain, handleSwitchChain]);
 
+  const activeBalance =
+    source === FundsSource.ucDAO ? daoIslmBalance : walletBalance?.value;
+
   const handleMaxClick = useCallback(() => {
-    if (walletBalance?.value && walletBalance.value > 0n) {
-      const formatted = formatEthDecimal(walletBalance.value, 18);
-      setAmount(formatted);
+    if (activeBalance && activeBalance > 0n) {
+      setAmount(formatEther(activeBalance));
     }
-  }, [walletBalance?.value]);
+  }, [activeBalance]);
 
   const handleSubmit = useCallback(async () => {
     if (!address || !parsedAmount || parsedAmount <= 0n) {
@@ -164,42 +418,83 @@ export function MintPage() {
     }
 
     try {
-      await mintHaqqTx(address, address, parsedAmount);
+      if (source === FundsSource.ucDAO) {
+        await convertToHaqqTx(address, address, parsedAmount);
+      } else {
+        await mintHaqqTx(address, address, parsedAmount);
+      }
     } catch (error) {
       console.error('Failed to mint HAQQ:', error);
     }
-  }, [address, parsedAmount, mintHaqqTx]);
+  }, [address, parsedAmount, source, mintHaqqTx, convertToHaqqTx]);
 
-  const isSubmitting = isMinting || isConfirming;
+  const isSubmitting = currentIsPending || currentIsConfirming;
   const errorMessage = useMemo(
-    () => sanitizeErrorMessage(mintError || undefined),
-    [mintError],
+    () => sanitizeErrorMessage(currentError || undefined),
+    [currentError],
   );
 
   const isValid =
     parsedAmount !== undefined &&
     parsedAmount > 0n &&
-    walletBalance?.value !== undefined &&
-    parsedAmount <= walletBalance.value;
+    activeBalance !== undefined &&
+    parsedAmount <= activeBalance;
 
   const formattedBalance = useMemo(() => {
-    if (!walletBalance?.value) {
+    if (!activeBalance) {
       return '0';
     }
-    return formatEthDecimal(walletBalance.value, 4);
-  }, [walletBalance?.value]);
+    return formatEthDecimal(activeBalance, 4);
+  }, [activeBalance]);
+
+  // Reset amount when source changes
+  useEffect(() => {
+    setAmount('');
+  }, [source]);
 
   return (
     <Container>
       <div className="mx-auto max-w-[600px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <h1 className="mb-[8px] text-[24px] font-semibold text-[#0D0D0E]">
+          <h1 className="text-haqq-black mb-[8px] text-[24px] font-semibold">
             Burn ISLM &amp; Mint HAQQ
           </h1>
-          <p className="mb-[24px] text-[14px] text-[#6B7280]">
+          <p className="mb-[24px] text-[14px] text-gray-500">
             Burn your ISLM tokens and receive HAQQ tokens in return. The
             exchange rate is determined by the bonding curve.
           </p>
+
+          {/* Total burned stats */}
+          {totalBurnedData && (
+            <div className="mb-[24px] rounded-[8px] bg-gray-100 p-[16px]">
+              <div className="grid grid-cols-2 gap-[16px]">
+                <div>
+                  <div className="text-[12px] text-gray-500">Total Burned</div>
+                  <div className="text-haqq-black text-[18px] font-semibold">
+                    {formatEthDecimal(
+                      BigInt(totalBurnedData.total_burned.amount),
+                      4,
+                    )}{' '}
+                    ISLM
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[12px] text-gray-500">
+                    Burned from Applications
+                  </div>
+                  <div className="text-haqq-black text-[18px] font-semibold">
+                    {formatEthDecimal(
+                      BigInt(
+                        totalBurnedData.total_burned_from_applications.amount,
+                      ),
+                      4,
+                    )}{' '}
+                    ISLM
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {!isConnected && <WalletConnectionWarning />}
 
@@ -209,9 +504,60 @@ export function MintPage() {
 
           {isConnected && isCorrectChain && (
             <div className="space-y-[20px]">
+              {/* Funds Source selector */}
+              {hasDaoBalance && (
+                <div>
+                  <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
+                    Funds Source
+                  </label>
+                  <div className="space-y-[8px]">
+                    <label className="flex cursor-pointer items-center space-x-[8px]">
+                      <input
+                        type="radio"
+                        name="mintSource"
+                        value={FundsSource.OwnBalance}
+                        checked={source === FundsSource.OwnBalance}
+                        onChange={() => {
+                          setSource(FundsSource.OwnBalance);
+                        }}
+                        disabled={isSubmitting}
+                        className="h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
+                      />
+                      <span className="text-haqq-black text-[14px]">
+                        Own Balance
+                        {walletBalance?.value !== undefined && (
+                          <span className="ml-[4px] text-gray-500">
+                            ({formatEthDecimal(walletBalance.value, 4)} ISLM)
+                          </span>
+                        )}
+                      </span>
+                    </label>
+                    <label className="flex cursor-pointer items-center space-x-[8px]">
+                      <input
+                        type="radio"
+                        name="mintSource"
+                        value={FundsSource.ucDAO}
+                        checked={source === FundsSource.ucDAO}
+                        onChange={() => {
+                          setSource(FundsSource.ucDAO);
+                        }}
+                        disabled={isSubmitting}
+                        className="h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
+                      />
+                      <span className="text-haqq-black text-[14px]">
+                        ucDAO
+                        <span className="ml-[4px] text-gray-500">
+                          ({formatEthDecimal(daoIslmBalance, 4)} ISLM)
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              )}
+
               {/* Amount input */}
               <div>
-                <label className="mb-[8px] block text-[14px] font-medium text-[#0D0D0E]">
+                <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
                   Amount to burn
                 </label>
                 <ModalInput
@@ -226,45 +572,45 @@ export function MintPage() {
                   }}
                   onMaxButtonClick={handleMaxClick}
                   hint={
-                    <span className="text-[#6B7280]">
+                    <span className="text-gray-500">
                       Available Balance: {formattedBalance} ISLM
                     </span>
                   }
-                  isMaxButtonDisabled={
-                    !walletBalance?.value || walletBalance.value <= 0n
-                  }
+                  isMaxButtonDisabled={!activeBalance || activeBalance <= 0n}
                 />
               </div>
 
               {/* Calculation results */}
               {parsedAmount && parsedAmount > 0n && (
-                <div className="space-y-[8px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+                <div className="space-y-[8px] rounded-[8px] bg-gray-100 p-[16px]">
                   <div className="flex items-center justify-between text-[14px]">
-                    <span className="text-[#6B7280]">
+                    <span className="text-gray-500">
                       Estimated HAQQ to receive
                     </span>
-                    <span className="font-[500] text-[#0D0D0E]">
+                    <span className="text-haqq-black font-medium">
                       {isCalculating
                         ? 'Calculating...'
-                        : estimatedHaqqAmount !== undefined
-                          ? `${formatEthDecimal(estimatedHaqqAmount, 4, 18)} HAQQ`
-                          : '—'}
+                        : calculateError
+                          ? 'Failed to calculate'
+                          : estimatedHaqqAmount !== undefined
+                            ? `${formatEthDecimal(BigInt(estimatedHaqqAmount), 4, 18)} HAQQ`
+                            : '—'}
                     </span>
                   </div>
                   {pricePerUnit && (
                     <div className="flex items-center justify-between text-[14px]">
-                      <span className="text-[#6B7280]">Price per HAQQ</span>
-                      <span className="font-[500] text-[#0D0D0E]">
+                      <span className="text-gray-500">Price per HAQQ</span>
+                      <span className="text-haqq-black font-medium">
                         {pricePerUnit} ISLM
                       </span>
                     </div>
                   )}
                   {supplyBefore !== undefined && supplyAfter !== undefined && (
                     <div className="flex items-center justify-between text-[14px]">
-                      <span className="text-[#6B7280]">Supply change</span>
-                      <span className="font-[500] text-[#0D0D0E]">
-                        {formatEthDecimal(supplyBefore, 2, 18)} →{' '}
-                        {formatEthDecimal(supplyAfter, 2, 18)}
+                      <span className="text-gray-500">Supply change</span>
+                      <span className="text-haqq-black font-medium">
+                        {formatEthDecimal(BigInt(supplyBefore), 2, 18)} →{' '}
+                        {formatEthDecimal(BigInt(supplyAfter), 2, 18)}
                       </span>
                     </div>
                   )}
@@ -272,9 +618,9 @@ export function MintPage() {
               )}
 
               {/* Success message */}
-              {isSuccess && mintHash && (
-                <div className="rounded-[8px] bg-[#D1FAE5] p-[12px]">
-                  <div className="text-[14px] font-medium text-[#065F46]">
+              {currentIsSuccess && currentHash && (
+                <div className="rounded-[8px] bg-green-100 p-[12px]">
+                  <div className="text-[14px] font-medium text-emerald-800">
                     HAQQ tokens minted successfully!
                   </div>
                 </div>
@@ -282,8 +628,8 @@ export function MintPage() {
 
               {/* Error */}
               {errorMessage && (
-                <div className="rounded-[8px] bg-[#FEE2E2] p-[12px]">
-                  <div className="text-[14px] font-medium text-[#DC2626]">
+                <div className="rounded-[8px] bg-red-100 p-[12px]">
+                  <div className="text-[14px] font-medium text-red-600">
                     {errorMessage}
                   </div>
                 </div>
@@ -303,6 +649,257 @@ export function MintPage() {
               </div>
             </div>
           )}
+        </div>
+
+        {/* Liquid Vesting Section */}
+        <div className="mt-[24px] rounded-[12px] bg-white p-[24px] shadow-lg">
+          <h2 className="text-haqq-black mb-[8px] text-[24px] font-semibold">
+            Liquid Vesting
+          </h2>
+          <p className="mb-[24px] text-[14px] text-gray-500">
+            Convert locked vesting coins into transferable liquid (aLIQUID)
+            tokens, or redeem liquid tokens back into the original vesting
+            schedule.
+          </p>
+
+          {!isConnected && <WalletConnectionWarning />}
+
+          {isConnected && !isCorrectChain && (
+            <NetworkWarning onSwitchChain={handleSwitchChain} />
+          )}
+
+          {/* Liquid tokens list */}
+          {isConnected && liquidTokens && liquidTokens.length > 0 && (
+            <div className="mb-[24px]">
+              <h3 className="text-haqq-black mb-[8px] text-[14px] font-medium">
+                Your Liquid Tokens
+              </h3>
+              <div className="space-y-[8px]">
+                {liquidTokens.map((token) => {
+                  return (
+                    <div
+                      key={token.denom}
+                      className="flex items-center justify-between rounded-[8px] bg-gray-100 p-[12px]"
+                    >
+                      <span className="text-haqq-black text-[14px] font-medium">
+                        {token.denom}
+                      </span>
+                      <span className="text-[14px] text-gray-500">
+                        {formatEthDecimal(BigInt(token.amount), 4)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Liquid denom info */}
+          {isConnected && liquidDenomInfo?.denom && (
+            <div className="mb-[24px] rounded-[8px] bg-gray-100 p-[16px]">
+              <div className="text-[12px] text-gray-500">
+                Denom Info: {liquidDenomInfo.denom.denom}
+              </div>
+              <div className="mt-[4px] text-[14px]">
+                <span className="text-gray-500">Display: </span>
+                <span className="text-haqq-black font-medium">
+                  {liquidDenomInfo.denom.display_denom}
+                </span>
+              </div>
+              <div className="text-[14px]">
+                <span className="text-gray-500">Original: </span>
+                <span className="text-haqq-black font-medium">
+                  {liquidDenomInfo.denom.original_denom}
+                </span>
+              </div>
+            </div>
+          )}
+
+          <div className="space-y-[20px]">
+            {/* Action selector */}
+            <div>
+              <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
+                Action
+              </label>
+              <div className="space-y-[12px]">
+                <label className="flex cursor-pointer items-start space-x-[8px]">
+                  <input
+                    type="radio"
+                    name="liquidAction"
+                    value="liquidate"
+                    checked={liquidAction === 'liquidate'}
+                    onChange={() => {
+                      setLiquidAction('liquidate');
+                      setLiquidAmount('');
+                    }}
+                    disabled={!isConnected || liquidIsSubmitting}
+                    className="mt-[2px] h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
+                  />
+                  <div>
+                    <span className="text-haqq-black text-[14px] font-medium">
+                      Liquidate
+                    </span>
+                    <p className="text-[12px] text-gray-500">
+                      Convert locked vesting coins into transferable aLIQUID
+                      tokens. Your locked balance will decrease, and you will
+                      receive liquid tokens that can be freely transferred.
+                    </p>
+                  </div>
+                </label>
+                <label className="flex cursor-pointer items-start space-x-[8px]">
+                  <input
+                    type="radio"
+                    name="liquidAction"
+                    value="redeem"
+                    checked={liquidAction === 'redeem'}
+                    onChange={() => {
+                      setLiquidAction('redeem');
+                      setLiquidAmount('');
+                    }}
+                    disabled={!isConnected || liquidIsSubmitting}
+                    className="mt-[2px] h-[16px] w-[16px] cursor-pointer disabled:cursor-not-allowed"
+                  />
+                  <div>
+                    <span className="text-haqq-black text-[14px] font-medium">
+                      Redeem
+                    </span>
+                    <p className="text-[12px] text-gray-500">
+                      Burn aLIQUID tokens and return them to the original
+                      vesting schedule. Your account will be converted to a
+                      vesting account, and redeemed tokens will be locked again
+                      if the vesting period has not ended.
+                    </p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* Redeem warning */}
+            {liquidAction === 'redeem' && (
+              <div className="rounded-[8px] bg-amber-50 p-[12px]">
+                <div className="text-[13px] text-amber-800">
+                  <span className="font-medium">Important:</span> When you
+                  redeem liquid tokens, the original vesting schedule will be
+                  re-applied. If the schedule has not ended yet, redeemed tokens
+                  will be locked until the vesting period completes. Your
+                  account will become a vesting account.
+                </div>
+              </div>
+            )}
+
+            {/* Denom selector for redeem */}
+            {liquidAction === 'redeem' &&
+              isConnected &&
+              (!liquidTokens || liquidTokens.length === 0 ? (
+                <div className="rounded-[8px] bg-gray-100 p-[12px]">
+                  <div className="text-[14px] text-gray-500">
+                    You don&apos;t have any liquid tokens to redeem. Use
+                    Liquidate to create liquid tokens from your vesting balance
+                    first.
+                  </div>
+                </div>
+              ) : (
+                <ModalSelect
+                  label="Select Liquid Token"
+                  placeholder="Select token..."
+                  options={liquidTokenOptions}
+                  value={selectedLiquidOption}
+                  onChange={(option) => {
+                    setSelectedLiquidDenom(option?.value ?? '');
+                    setLiquidAmount('');
+                  }}
+                  isDisabled={liquidIsSubmitting}
+                />
+              ))}
+
+            {/* Amount input */}
+            <div>
+              <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
+                {liquidAction === 'liquidate'
+                  ? 'Amount to liquidate'
+                  : 'Amount to redeem'}
+              </label>
+              <ModalInput
+                symbol={
+                  liquidAction === 'redeem' && selectedLiquidDenom
+                    ? selectedLiquidDenom
+                    : 'ISLM'
+                }
+                value={liquidAmount || undefined}
+                onChange={(value) => {
+                  if (value === undefined || value === '') {
+                    setLiquidAmount('');
+                  } else {
+                    setLiquidAmount(value);
+                  }
+                }}
+                onMaxButtonClick={handleLiquidMaxClick}
+                hint={
+                  <span className="text-gray-500">
+                    {liquidAction === 'redeem'
+                      ? `Available: ${formatEthDecimal(selectedLiquidBalance, 4)} ${selectedLiquidDenom || 'ISLM'}`
+                      : `Locked in vesting: ${formatEthDecimal(vestingLockedBalance, 4)} ISLM`}
+                  </span>
+                }
+                isMaxButtonDisabled={
+                  !isConnected ||
+                  (liquidAction === 'redeem'
+                    ? selectedLiquidBalance <= 0n
+                    : vestingLockedBalance <= 0n)
+                }
+                disabled={!isConnected}
+              />
+            </div>
+
+            {/* Minimum amount warning */}
+            {liquidBelowMinimum && minLiquidationAmount && (
+              <div className="rounded-[8px] bg-amber-50 p-[12px]">
+                <div className="text-[13px] text-amber-800">
+                  Minimum liquidation amount is{' '}
+                  {formatEthDecimal(minLiquidationAmount, 4)} ISLM
+                </div>
+              </div>
+            )}
+
+            {/* Liquid Success */}
+            {liquidSuccess && (
+              <div className="rounded-[8px] bg-green-100 p-[12px]">
+                <div className="text-[14px] font-medium text-emerald-800">
+                  {liquidAction === 'liquidate'
+                    ? 'Vesting coins liquidated successfully! You received aLIQUID tokens.'
+                    : 'Liquid tokens redeemed. The original vesting schedule has been re-applied to your account.'}
+                </div>
+              </div>
+            )}
+
+            {/* Liquid Error */}
+            {liquidErrorMessage && (
+              <div className="rounded-[8px] bg-red-100 p-[12px]">
+                <div className="text-[14px] font-medium text-red-600">
+                  {liquidErrorMessage}
+                </div>
+              </div>
+            )}
+
+            {/* Submit */}
+            <div className="pt-[8px]">
+              <Button
+                variant={5}
+                onClick={handleLiquidSubmit}
+                className="w-full"
+                disabled={!isConnected || !liquidIsValid || liquidIsSubmitting}
+                isLoading={liquidIsSubmitting}
+              >
+                {liquidIsSubmitting
+                  ? liquidAction === 'liquidate'
+                    ? 'Liquidating...'
+                    : 'Redeeming...'
+                  : liquidAction === 'liquidate'
+                    ? 'Liquidate Vesting Coins'
+                    : 'Redeem Liquid Tokens'}
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </Container>

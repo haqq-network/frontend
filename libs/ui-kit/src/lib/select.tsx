@@ -138,16 +138,20 @@ export function ModalSelect({
   label,
   id,
   defaultValue,
+  value,
   onChange,
+  isDisabled,
 }: {
   options: OptionsOrGroups<SelectOption, GroupBase<SelectOption>>;
   defaultValue?: SelectOption;
+  value?: SelectOption | null;
   placeholder?: string;
   selectContainerClassName?: string;
   className?: string;
   label?: string;
   id?: string;
   onChange: (option?: SingleValue<SelectOption>) => void;
+  isDisabled?: boolean;
 }) {
   const classNames = useMemo<ClassNamesConfig<SelectOption>>(() => {
     return {
@@ -218,6 +222,8 @@ export function ModalSelect({
         isSearchable={false}
         menuPlacement="auto"
         defaultValue={defaultValue}
+        value={value}
+        isDisabled={isDisabled}
       />
     </div>
   );

@@ -9,7 +9,6 @@ export interface WaitlistBalancesProps {
 }
 
 export function WaitlistBalances({ balances }: WaitlistBalancesProps) {
-  console.log('balances', balances);
   const formattedBalances = useMemo(() => {
     if (!balances) {
       return null;
@@ -58,8 +57,6 @@ export function WaitlistBalances({ balances }: WaitlistBalancesProps) {
       },
     };
   }, [balances]);
-
-  console.log('formattedBalances', formattedBalances);
 
   const hasAnyBalance = useMemo(() => {
     if (!formattedBalances) {

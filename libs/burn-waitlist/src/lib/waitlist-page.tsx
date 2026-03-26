@@ -14,6 +14,8 @@ import {
   useWaitlistPriceChart,
   useWaitlistGlobalStats,
   useMintHaqqByApplication,
+  useEthiqSenderApplications,
+  useEthiqTotalBurned,
 } from './hooks';
 import type { Application } from './hooks/use-waitlist-applications';
 import { useBackendSignature } from './hooks/use-backend-signature';
@@ -33,7 +35,7 @@ import {
   RequestsState,
   WAITLIST_DEFAULT_CHAIN_ID,
 } from './constants/waitlist-config';
-import { formatEthDecimal } from '@haqq/shell-shared';
+import { formatEthDecimal, ethToHaqq } from '@haqq/shell-shared';
 
 /**
  * Sanitizes error messages to show user-friendly messages
@@ -120,6 +122,14 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     refetchAll: refetchContractState,
   } = useWaitlistContractState();
 
+  console.log('[WaitlistPage] currentState', currentState);
+  console.log('[WaitlistPage] canSubmit', canSubmit);
+  console.log('[WaitlistPage] canWithdraw', canWithdraw);
+  console.log('[WaitlistPage] paused', paused);
+  console.log('[WaitlistPage] isCorrectChain', isCorrectChain);
+  console.log('[WaitlistPage] totalAmount', totalAmount);
+  console.log('[WaitlistPage] totalCount', totalCount);
+
   // Get balances from backend API
   const {
     data: waitlistBalances,
@@ -136,6 +146,35 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     address: address,
     status: 'active',
     chainId: chain?.id,
+  });
+
+  // Fetch applications from ethiq cosmos endpoint (used when waitlist is stopped)
+  const isWaitlistStopped =
+    currentState === RequestsState.Closed ||
+    currentState === RequestsState.Finalized;
+
+  const haqqAddress = useMemo(() => {
+    if (!address) return undefined;
+    try {
+      return ethToHaqq(address);
+    } catch {
+      return undefined;
+    }
+  }, [address]);
+
+  const {
+    data: ethiqSenderApps,
+    isLoading: isLoadingEthiqApps,
+    refetch: refetchEthiqApps,
+  } = useEthiqSenderApplications({
+    address: haqqAddress,
+    chainId: chain?.id,
+    enabled: isConnected && isWaitlistStopped,
+  });
+
+  // Fetch total burned stats
+  const { data: totalBurnedData } = useEthiqTotalBurned({
+    chainId: chain?.id ?? WAITLIST_DEFAULT_CHAIN_ID,
   });
 
   // Current price (cost per token at submission)
@@ -432,16 +471,18 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
       try {
         setMintingApplicationId(applicationId);
-        await mintHaqqByApplicationTx(address, address, applicationId);
+        await mintHaqqByApplicationTx(address, applicationId);
 
         // Refetch after successful mint
         refetchApplications();
         refetchBalances();
         refetchContractState();
+        refetchEthiqApps();
 
         const intervalId = setInterval(() => {
           refetchApplications();
           refetchBalances();
+          refetchEthiqApps();
         }, 2000);
 
         setTimeout(() => {
@@ -459,6 +500,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
       refetchApplications,
       refetchBalances,
       refetchContractState,
+      refetchEthiqApps,
     ],
   );
 
@@ -665,11 +707,38 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
   );
 
   // Merge applications with pending ones, sort by requestId descending (newest first)
+  // When waitlist is stopped, use ethiq cosmos endpoint data instead of backend API
   const mergedApplications = useMemo(() => {
     type MergedApplication = Application & {
       isPending?: boolean;
       txHash?: string;
     };
+
+    console.log('isWaitlistStopped', isWaitlistStopped);
+    console.log('ethiqSenderApps', ethiqSenderApps);
+    // When waitlist is stopped, show applications from ethiq cosmos endpoint
+    if (isWaitlistStopped && ethiqSenderApps?.applications) {
+      const ethiqApps: MergedApplication[] = ethiqSenderApps.applications.map(
+        (app) => ({
+          requestId: app.id,
+          amount: app.burn_amount.amount,
+          author: app.from_address,
+          source:
+            app.source === 'SOURCE_OF_FUNDS_UCDAO'
+              ? FundsSource.ucDAO
+              : FundsSource.OwnBalance,
+          cancelled: false,
+          valid: true,
+          ready: !app.is_executed,
+        }),
+      );
+
+      return ethiqApps.sort((a, b) => {
+        const aId = parseInt(a.requestId, 10);
+        const bId = parseInt(b.requestId, 10);
+        return bId - aId;
+      });
+    }
 
     // Filter out cancelled pending apps (they should be removed from list)
     const activePendingApps = pendingApplications.filter(
@@ -705,7 +774,12 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
           : parseInt(b.requestId, 10);
       return bId - aId;
     });
-  }, [applicationsData?.applications, pendingApplications]);
+  }, [
+    applicationsData?.applications,
+    pendingApplications,
+    isWaitlistStopped,
+    ethiqSenderApps?.applications,
+  ]);
 
   // Calculate user aggregates (total amount and count of user's applications)
   const userAggregates = useMemo(() => {
@@ -728,11 +802,12 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     };
   }, [mergedApplications]);
 
+  console.log('isWaitlistStopped', isWaitlistStopped);
   return (
     <Container>
       <div className="mx-auto max-w-[1200px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <h1 className="mb-[24px] text-[24px] font-semibold text-[#0D0D0E]">
+          <h1 className="text-haqq-black mb-[24px] text-[24px] font-semibold">
             Burn Waitlist
           </h1>
 
@@ -760,6 +835,37 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                       ? `${formatEthDecimal(BigInt(globalStats.totalAmount), 4)} ISLM`
                       : '—'}
                 </div>
+                {totalBurnedData && (
+                  <>
+                    <div>
+                      <div className="text-[12px] text-gray-500">
+                        Total Burned
+                      </div>
+                      <div className="text-haqq-black text-[18px] font-semibold">
+                        {formatEthDecimal(
+                          BigInt(totalBurnedData.total_burned.amount),
+                          4,
+                        )}{' '}
+                        ISLM
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[12px] text-gray-500">
+                        Burned from Applications
+                      </div>
+                      <div className="text-haqq-black text-[18px] font-semibold">
+                        {formatEthDecimal(
+                          BigInt(
+                            totalBurnedData.total_burned_from_applications
+                              .amount,
+                          ),
+                          4,
+                        )}{' '}
+                        ISLM
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -792,21 +898,21 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
               )}
 
               {/* User Aggregates (5.1) */}
-              <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">
+              <div className="mb-[24px] rounded-[8px] bg-gray-100 p-[16px]">
                 <div className="grid grid-cols-1 gap-[16px] sm:grid-cols-2">
                   <div>
-                    <div className="text-[12px] text-[#6B7280]">
+                    <div className="text-[12px] text-gray-500">
                       Your Applications
                     </div>
-                    <div className="text-[18px] font-semibold text-[#0D0D0E]">
+                    <div className="text-haqq-black text-[18px] font-semibold">
                       {userAggregates.totalCount}
                     </div>
                   </div>
                   <div>
-                    <div className="text-[12px] text-[#6B7280]">
+                    <div className="text-[12px] text-gray-500">
                       Your Total Amount
                     </div>
-                    <div className="text-[18px] font-semibold text-[#0D0D0E]">
+                    <div className="text-haqq-black text-[18px] font-semibold">
                       {formatEthDecimal(userAggregates.totalAmount, 4)} ISLM
                     </div>
                   </div>
@@ -816,7 +922,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
               <div className="grid grid-cols-1 gap-[32px] lg:grid-cols-2">
                 {/* First Column: Form */}
                 <div>
-                  <h2 className="mb-[16px] text-[18px] font-semibold text-[#0D0D0E]">
+                  <h2 className="text-haqq-black mb-[16px] text-[18px] font-semibold">
                     Participate in Waitlist
                   </h2>
                   {isLoadingBalances && !waitlistBalances ? (
@@ -864,17 +970,26 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                 {/* Second Column: Applications List */}
                 {isConnected ? (
                   <div>
-                    <h2 className="mb-[16px] text-[18px] font-semibold text-[#0D0D0E]">
+                    <h2 className="text-haqq-black mb-[16px] text-[18px] font-semibold">
                       Your Requests
                     </h2>
-                    {isLoadingApplications && !applicationsData ? (
+                    {(isLoadingApplications && !applicationsData) ||
+                    (isWaitlistStopped &&
+                      isLoadingEthiqApps &&
+                      !ethiqSenderApps) ? (
                       <RequestsListSkeleton />
-                    ) : applicationsData || pendingApplications.length > 0 ? (
+                    ) : applicationsData ||
+                      ethiqSenderApps ||
+                      pendingApplications.length > 0 ? (
                       <RequestsList
                         applications={mergedApplications}
                         canCancel={canWithdraw || false}
                         onCancel={handleCancel}
-                        onMintHaqq={handleMintHaqqByApplication}
+                        onMintHaqq={
+                          isWaitlistStopped
+                            ? handleMintHaqqByApplication
+                            : undefined
+                        }
                         isCancelling={isCancelling || isConfirmingCancel}
                         cancellingRequestId={cancellingRequestId}
                         isMinting={isMintingByApp || isConfirmingMintByApp}
@@ -883,8 +998,8 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                         locale={locale}
                       />
                     ) : (
-                      <div className="rounded-[8px] bg-[#F3F4F6] p-[16px] text-center">
-                        <div className="text-[14px] text-[#6B7280]">
+                      <div className="rounded-[8px] bg-gray-100 p-[16px] text-center">
+                        <div className="text-[14px] text-gray-500">
                           You haven't created any requests yet
                         </div>
                       </div>

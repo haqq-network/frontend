@@ -273,6 +273,45 @@ export const EthiqAbi = [
   {
     inputs: [
       {
+        internalType: 'uint256',
+        name: 'applicationId',
+        type: 'uint256',
+      },
+    ],
+    name: 'calculateForApplication',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'estimatedHaqqAmount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'supplyBefore',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'supplyAfter',
+        type: 'uint256',
+      },
+      {
+        internalType: 'string',
+        name: 'pricePerUnit',
+        type: 'string',
+      },
+      {
+        internalType: 'address',
+        name: 'receiver',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'address',
         name: 'grantee',
         type: 'address',
@@ -362,11 +401,6 @@ export const EthiqAbi = [
       {
         internalType: 'address',
         name: 'sender',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'receiver',
         type: 'address',
       },
       {

@@ -1,0 +1,127 @@
+// ABI for LiquidVesting precompile contract at 0x0000000000000000000000000000000000000902
+export const LiquidVestingAbi = [
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'sender',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'receiver',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'erc20Contract',
+        type: 'address',
+      },
+    ],
+    name: 'Liquidate',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'sender',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'receiver',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'string',
+        name: 'denom',
+        type: 'string',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'Redeem',
+    type: 'event',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'liquidateFrom',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'liquidateTo',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'liquidate',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'mintedAmount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address',
+        name: 'erc20Contract',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'redeemFrom',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'redeemTo',
+        type: 'address',
+      },
+      {
+        internalType: 'string',
+        name: 'denom',
+        type: 'string',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'redeem',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+] as const;

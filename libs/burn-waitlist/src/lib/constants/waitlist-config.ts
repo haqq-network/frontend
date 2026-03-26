@@ -68,6 +68,18 @@ export const getBackendApiUrl = (chainId?: number): string => {
 };
 
 /**
+ * Get Cosmos REST endpoint URL for a given chain ID
+ * Used to call native ethiq module REST endpoints
+ */
+export function getCosmosRestUrl(chainId?: number): string {
+  // TODO: temporary hardcoded URL for testing, replace with chain-specific URLs
+  if (chainId === haqqTestedge2.id) {
+    return 'https://rest.cosmos.testedge2.haqq.network';
+  }
+  return 'https://rest.cosmos.haqq.network';
+}
+
+/**
  * Funds source enum values
  */
 export enum FundsSource {
