@@ -66,9 +66,7 @@ export function CosmosServiceContainer({
         };
       }
 
-      // const { cosmosRestEndpoint } = getChainParams(chainId);
-      // TODO: temporary hardcoded URL for testing, replace with chain-specific URLs
-      const cosmosRestEndpoint = 'https://rest.haqqdev.com';
+      const { cosmosRestEndpoint } = getChainParams(chainId);
       return {
         isReady: true,
         service: createCosmosService(cosmosRestEndpoint),

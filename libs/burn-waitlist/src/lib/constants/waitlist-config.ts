@@ -73,11 +73,10 @@ export const getBackendApiUrl = (chainId?: number): string => {
  */
 export function getCosmosRestUrl(chainId?: number): string {
   // TODO: temporary hardcoded URL for testing, replace with chain-specific URLs
-  // if (chainId === haqqTestedge2.id) {
-  //   return 'https://rest.cosmos.testedge2.haqq.network';
-  // }
-  // return 'https://rest.cosmos.haqq.network';
-  return 'https://rest.haqqdev.com';
+  if (chainId === haqqTestedge2.id) {
+    return 'https://rest.cosmos.testedge2.haqq.network';
+  }
+  return 'https://rest.cosmos.haqq.network';
 }
 
 /**

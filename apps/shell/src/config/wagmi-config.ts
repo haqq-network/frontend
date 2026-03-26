@@ -21,11 +21,6 @@ const supportedChainsTransports = supportedChains.reduce(
   {} as Record<number, Transport>,
 );
 
-// TODO: temporary RPC override for burn testing on mainnet
-supportedChainsTransports[11235] = http('https://evm.haqqdev.com', {
-  batch: true,
-});
-
 /** Skip WalletConnect on server (SSR) — it uses indexedDB which is not defined in Node. */
 const isClient = typeof window !== 'undefined';
 
