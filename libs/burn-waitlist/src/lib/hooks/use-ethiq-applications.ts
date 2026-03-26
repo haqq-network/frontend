@@ -97,12 +97,16 @@ export function useEthiqSenderApplications({
   chainId,
   enabled = true,
 }: UseEthiqSenderApplicationsParams = {}) {
+  console.log('[useEthiqSenderApplications] address', address);
+  console.log('[useEthiqSenderApplications] chainId', chainId);
+  console.log('[useEthiqSenderApplications] enabled', enabled);
   return useQuery<EthiqApplicationsResponse>({
     queryKey: ['ethiq-sender-applications', address, chainId],
     queryFn: async () => {
       const baseUrl = getCosmosRestUrl(chainId);
       const url = `${baseUrl}/haqq/ethiq/v1/get-senders-applications/${address}`;
 
+      console.log('url', url);
       const response = await fetch(url, {
         method: 'GET',
         headers: { Accept: 'application/json' },

@@ -122,6 +122,14 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     refetchAll: refetchContractState,
   } = useWaitlistContractState();
 
+  console.log('[WaitlistPage] currentState', currentState);
+  console.log('[WaitlistPage] canSubmit', canSubmit);
+  console.log('[WaitlistPage] canWithdraw', canWithdraw);
+  console.log('[WaitlistPage] paused', paused);
+  console.log('[WaitlistPage] isCorrectChain', isCorrectChain);
+  console.log('[WaitlistPage] totalAmount', totalAmount);
+  console.log('[WaitlistPage] totalCount', totalCount);
+
   // Get balances from backend API
   const {
     data: waitlistBalances,
@@ -706,6 +714,8 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
       txHash?: string;
     };
 
+    console.log('isWaitlistStopped', isWaitlistStopped);
+    console.log('ethiqSenderApps', ethiqSenderApps);
     // When waitlist is stopped, show applications from ethiq cosmos endpoint
     if (isWaitlistStopped && ethiqSenderApps?.applications) {
       const ethiqApps: MergedApplication[] = ethiqSenderApps.applications.map(
@@ -792,6 +802,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     };
   }, [mergedApplications]);
 
+  console.log('isWaitlistStopped', isWaitlistStopped);
   return (
     <Container>
       <div className="mx-auto max-w-[1200px] px-[16px] py-[40px]">
