@@ -16,6 +16,7 @@ export interface EthiqApplication {
   burn_amount: EthiqCoin;
   burned_before_amount: EthiqCoin;
   is_executed: boolean;
+  is_canceled: boolean;
 }
 
 export interface EthiqApplicationsResponse {

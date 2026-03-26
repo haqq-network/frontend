@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
+import Link from 'next/link';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 import { Container } from '@haqq/shell-ui-kit/server';
 
@@ -153,6 +154,8 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     currentState === RequestsState.Closed ||
     currentState === RequestsState.Finalized;
 
+  console.log('[WaitlistPage] isWaitlistStopped', isWaitlistStopped);
+
   const haqqAddress = useMemo(() => {
     if (!address) return undefined;
     try {
@@ -171,6 +174,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     chainId: chain?.id,
     enabled: isConnected && isWaitlistStopped,
   });
+  console.log('[WaitlistPage] ethiqSenderApps', ethiqSenderApps);
 
   // Fetch total burned stats
   const { data: totalBurnedData } = useEthiqTotalBurned({
@@ -712,6 +716,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     type MergedApplication = Application & {
       isPending?: boolean;
       txHash?: string;
+      burned?: boolean;
     };
 
     console.log('isWaitlistStopped', isWaitlistStopped);
@@ -727,9 +732,10 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
             app.source === 'SOURCE_OF_FUNDS_UCDAO'
               ? FundsSource.ucDAO
               : FundsSource.OwnBalance,
-          cancelled: false,
+          cancelled: app.is_canceled,
           valid: true,
-          ready: !app.is_executed,
+          ready: true,
+          burned: app.is_executed,
         }),
       );
 
@@ -807,9 +813,19 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     <Container>
       <div className="mx-auto max-w-[1200px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <h1 className="text-haqq-black mb-[24px] text-[24px] font-semibold">
-            Burn Waitlist
-          </h1>
+          <div className="mb-[24px] flex items-center justify-between">
+            <h1 className="text-haqq-black text-[24px] font-semibold">
+              Burn Waitlist
+            </h1>
+            {isWaitlistStopped && (
+              <Link
+                href={`/${locale}/burn`}
+                className="text-haqq-orange text-[14px] font-medium hover:underline"
+              >
+                Go to Burn page →
+              </Link>
+            )}
+          </div>
 
           {/* Display total stats (from backend API) */}
           <div className="mb-[24px] rounded-[8px] bg-[#F3F4F6] p-[16px]">

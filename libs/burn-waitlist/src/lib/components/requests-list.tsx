@@ -14,6 +14,7 @@ export interface RequestsListProps {
     Application & {
       isPending?: boolean;
       txHash?: string;
+      burned?: boolean;
     }
   >;
   canCancel: boolean;
@@ -59,6 +60,7 @@ export function RequestsList({
           const sourceLabel =
             app.source === FundsSource.OwnBalance ? 'Own Balance' : 'ucDAO';
           const isCancelled = app.cancelled;
+          const isBurned = app.burned || false;
           const isCancellingThis = cancellingRequestId === requestId;
           const isPending = app.isPending || false;
 
@@ -82,34 +84,49 @@ export function RequestsList({
                         className="bg-amber-100 text-amber-800"
                       />
                     )}
-                    {!isPending && isCancelled && (
+                    {!isPending && isBurned && (
+                      <StatusBadge
+                        label="Burned"
+                        tooltip="This request has been executed and the tokens have been burned."
+                        className="bg-emerald-100 text-emerald-800"
+                      />
+                    )}
+                    {!isPending && !isBurned && isCancelled && (
                       <StatusBadge
                         label="Cancelled"
                         tooltip="This request was cancelled and will not be fulfilled."
                         className="bg-red-100 text-red-600"
                       />
                     )}
-                    {!isPending && !isCancelled && !app.valid && (
+                    {!isPending && !isBurned && !isCancelled && !app.valid && (
                       <StatusBadge
                         label="Invalid"
                         tooltip="This request is no longer valid (e.g. conditions have changed). It will not be fulfilled."
                         className="bg-amber-100 text-amber-800"
                       />
                     )}
-                    {!isPending && !isCancelled && app.valid && app.ready && (
-                      <StatusBadge
-                        label="Ready"
-                        tooltip="This request is valid and your balance is sufficient. You can mint HAQQ when the burn period opens."
-                        className="bg-green-100 text-emerald-800"
-                      />
-                    )}
-                    {!isPending && !isCancelled && app.valid && !app.ready && (
-                      <StatusBadge
-                        label="Not Ready"
-                        tooltip="All your requests have been accepted and are valid, but your wallet balance is insufficient to fulfill them as some of your coins are currently staked. We recommend starting the undelegate process now."
-                        className="bg-blue-100 text-blue-800"
-                      />
-                    )}
+                    {!isPending &&
+                      !isBurned &&
+                      !isCancelled &&
+                      app.valid &&
+                      app.ready && (
+                        <StatusBadge
+                          label="Ready"
+                          tooltip="This request is valid and your balance is sufficient. You can mint HAQQ when the burn period opens."
+                          className="bg-green-100 text-emerald-800"
+                        />
+                      )}
+                    {!isPending &&
+                      !isBurned &&
+                      !isCancelled &&
+                      app.valid &&
+                      !app.ready && (
+                        <StatusBadge
+                          label="Not Ready"
+                          tooltip="All your requests have been accepted and are valid, but your wallet balance is insufficient to fulfill them as some of your coins are currently staked. We recommend starting the undelegate process now."
+                          className="bg-blue-100 text-blue-800"
+                        />
+                      )}
                   </div>
                   <div className="space-y-[4px] text-[14px] text-gray-500">
                     <div>
@@ -144,22 +161,27 @@ export function RequestsList({
                       </span>
                     </div>
                     {/* Show undelegate link if not ready (happens when request uses staking funds) */}
-                    {!isPending && !isCancelled && app.valid && !app.ready && (
-                      <div className="mt-[8px]">
-                        <Link
-                          href={`/${locale}/staking`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-haqq-orange text-[14px] font-medium hover:underline"
-                        >
-                          Start undelegate
-                        </Link>
-                      </div>
-                    )}
+                    {!isPending &&
+                      !isBurned &&
+                      !isCancelled &&
+                      app.valid &&
+                      !app.ready && (
+                        <div className="mt-[8px]">
+                          <Link
+                            href={`/${locale}/staking`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-haqq-orange text-[14px] font-medium hover:underline"
+                          >
+                            Start undelegate
+                          </Link>
+                        </div>
+                      )}
                   </div>
                 </div>
                 <div className="flex flex-col gap-[8px] sm:flex-row">
                   {!isPending &&
+                    !isBurned &&
                     !isCancelled &&
                     app.valid &&
                     app.ready &&
@@ -176,7 +198,7 @@ export function RequestsList({
                         Mint HAQQ
                       </Button>
                     )}
-                  {canCancel && !isCancelled && !isPending && (
+                  {canCancel && !isCancelled && !isBurned && !isPending && (
                     <Button
                       variant={3}
                       onClick={() => onCancel(requestId)}
