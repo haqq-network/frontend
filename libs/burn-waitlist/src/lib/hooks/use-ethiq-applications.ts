@@ -62,7 +62,7 @@ export function useEthiqApplications({
     queryKey: ['ethiq-applications', chainId],
     queryFn: async () => {
       const baseUrl = getCosmosRestUrl(chainId);
-      const url = `${baseUrl}/haqq/ethiq/v1/get-applications`;
+      const url = `${baseUrl}/haqq/ethiq/v1/get-applications?pagination.count_total=true`;
 
       const response = await fetch(url, {
         method: 'GET',
@@ -104,7 +104,7 @@ export function useEthiqSenderApplications({
     queryKey: ['ethiq-sender-applications', address, chainId],
     queryFn: async () => {
       const baseUrl = getCosmosRestUrl(chainId);
-      const url = `${baseUrl}/haqq/ethiq/v1/get-senders-applications/${address}`;
+      const url = `${baseUrl}/haqq/ethiq/v1/get-senders-applications/${address}?pagination.count_total=true`;
 
       console.log('url', url);
       const response = await fetch(url, {
