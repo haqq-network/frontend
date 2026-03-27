@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
-import { useAccount, useBalance, useSwitchChain } from 'wagmi';
-import { parseEther, formatEther } from 'viem';
+import { useAccount, useBalance, useReadContract, useSwitchChain } from 'wagmi';
+import { erc20Abi, parseEther, formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { Button, ModalInput, ModalSelect } from '@haqq/shell-ui-kit';
 import {
@@ -26,6 +26,7 @@ import {
   WAITLIST_DEFAULT_CHAIN_ID,
   FundsSource,
   isWaitlistChainSupported,
+  getHaqqTokenAddress,
 } from './constants/waitlist-config';
 import { WalletConnectionWarning } from './components/wallet-connection-warning';
 import { NetworkWarning } from './components/network-warning';
@@ -111,6 +112,20 @@ export function MintPage() {
     address: address as `0x${string}` | undefined,
     chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
   });
+
+  // HAQQ token ERC20 balance
+  const haqqTokenAddress = getHaqqTokenAddress(chain?.id);
+  const { data: haqqTokenBalance, refetch: refetchHaqqTokenBalance } =
+    useReadContract({
+      address: haqqTokenAddress,
+      abi: erc20Abi,
+      functionName: 'balanceOf',
+      args: address ? [address] : undefined,
+      chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
+      query: {
+        enabled: Boolean(haqqTokenAddress && address),
+      },
+    });
 
   // Vesting locked balance (from cosmos auth account endpoint)
   const { data: vestingLockedBalance = 0n } = useVestingBalance({
@@ -372,12 +387,19 @@ export function MintPage() {
       setAmount('');
       refetchBalance();
       refetchDaoBalance();
+      refetchHaqqTokenBalance();
     }
 
     if (!currentIsSuccess) {
       hasProcessedSuccess.current = false;
     }
-  }, [currentIsSuccess, currentHash, refetchBalance, refetchDaoBalance]);
+  }, [
+    currentIsSuccess,
+    currentHash,
+    refetchBalance,
+    refetchDaoBalance,
+    refetchHaqqTokenBalance,
+  ]);
 
   const handleSwitchChain = useCallback(async () => {
     try {
@@ -579,6 +601,18 @@ export function MintPage() {
                   isMaxButtonDisabled={!activeBalance || activeBalance <= 0n}
                 />
               </div>
+
+              {/* HAQQ Token ERC20 Balance */}
+              {haqqTokenAddress && haqqTokenBalance !== undefined && (
+                <div className="flex items-center justify-between rounded-[8px] bg-gray-100 p-[12px]">
+                  <span className="text-[14px] text-gray-500">
+                    HAQQ Token Balance (ERC20)
+                  </span>
+                  <span className="text-haqq-black text-[14px] font-medium">
+                    {formatEthDecimal(haqqTokenBalance, 4)} HAQQ
+                  </span>
+                </div>
+              )}
 
               {/* Calculation results */}
               {parsedAmount && parsedAmount > 0n && (

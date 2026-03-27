@@ -80,6 +80,25 @@ export function getCosmosRestUrl(chainId?: number): string {
 }
 
 /**
+ * HAQQ token ERC20 contract addresses mapped by chain ID
+ */
+export const HAQQ_TOKEN_ADDRESSES: Record<number, `0x${string}`> = {
+  [haqqTestedge2.id]: '0x3af1695e3354Ec35F892b3d0880D4f7E12F4A172',
+};
+
+/**
+ * Get HAQQ token ERC20 address for a given chain ID
+ */
+export function getHaqqTokenAddress(
+  chainId?: number,
+): `0x${string}` | undefined {
+  if (!chainId) {
+    return undefined;
+  }
+  return HAQQ_TOKEN_ADDRESSES[chainId];
+}
+
+/**
  * Funds source enum values
  */
 export enum FundsSource {
