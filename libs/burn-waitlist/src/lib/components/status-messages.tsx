@@ -64,7 +64,10 @@ export function StatusMessages({
     return (
       <div className="mb-[24px] rounded-[8px] bg-[#DBEAFE] p-[16px]">
         <div className="text-[14px] font-medium text-[#1E40AF]">
-          Waitlist has been finalized
+          Waitlist is closed. You can still cancel your requests.
+        </div>
+        <div className="mt-[8px] text-[14px] text-[#1E40AF]">
+          You cannot submit requests at this time.
         </div>
       </div>
     );
