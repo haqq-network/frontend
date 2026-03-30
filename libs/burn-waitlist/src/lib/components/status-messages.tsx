@@ -50,21 +50,14 @@ export function StatusMessages({
     );
   }
 
-  if (currentState === RequestsState.Closed) {
-    return (
-      <div className="mb-[24px] rounded-[8px] bg-[#FEF3C7] p-[16px]">
-        <div className="text-[14px] font-medium text-[#92400E]">
-          Waitlist is closed. You can still cancel your requests.
-        </div>
-      </div>
-    );
-  }
-
-  if (currentState === RequestsState.Finalized) {
+  if (
+    currentState === RequestsState.Closed ||
+    currentState === RequestsState.Finalized
+  ) {
     return (
       <div className="mb-[24px] rounded-[8px] bg-[#DBEAFE] p-[16px]">
         <div className="text-[14px] font-medium text-[#1E40AF]">
-          Waitlist is closed. You can still cancel your requests.
+          Waitlist is closed.
         </div>
         <div className="mt-[8px] text-[14px] text-[#1E40AF]">
           You cannot submit requests at this time.

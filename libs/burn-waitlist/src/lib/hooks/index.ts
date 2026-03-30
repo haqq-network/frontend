@@ -9,5 +9,7 @@ export * from './use-waitlist-price-chart';
 export * from './use-waitlist-global-stats';
 export * from './use-ethiq-contract';
 export * from './use-ethiq-applications';
+export * from './use-ethiq-calc-for-applications';
+export * from './use-waitlist-page';
 export * from './use-liquid-vesting-contract';
 export * from './use-liquid-vesting-queries';
