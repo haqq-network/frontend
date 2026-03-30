@@ -161,6 +161,8 @@ export function useMintHaqqByApplication() {
       throw new Error('Chain ID not available');
     }
 
+    console.log('mintHaqqByApplication', sender, applicationId);
+
     return writeContractAsync({
       address: ETHIQ_PRECOMPILE_ADDRESS,
       abi: EthiqAbi,

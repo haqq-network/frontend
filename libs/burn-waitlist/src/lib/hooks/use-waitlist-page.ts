@@ -571,17 +571,26 @@ export function useWaitlistPage() {
       const ethiqApps: MergedApplication[] = ethiqSenderApps.applications.map(
         (app) => {
           const calc = ethiqCalcMap.get(app.id);
+          const isUcDao = app.source === 'SOURCE_OF_FUNDS_UCDAO';
+          const sourceBalance = waitlistBalances
+            ? BigInt(
+                isUcDao ? waitlistBalances.ucdao : waitlistBalances.balance,
+              )
+            : undefined;
+          const ready =
+            app.is_canceled ||
+            app.is_executed ||
+            sourceBalance === undefined ||
+            sourceBalance >= BigInt(app.burn_amount.amount);
+
           return {
             requestId: app.id,
             amount: app.burn_amount.amount,
             author: app.from_address,
-            source:
-              app.source === 'SOURCE_OF_FUNDS_UCDAO'
-                ? FundsSource.ucDAO
-                : FundsSource.OwnBalance,
+            source: isUcDao ? FundsSource.ucDAO : FundsSource.OwnBalance,
             cancelled: app.is_canceled,
             valid: true,
-            ready: true,
+            ready,
             burned: app.is_executed,
             price: calc?.price,
             receiveAmount: calc?.receiveAmount,
@@ -631,6 +640,7 @@ export function useWaitlistPage() {
     isWaitlistStopped,
     ethiqSenderApps?.applications,
     ethiqCalcMap,
+    waitlistBalances,
   ]);
 
   // User aggregates
