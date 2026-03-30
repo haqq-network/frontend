@@ -86,7 +86,7 @@ export function RequestsList({
                     )}
                     {!isPending && isBurned && (
                       <StatusBadge
-                        label="Burned"
+                        label="Executed"
                         tooltip="This request has been executed and the tokens have been burned."
                         className="bg-emerald-100 text-emerald-800"
                       />
