@@ -126,26 +126,30 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                 totalAmount={userAggregates.totalAmount}
               />
 
-              <div className="grid grid-cols-1 gap-[32px] lg:grid-cols-2">
-                <WaitlistFormSection
-                  formState={formState}
-                  availableBalance={availableBalance}
-                  waitlistBalances={waitlistBalances}
-                  isLoadingBalances={isLoadingBalances}
-                  currentPriceAtto={currentPriceAtto}
-                  formattedAmount={formattedAmount}
-                  isValid={isValid}
-                  isSubmitting={isSubmitting}
-                  errorMessage={errorMessage}
-                  disabled={formDisabled}
-                  onAmountChange={setAmount}
-                  onSourceChange={(source) => {
-                    setSource(source);
-                    setSelectedSource(source);
-                  }}
-                  onMaxClick={handleMaxClick}
-                  onSubmit={handleSubmit}
-                />
+              <div
+                className={`grid grid-cols-1 gap-[32px] ${isWaitlistStopped ? '' : 'lg:grid-cols-2'}`}
+              >
+                {!isWaitlistStopped && (
+                  <WaitlistFormSection
+                    formState={formState}
+                    availableBalance={availableBalance}
+                    waitlistBalances={waitlistBalances}
+                    isLoadingBalances={isLoadingBalances}
+                    currentPriceAtto={currentPriceAtto}
+                    formattedAmount={formattedAmount}
+                    isValid={isValid}
+                    isSubmitting={isSubmitting}
+                    errorMessage={errorMessage}
+                    disabled={formDisabled}
+                    onAmountChange={setAmount}
+                    onSourceChange={(source) => {
+                      setSource(source);
+                      setSelectedSource(source);
+                    }}
+                    onMaxClick={handleMaxClick}
+                    onSubmit={handleSubmit}
+                  />
+                )}
 
                 <RequestsSection
                   applications={mergedApplications}
