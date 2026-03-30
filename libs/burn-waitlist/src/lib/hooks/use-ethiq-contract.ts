@@ -6,6 +6,7 @@ import {
   useWaitForTransactionReceipt,
   useAccount,
 } from 'wagmi';
+import { useConnectorType } from '@haqq/shell-shared';
 import { EthiqAbi } from '../abi/ethiq';
 import { ETHIQ_PRECOMPILE_ADDRESS } from '../constants/ethiq-config';
 import { WAITLIST_DEFAULT_CHAIN_ID } from '../constants/waitlist-config';
@@ -80,15 +81,20 @@ export function useEthiqCalculateForApplication(applicationId?: bigint) {
 /**
  * Hook to call mintHaqq(sender, receiver, islmAmount) on the Ethiq precompile.
  * Used by regular users (not in waitlist) to burn ISLM and mint HAQQ.
+ * Calls approve before mint to grant the Safe authorization.
  */
 export function useMintHaqq() {
   const { chain } = useAccount();
+  const { isSafe } = useConnectorType();
   const chainId = chain?.id;
+
+  const { writeContractAsync: writeApproveAsync, isPending: isApproving } =
+    useWriteContract();
 
   const {
     writeContractAsync,
     data: hash,
-    isPending,
+    isPending: isMintPending,
     error,
   } = useWriteContract();
 
@@ -96,6 +102,8 @@ export function useMintHaqq() {
     hash,
     chainId: chainId || WAITLIST_DEFAULT_CHAIN_ID,
   });
+
+  const isPending = isApproving || isMintPending;
 
   const mintHaqq = async (
     sender: `0x${string}`,
@@ -108,6 +116,17 @@ export function useMintHaqq() {
 
     if (!chainId) {
       throw new Error('Chain ID not available');
+    }
+
+    // In Safe context, approve the Safe to execute MintHaqq first
+    if (isSafe && writeApproveAsync) {
+      await writeApproveAsync({
+        address: ETHIQ_PRECOMPILE_ADDRESS,
+        abi: EthiqAbi,
+        functionName: 'approve',
+        args: [sender, islmAmount, ['/haqq.ethiq.v1.MsgMintHaqq']],
+        chainId,
+      });
     }
 
     return writeContractAsync({
@@ -132,15 +151,20 @@ export function useMintHaqq() {
 /**
  * Hook to call mintHaqqByApplication(sender, applicationId) on the Ethiq precompile.
  * Used by waitlist participants to mint HAQQ for their approved applications.
+ * Calls approve before mint to grant the Safe authorization.
  */
 export function useMintHaqqByApplication() {
   const { chain } = useAccount();
+  const { isSafe } = useConnectorType();
   const chainId = chain?.id;
+
+  const { writeContractAsync: writeApproveAsync, isPending: isApproving } =
+    useWriteContract();
 
   const {
     writeContractAsync,
     data: hash,
-    isPending,
+    isPending: isMintPending,
     error,
   } = useWriteContract();
 
@@ -148,6 +172,8 @@ export function useMintHaqqByApplication() {
     hash,
     chainId: chainId || WAITLIST_DEFAULT_CHAIN_ID,
   });
+
+  const isPending = isApproving || isMintPending;
 
   const mintHaqqByApplication = async (
     sender: `0x${string}`,
@@ -162,6 +188,21 @@ export function useMintHaqqByApplication() {
     }
 
     console.log('mintHaqqByApplication', sender, applicationId);
+
+    // In Safe context, approve the Safe to execute MintHaqqByApplication first
+    if (isSafe && writeApproveAsync) {
+      await writeApproveAsync({
+        address: ETHIQ_PRECOMPILE_ADDRESS,
+        abi: EthiqAbi,
+        functionName: 'approve',
+        args: [
+          sender,
+          applicationId,
+          ['/haqq.ethiq.v1.MsgMintHaqqByApplication'],
+        ],
+        chainId,
+      });
+    }
 
     return writeContractAsync({
       address: ETHIQ_PRECOMPILE_ADDRESS,
