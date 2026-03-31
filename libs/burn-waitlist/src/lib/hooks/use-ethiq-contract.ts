@@ -144,6 +144,7 @@ function useEthiqMintBase(method: string) {
       throw new Error('Chain ID not available');
     }
 
+    console.log('[ useEthiqMintBase ] approve', { sender, amount, method });
     return writeApproveAsync({
       address: ETHIQ_PRECOMPILE_ADDRESS,
       abi: EthiqAbi,

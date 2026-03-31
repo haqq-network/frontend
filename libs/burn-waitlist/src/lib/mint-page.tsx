@@ -270,6 +270,10 @@ export function MintPage() {
     }
 
     try {
+      console.log('approve mintHaqq', {
+        address,
+        amount: parsedAmount.toString(),
+      });
       await approveMintTx(address, parsedAmount);
       refetchAllowance();
     } catch (error) {

@@ -375,6 +375,10 @@ export function useWaitlistPage() {
       }
 
       try {
+        console.log('approve mintHaqqByApplication', {
+          address,
+          amount: amount.toString(),
+        });
         await approveByApplicationTx(address, amount);
         refetchMintByAppAllowance();
       } catch (error) {
