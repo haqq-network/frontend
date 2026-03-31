@@ -102,8 +102,18 @@ export function useEthiqAllowance(method: string) {
     },
   });
 
+  const allowance = data as bigint | undefined;
+
+  console.log('useEthiqAllowance', {
+    method,
+    grantee: address,
+    granter: address,
+    isSafe,
+    allowance: allowance?.toString(),
+  });
+
   return {
-    allowance: data as bigint | undefined,
+    allowance,
     isLoading,
     refetch,
     isSafe,
