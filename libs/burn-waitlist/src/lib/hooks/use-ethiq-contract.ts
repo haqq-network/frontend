@@ -5,6 +5,7 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
   useAccount,
+  usePublicClient,
 } from 'wagmi';
 import { useConnectorType } from '@haqq/shell-shared';
 import { EthiqAbi } from '../abi/ethiq';
@@ -126,6 +127,7 @@ export function useEthiqAllowance(method: string) {
 function useEthiqMintBase(method: string) {
   const { chain } = useAccount();
   const { isSafe } = useConnectorType();
+  const publicClient = usePublicClient();
   const chainId = chain?.id;
 
   const {
@@ -154,14 +156,24 @@ function useEthiqMintBase(method: string) {
       throw new Error('Chain ID not available');
     }
 
-    console.log('[ useEthiqMintBase ] approve', { sender, amount, method });
-    return writeApproveAsync({
+    console.log('approve', { method, sender, amount: amount.toString() });
+
+    const txHash = await writeApproveAsync({
       address: ETHIQ_PRECOMPILE_ADDRESS,
       abi: EthiqAbi,
       functionName: 'approve',
       args: [sender, amount, [method]],
       chainId,
     });
+
+    console.log('approve tx sent', { method, txHash });
+
+    if (publicClient) {
+      await publicClient.waitForTransactionReceipt({ hash: txHash });
+      console.log('approve tx confirmed', { method, txHash });
+    }
+
+    return txHash;
   };
 
   return {
