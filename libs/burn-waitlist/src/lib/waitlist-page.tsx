@@ -84,7 +84,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                 href={`/${locale}/burn`}
                 className="text-haqq-orange text-[14px] font-medium hover:underline"
               >
-                Go to Burn page →
+                Back to Mint Page →
               </Link>
             )}
           </div>
