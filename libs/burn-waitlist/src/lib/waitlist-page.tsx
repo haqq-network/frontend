@@ -61,11 +61,16 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     userAggregates,
 
     handleCancel,
+    handleApproveByApplication,
     handleMintHaqqByApplication,
     handleSwitchChain,
 
     isCancelling,
     cancellingRequestId,
+
+    isSafe,
+    isApprovingByApp,
+    mintByAppAllowance,
 
     isMinting,
     mintingApplicationId,
@@ -157,11 +162,17 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                   hasData={hasRequestsData}
                   canCancel={canWithdraw || false}
                   onCancel={handleCancel}
+                  onApprove={
+                    isWaitlistStopped ? handleApproveByApplication : undefined
+                  }
                   onMintHaqq={
                     isWaitlistStopped ? handleMintHaqqByApplication : undefined
                   }
                   isCancelling={isCancelling}
                   cancellingRequestId={cancellingRequestId}
+                  isSafe={isSafe}
+                  isApproving={isApprovingByApp}
+                  allowance={mintByAppAllowance}
                   isMinting={isMinting}
                   mintingApplicationId={mintingApplicationId}
                   balances={waitlistBalances}

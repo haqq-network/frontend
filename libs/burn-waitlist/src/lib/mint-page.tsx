@@ -13,6 +13,7 @@ import {
 import { useUcdaoConvertToHaqq } from '@haqq/shell-ucdao';
 import {
   useMintHaqq,
+  useEthiqAllowance,
   useEthiqTotalBurned,
   useEthiqCalculateRest,
 } from './hooks';
@@ -165,13 +166,20 @@ export function MintPage() {
 
   // Mint hook (own balance via Ethiq precompile)
   const {
+    approve: approveMintTx,
     mintHaqq: mintHaqqTx,
+    isSafe,
+    isApproving,
     isPending: isMinting,
     isConfirming,
     isSuccess,
     hash: mintHash,
     error: mintError,
   } = useMintHaqq();
+
+  // Allowance check for Safe users
+  const { allowance: mintAllowance, refetch: refetchAllowance } =
+    useEthiqAllowance('/haqq.ethiq.v1.MsgMintHaqq');
 
   // Convert hook (ucDAO balance via UCDAO precompile)
   const {
@@ -248,6 +256,26 @@ export function MintPage() {
       setAmount(formatEther(activeBalance));
     }
   }, [activeBalance]);
+
+  const needsApproval =
+    isSafe &&
+    source !== FundsSource.ucDAO &&
+    parsedAmount !== undefined &&
+    parsedAmount > 0n &&
+    (mintAllowance === undefined || mintAllowance < parsedAmount);
+
+  const handleApprove = useCallback(async () => {
+    if (!address || !parsedAmount || parsedAmount <= 0n) {
+      return;
+    }
+
+    try {
+      await approveMintTx(address, parsedAmount);
+      refetchAllowance();
+    } catch (error) {
+      console.error('Failed to approve:', error);
+    }
+  }, [address, parsedAmount, approveMintTx, refetchAllowance]);
 
   const handleSubmit = useCallback(async () => {
     if (!address || !parsedAmount || parsedAmount <= 0n) {
@@ -485,12 +513,23 @@ export function MintPage() {
               )}
 
               {/* Submit */}
-              <div className="pt-[8px]">
+              <div className="flex flex-col gap-[8px] pt-[8px]">
+                {needsApproval && (
+                  <Button
+                    variant={4}
+                    onClick={handleApprove}
+                    className="w-full"
+                    disabled={!isValid || isApproving}
+                    isLoading={isApproving}
+                  >
+                    {isApproving ? 'Approving...' : 'Approve'}
+                  </Button>
+                )}
                 <Button
                   variant={5}
                   onClick={handleSubmit}
                   className="w-full"
-                  disabled={!isValid || isSubmitting}
+                  disabled={!isValid || isSubmitting || needsApproval}
                   isLoading={isSubmitting}
                 >
                   {isSubmitting ? 'Minting...' : 'Burn ISLM & Mint HAQQ'}

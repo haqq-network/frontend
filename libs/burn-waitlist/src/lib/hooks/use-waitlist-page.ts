@@ -13,6 +13,7 @@ import {
   useWaitlistPriceChart,
   useWaitlistGlobalStats,
   useMintHaqqByApplication,
+  useEthiqAllowance,
   useEthiqSenderApplications,
   useEthiqTotalBurned,
 } from './index';
@@ -161,11 +162,18 @@ export function useWaitlistPage() {
 
   // Mint HAQQ by application
   const {
+    approve: approveByApplicationTx,
     mintHaqqByApplication: mintHaqqByApplicationTx,
+    isSafe,
+    isApproving: isApprovingByApp,
     isPending: isMintingByApp,
     isConfirming: isConfirmingMintByApp,
     error: mintByAppError,
   } = useMintHaqqByApplication();
+
+  // Allowance check for Safe users (MintHaqqByApplication method)
+  const { allowance: mintByAppAllowance, refetch: refetchMintByAppAllowance } =
+    useEthiqAllowance('/haqq.ethiq.v1.MsgMintHaqqByApplication');
 
   const [cancellingRequestId, setCancellingRequestId] = useState<
     bigint | undefined
@@ -357,6 +365,23 @@ export function useWaitlistPage() {
       refetchContractState,
       address,
     ],
+  );
+
+  // Handle approve for Safe users (per application)
+  const handleApproveByApplication = useCallback(
+    async (amount: bigint) => {
+      if (!address) {
+        return;
+      }
+
+      try {
+        await approveByApplicationTx(address, amount);
+        refetchMintByAppAllowance();
+      } catch (error) {
+        console.error('Failed to approve application:', error);
+      }
+    },
+    [address, approveByApplicationTx, refetchMintByAppAllowance],
   );
 
   // Handle mint HAQQ by application
@@ -728,12 +753,18 @@ export function useWaitlistPage() {
 
     // Handlers
     handleCancel,
+    handleApproveByApplication,
     handleMintHaqqByApplication,
     handleSwitchChain,
 
     // Cancel state
     isCancelling: isCancelling || isConfirmingCancel,
     cancellingRequestId,
+
+    // Safe / approve state
+    isSafe,
+    isApprovingByApp,
+    mintByAppAllowance,
 
     // Mint state
     isMinting: isMintingByApp || isConfirmingMintByApp,
