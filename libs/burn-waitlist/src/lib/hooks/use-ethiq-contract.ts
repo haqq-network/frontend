@@ -1,12 +1,14 @@
 'use client';
 
+import { useCallback } from 'react';
 import {
   useReadContract,
   useWriteContract,
   useWaitForTransactionReceipt,
   useAccount,
-  usePublicClient,
 } from 'wagmi';
+import type { Hash } from 'viem';
+import SafeAppsSDK, { TransactionStatus } from '@safe-global/safe-apps-sdk';
 import { useConnectorType } from '@haqq/shell-shared';
 import { EthiqAbi } from '../abi/ethiq';
 import { ETHIQ_PRECOMPILE_ADDRESS } from '../constants/ethiq-config';
@@ -123,11 +125,11 @@ export function useEthiqAllowance(method: string) {
 
 /**
  * Shared base for Ethiq mint hooks. Handles approve + write contract + receipt tracking.
+ * For Safe wallets, polls the Safe SDK for transaction execution status.
  */
 function useEthiqMintBase(method: string) {
   const { chain } = useAccount();
   const { isSafe } = useConnectorType();
-  const publicClient = usePublicClient();
   const chainId = chain?.id;
 
   const {
@@ -148,39 +150,99 @@ function useEthiqMintBase(method: string) {
     chainId: chainId || WAITLIST_DEFAULT_CHAIN_ID,
   });
 
-  const approve = async (sender: `0x${string}`, amount: bigint) => {
-    if (!writeApproveAsync) {
-      throw new Error('Wallet not connected');
-    }
-    if (!chainId) {
-      throw new Error('Chain ID not available');
-    }
+  const fetchSafeTransactionStatus = useCallback(
+    async (safeTxHash: string) => {
+      if (!isSafe) {
+        return null;
+      }
 
-    console.log('approve', { method, sender, amount: amount.toString() });
+      try {
+        const sdk = new SafeAppsSDK();
+        const txDetails = await sdk.txs.getBySafeTxHash(safeTxHash);
 
-    const txHash = await writeApproveAsync({
-      address: ETHIQ_PRECOMPILE_ADDRESS,
-      abi: EthiqAbi,
-      functionName: 'approve',
-      args: [sender, amount, [method]],
-      chainId,
-    });
+        return {
+          isExecuted:
+            txDetails.txStatus === TransactionStatus.AWAITING_EXECUTION ||
+            txDetails.txStatus === TransactionStatus.SUCCESS,
+          transactionHash: txDetails.txHash,
+        };
+      } catch (error) {
+        console.error('Error fetching Safe transaction status:', error);
+        throw error;
+      }
+    },
+    [isSafe],
+  );
 
-    console.log('approve tx sent', { method, txHash });
+  const waitForSafeExecution = useCallback(
+    async (
+      safeTxHash: string,
+      maxAttempts = 20,
+      interval = 5000,
+    ): Promise<Hash | null> => {
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+          const status = await fetchSafeTransactionStatus(safeTxHash);
 
-    if (publicClient) {
-      await publicClient.waitForTransactionReceipt({ hash: txHash });
-      console.log('approve tx confirmed', { method, txHash });
-    }
+          if (status && status.isExecuted) {
+            return (status.transactionHash as Hash) ?? null;
+          }
 
-    return txHash;
-  };
+          await new Promise((resolve) => {
+            return setTimeout(resolve, interval);
+          });
+        } catch (error) {
+          console.error(`Attempt ${attempt} failed:`, error);
+
+          if (attempt === maxAttempts) {
+            console.error('Max attempts reached. Transaction tracking failed.');
+            return null;
+          }
+        }
+      }
+
+      return null;
+    },
+    [fetchSafeTransactionStatus],
+  );
+
+  const approve = useCallback(
+    async (sender: `0x${string}`, amount: bigint) => {
+      if (!writeApproveAsync) {
+        throw new Error('Wallet not connected');
+      }
+      if (!chainId) {
+        throw new Error('Chain ID not available');
+      }
+
+      console.log('approve', { method, sender, amount: amount.toString() });
+
+      const txHash = await writeApproveAsync({
+        address: ETHIQ_PRECOMPILE_ADDRESS,
+        abi: EthiqAbi,
+        functionName: 'approve',
+        args: [sender, amount, [method]],
+        chainId,
+      });
+
+      console.log('approve tx sent', { method, txHash });
+
+      if (isSafe) {
+        const executedHash = await waitForSafeExecution(txHash, 30, 1500);
+        console.log('approve Safe tx executed', { method, executedHash });
+      }
+
+      return txHash;
+    },
+    [writeApproveAsync, chainId, method, isSafe, waitForSafeExecution],
+  );
 
   return {
     writeContractAsync,
     chainId,
-    approve,
     isSafe,
+    waitForSafeExecution,
+    approve,
     isApproving,
     hash,
     isPending: isApproving || isMintPending,
@@ -195,31 +257,47 @@ function useEthiqMintBase(method: string) {
  * For Safe users, approve and mint are separate steps controlled by the UI.
  */
 export function useMintHaqq() {
-  const { writeContractAsync, chainId, ...base } =
+  const { writeContractAsync, chainId, isSafe, waitForSafeExecution, ...base } =
     useEthiqMintBase(ETHIQ_MSG_MINT_HAQQ);
 
-  const mintHaqq = async (
-    sender: `0x${string}`,
-    receiver: `0x${string}`,
-    islmAmount: bigint,
-  ) => {
-    if (!writeContractAsync) {
-      throw new Error('Wallet not connected');
-    }
-    if (!chainId) {
-      throw new Error('Chain ID not available');
-    }
+  const mintHaqq = useCallback(
+    async (
+      sender: `0x${string}`,
+      receiver: `0x${string}`,
+      islmAmount: bigint,
+    ) => {
+      if (!writeContractAsync) {
+        throw new Error('Wallet not connected');
+      }
+      if (!chainId) {
+        throw new Error('Chain ID not available');
+      }
 
-    return writeContractAsync({
-      address: ETHIQ_PRECOMPILE_ADDRESS,
-      abi: EthiqAbi,
-      functionName: 'mintHaqq',
-      args: [sender, receiver, islmAmount],
-      chainId,
-    });
-  };
+      console.log('mintHaqq', {
+        sender,
+        receiver,
+        amount: islmAmount.toString(),
+      });
 
-  return { ...base, mintHaqq };
+      const txHash = await writeContractAsync({
+        address: ETHIQ_PRECOMPILE_ADDRESS,
+        abi: EthiqAbi,
+        functionName: 'mintHaqq',
+        args: [sender, receiver, islmAmount],
+        chainId,
+      });
+
+      if (isSafe) {
+        const executedHash = await waitForSafeExecution(txHash, 30, 1500);
+        console.log('mintHaqq Safe tx executed', { executedHash });
+      }
+
+      return txHash;
+    },
+    [writeContractAsync, chainId, isSafe, waitForSafeExecution],
+  );
+
+  return { ...base, isSafe, mintHaqq };
 }
 
 /**
@@ -227,29 +305,40 @@ export function useMintHaqq() {
  * For Safe users, approve and mint are separate steps controlled by the UI.
  */
 export function useMintHaqqByApplication() {
-  const { writeContractAsync, chainId, ...base } = useEthiqMintBase(
-    ETHIQ_MSG_MINT_HAQQ_BY_APPLICATION,
+  const { writeContractAsync, chainId, isSafe, waitForSafeExecution, ...base } =
+    useEthiqMintBase(ETHIQ_MSG_MINT_HAQQ_BY_APPLICATION);
+
+  const mintHaqqByApplication = useCallback(
+    async (sender: `0x${string}`, applicationId: bigint) => {
+      if (!writeContractAsync) {
+        throw new Error('Wallet not connected');
+      }
+      if (!chainId) {
+        throw new Error('Chain ID not available');
+      }
+
+      console.log('mintHaqqByApplication', {
+        sender,
+        applicationId: applicationId.toString(),
+      });
+
+      const txHash = await writeContractAsync({
+        address: ETHIQ_PRECOMPILE_ADDRESS,
+        abi: EthiqAbi,
+        functionName: 'mintHaqqByApplication',
+        args: [sender, applicationId],
+        chainId,
+      });
+
+      if (isSafe) {
+        const executedHash = await waitForSafeExecution(txHash, 30, 1500);
+        console.log('mintHaqqByApplication Safe tx executed', { executedHash });
+      }
+
+      return txHash;
+    },
+    [writeContractAsync, chainId, isSafe, waitForSafeExecution],
   );
 
-  const mintHaqqByApplication = async (
-    sender: `0x${string}`,
-    applicationId: bigint,
-  ) => {
-    if (!writeContractAsync) {
-      throw new Error('Wallet not connected');
-    }
-    if (!chainId) {
-      throw new Error('Chain ID not available');
-    }
-
-    return writeContractAsync({
-      address: ETHIQ_PRECOMPILE_ADDRESS,
-      abi: EthiqAbi,
-      functionName: 'mintHaqqByApplication',
-      args: [sender, applicationId],
-      chainId,
-    });
-  };
-
-  return { ...base, mintHaqqByApplication };
+  return { ...base, isSafe, mintHaqqByApplication };
 }

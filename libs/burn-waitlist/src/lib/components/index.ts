@@ -13,3 +13,4 @@ export * from './global-stats';
 export * from './user-aggregates';
 export * from './waitlist-form-section';
 export * from './requests-section';
+export * from './safe-approve-warning';

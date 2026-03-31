@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { useAccount, useBalance, useReadContract, useSwitchChain } from 'wagmi';
-import { erc20Abi, parseEther, formatEther } from 'viem';
+import { erc20Abi, parseEther, formatEther, maxUint256 } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { Button, ModalInput } from '@haqq/shell-ui-kit';
 import {
@@ -13,7 +13,6 @@ import {
 import { useUcdaoConvertToHaqq } from '@haqq/shell-ucdao';
 import {
   useMintHaqq,
-  useEthiqAllowance,
   useEthiqTotalBurned,
   useEthiqCalculateRest,
 } from './hooks';
@@ -25,6 +24,7 @@ import {
 } from './constants/waitlist-config';
 import { WalletConnectionWarning } from './components/wallet-connection-warning';
 import { NetworkWarning } from './components/network-warning';
+import { SafeApproveWarning } from './components/safe-approve-warning';
 
 function sanitizeErrorMessage(
   error: Error | null | undefined,
@@ -177,10 +177,6 @@ export function MintPage() {
     error: mintError,
   } = useMintHaqq();
 
-  // Allowance check for Safe users
-  const { allowance: mintAllowance, refetch: refetchAllowance } =
-    useEthiqAllowance('/haqq.ethiq.v1.MsgMintHaqq');
-
   // Convert hook (ucDAO balance via UCDAO precompile)
   const {
     convertToHaqq: convertToHaqqTx,
@@ -257,36 +253,22 @@ export function MintPage() {
     }
   }, [activeBalance]);
 
-  const needsApproval =
-    isSafe &&
-    source !== FundsSource.ucDAO &&
-    parsedAmount !== undefined &&
-    parsedAmount > 0n &&
-    (mintAllowance === undefined || mintAllowance < parsedAmount);
-
-  console.log('needsApproval', {
-    isSafe,
-    source,
-    parsedAmount,
-    mintAllowance,
-  });
-
   const handleApprove = useCallback(async () => {
-    if (!address || !parsedAmount || parsedAmount <= 0n) {
+    if (!address) {
       return;
     }
 
     try {
+      const approveAmount = maxUint256 - 1n;
       console.log('approve mintHaqq', {
         address,
-        amount: parsedAmount.toString(),
+        amount: approveAmount.toString(),
       });
-      await approveMintTx(address, parsedAmount);
-      refetchAllowance();
+      await approveMintTx(address, approveAmount);
     } catch (error) {
       console.error('Failed to approve:', error);
     }
-  }, [address, parsedAmount, approveMintTx, refetchAllowance]);
+  }, [address, approveMintTx]);
 
   const handleSubmit = useCallback(async () => {
     if (!address || !parsedAmount || parsedAmount <= 0n) {
@@ -525,22 +507,25 @@ export function MintPage() {
 
               {/* Submit */}
               <div className="flex flex-col gap-[8px] pt-[8px]">
-                {needsApproval && (
-                  <Button
-                    variant={4}
-                    onClick={handleApprove}
-                    className="w-full"
-                    disabled={!isValid || isApproving}
-                    isLoading={isApproving}
-                  >
-                    {isApproving ? 'Approving...' : 'Approve'}
-                  </Button>
+                {isSafe && (
+                  <>
+                    <SafeApproveWarning />
+                    <Button
+                      variant={4}
+                      onClick={handleApprove}
+                      className="w-full"
+                      disabled={isApproving}
+                      isLoading={isApproving}
+                    >
+                      {isApproving ? 'Approving...' : 'Approve'}
+                    </Button>
+                  </>
                 )}
                 <Button
                   variant={5}
                   onClick={handleSubmit}
                   className="w-full"
-                  disabled={!isValid || isSubmitting || needsApproval}
+                  disabled={!isValid || isSubmitting}
                   isLoading={isSubmitting}
                 >
                   {isSubmitting ? 'Minting...' : 'Burn ISLM & Mint HAQQ'}
