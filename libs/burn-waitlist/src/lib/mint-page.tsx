@@ -264,6 +264,13 @@ export function MintPage() {
     parsedAmount > 0n &&
     (mintAllowance === undefined || mintAllowance < parsedAmount);
 
+  console.log('needsApproval', {
+    isSafe,
+    source,
+    parsedAmount,
+    mintAllowance,
+  });
+
   const handleApprove = useCallback(async () => {
     if (!address || !parsedAmount || parsedAmount <= 0n) {
       return;
