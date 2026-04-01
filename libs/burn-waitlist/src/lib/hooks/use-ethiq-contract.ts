@@ -245,7 +245,7 @@ function useEthiqMintBase(method: string) {
     approve,
     isApproving,
     hash,
-    isPending: isApproving || isMintPending,
+    isPending: isMintPending,
     isConfirming,
     isSuccess,
     error: approveError || mintError,
