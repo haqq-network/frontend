@@ -22,6 +22,7 @@ export interface RequestsSectionProps {
   mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
   locale?: string;
+  needsSafeAccount?: boolean;
 }
 
 export function RequestsSection({
@@ -41,6 +42,7 @@ export function RequestsSection({
   mintingApplicationId,
   balances,
   locale = 'en',
+  needsSafeAccount,
 }: RequestsSectionProps) {
   return (
     <div>
@@ -65,6 +67,7 @@ export function RequestsSection({
           mintingApplicationId={mintingApplicationId}
           balances={balances}
           locale={locale}
+          needsSafeAccount={needsSafeAccount}
         />
       ) : (
         <div className="rounded-[8px] bg-gray-100 p-[16px] text-center">

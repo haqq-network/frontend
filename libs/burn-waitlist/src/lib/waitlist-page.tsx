@@ -14,6 +14,7 @@ import {
   WaitlistFormSection,
   RequestsSection,
 } from './components';
+import { SafeAccountSelector } from './components/safe-account-selector';
 
 export interface WaitlistPageProps {
   locale?: string;
@@ -71,6 +72,11 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     isSafe,
     isApprovingByApp,
     mintByAppAllowance,
+    safeOwners,
+    isSafeOwnersLoading,
+    safeAccountAddress,
+    setSafeAccountAddress,
+    validSafeAccount,
 
     isMinting,
     mintingApplicationId,
@@ -156,28 +162,42 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                   />
                 )}
 
-                <RequestsSection
-                  applications={mergedApplications}
-                  isLoading={requestsLoading}
-                  hasData={hasRequestsData}
-                  canCancel={canWithdraw || false}
-                  onCancel={handleCancel}
-                  onApprove={
-                    isWaitlistStopped ? handleApproveByApplication : undefined
-                  }
-                  onMintHaqq={
-                    isWaitlistStopped ? handleMintHaqqByApplication : undefined
-                  }
-                  isCancelling={isCancelling}
-                  cancellingRequestId={cancellingRequestId}
-                  isSafe={isSafe}
-                  isApproving={isApprovingByApp}
-                  allowance={mintByAppAllowance}
-                  isMinting={isMinting}
-                  mintingApplicationId={mintingApplicationId}
-                  balances={waitlistBalances}
-                  locale={locale}
-                />
+                <div className="space-y-[16px]">
+                  {isSafe && isWaitlistStopped && (
+                    <SafeAccountSelector
+                      owners={safeOwners}
+                      selectedAddress={safeAccountAddress}
+                      onSelect={setSafeAccountAddress}
+                      isLoading={isSafeOwnersLoading}
+                      disabled={isMinting || isApprovingByApp}
+                    />
+                  )}
+                  <RequestsSection
+                    applications={mergedApplications}
+                    isLoading={requestsLoading}
+                    hasData={hasRequestsData}
+                    canCancel={canWithdraw || false}
+                    onCancel={handleCancel}
+                    onApprove={
+                      isWaitlistStopped ? handleApproveByApplication : undefined
+                    }
+                    onMintHaqq={
+                      isWaitlistStopped
+                        ? handleMintHaqqByApplication
+                        : undefined
+                    }
+                    isCancelling={isCancelling}
+                    cancellingRequestId={cancellingRequestId}
+                    isSafe={isSafe}
+                    isApproving={isApprovingByApp}
+                    allowance={mintByAppAllowance}
+                    isMinting={isMinting}
+                    mintingApplicationId={mintingApplicationId}
+                    balances={waitlistBalances}
+                    locale={locale}
+                    needsSafeAccount={isSafe && !validSafeAccount}
+                  />
+                </div>
               </div>
             </>
           ) : null}

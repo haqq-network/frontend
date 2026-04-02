@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 
+import { isAddress } from 'viem';
 import {
   useWaitlistContractState,
   useCreateWaitlistRequest,
@@ -16,6 +17,7 @@ import {
   useEthiqAllowance,
   useEthiqSenderApplications,
   useEthiqTotalBurned,
+  useSafeAccounts,
 } from './index';
 import type { Application } from './use-waitlist-applications';
 import { useBackendSignature } from './use-backend-signature';
@@ -171,9 +173,28 @@ export function useWaitlistPage() {
     error: mintByAppError,
   } = useMintHaqqByApplication();
 
+  // Safe accounts (owners) for Safe wallet users
+  const { owners: safeOwners, isLoading: isSafeOwnersLoading } =
+    useSafeAccounts();
+
+  const [safeAccountAddress, setSafeAccountAddress] = useState('');
+
+  const validSafeAccount = useMemo(() => {
+    if (!isSafe) {
+      return undefined;
+    }
+    if (safeAccountAddress && isAddress(safeAccountAddress)) {
+      return safeAccountAddress as `0x${string}`;
+    }
+    return undefined;
+  }, [isSafe, safeAccountAddress]);
+
   // Allowance check for Safe users (MintHaqqByApplication method)
   const { allowance: mintByAppAllowance, refetch: refetchMintByAppAllowance } =
-    useEthiqAllowance('/haqq.ethiq.v1.MsgMintHaqqByApplication');
+    useEthiqAllowance(
+      '/haqq.ethiq.v1.MsgMintHaqqByApplication',
+      validSafeAccount,
+    );
 
   const [cancellingRequestId, setCancellingRequestId] = useState<
     bigint | undefined
@@ -370,22 +391,28 @@ export function useWaitlistPage() {
   // Handle approve for Safe users (per application)
   const handleApproveByApplication = useCallback(
     async (amount: bigint) => {
-      if (!address) {
+      if (!address || !validSafeAccount) {
         return;
       }
 
       try {
         console.log('approve mintHaqqByApplication', {
-          address,
+          grantee: validSafeAccount,
+          granter: address,
           amount: amount.toString(),
         });
-        await approveByApplicationTx(address, amount);
+        await approveByApplicationTx(validSafeAccount, amount);
         refetchMintByAppAllowance();
       } catch (error) {
         console.error('Failed to approve application:', error);
       }
     },
-    [address, approveByApplicationTx, refetchMintByAppAllowance],
+    [
+      address,
+      validSafeAccount,
+      approveByApplicationTx,
+      refetchMintByAppAllowance,
+    ],
   );
 
   // Handle mint HAQQ by application
@@ -769,6 +796,11 @@ export function useWaitlistPage() {
     isSafe,
     isApprovingByApp,
     mintByAppAllowance,
+    safeOwners,
+    isSafeOwnersLoading,
+    safeAccountAddress,
+    setSafeAccountAddress,
+    validSafeAccount,
 
     // Mint state
     isMinting: isMintingByApp || isConfirmingMintByApp,

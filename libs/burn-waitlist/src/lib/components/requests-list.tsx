@@ -30,6 +30,7 @@ export interface RequestsListProps {
   mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
   locale?: string;
+  needsSafeAccount?: boolean;
 }
 
 export function RequestsList({
@@ -47,6 +48,7 @@ export function RequestsList({
   mintingApplicationId,
   balances,
   locale = 'en',
+  needsSafeAccount = false,
 }: RequestsListProps) {
   if (applications.length === 0) {
     return (
@@ -198,6 +200,7 @@ export function RequestsList({
                       const burnAmount = BigInt(app.amount);
                       const needsApproval =
                         isSafe &&
+                        !needsSafeAccount &&
                         (allowance === undefined || allowance < burnAmount);
 
                       return (
@@ -206,7 +209,7 @@ export function RequestsList({
                             <Button
                               variant={4}
                               onClick={() => onApprove(burnAmount)}
-                              disabled={isApproving}
+                              disabled={isApproving || needsSafeAccount}
                               isLoading={isApproving}
                               className="w-full sm:w-auto"
                             >
@@ -216,7 +219,9 @@ export function RequestsList({
                           <Button
                             variant={5}
                             onClick={() => onMintHaqq(requestId)}
-                            disabled={isMinting || needsApproval}
+                            disabled={
+                              isMinting || needsApproval || needsSafeAccount
+                            }
                             isLoading={
                               isMinting && mintingApplicationId === requestId
                             }

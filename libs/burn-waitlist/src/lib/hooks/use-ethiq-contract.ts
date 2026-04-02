@@ -88,20 +88,32 @@ export function useEthiqCalculateForApplication(applicationId?: bigint) {
 /**
  * Hook to read the current allowance for a given Ethiq method.
  * Used to check if Safe approval is needed before minting.
+ *
+ * @param method - The Ethiq message type to check allowance for
+ * @param granteeAddress - Optional grantee address. If provided, checks allowance(grantee, connectedAddress, method).
+ *                         If omitted, uses the connected address for both grantee and granter (legacy behavior).
  */
-export function useEthiqAllowance(method: string) {
+export function useEthiqAllowance(
+  method: string,
+  granteeAddress?: `0x${string}`,
+) {
   const { address, chain } = useAccount();
   const { isSafe } = useConnectorType();
   const chainId = chain?.id || WAITLIST_DEFAULT_CHAIN_ID;
+
+  const effectiveGrantee = granteeAddress || address;
 
   const { data, isLoading, refetch } = useReadContract({
     address: ETHIQ_PRECOMPILE_ADDRESS,
     abi: EthiqAbi,
     functionName: 'allowance',
-    args: address ? [address, address, method] : undefined,
+    args:
+      effectiveGrantee && address
+        ? [effectiveGrantee, address, method]
+        : undefined,
     chainId,
     query: {
-      enabled: Boolean(address && isSafe),
+      enabled: Boolean(effectiveGrantee && address && isSafe),
     },
   });
 
@@ -109,7 +121,7 @@ export function useEthiqAllowance(method: string) {
 
   console.log('useEthiqAllowance', {
     method,
-    grantee: address,
+    grantee: effectiveGrantee,
     granter: address,
     isSafe,
     allowance: allowance?.toString(),
