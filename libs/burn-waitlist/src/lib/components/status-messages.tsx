@@ -51,16 +51,18 @@ export function StatusMessages({
   }
 
   if (
+    canSubmit === false ||
     currentState === RequestsState.Closed ||
     currentState === RequestsState.Finalized
   ) {
     return (
       <div className="mb-[24px] rounded-[8px] bg-[#DBEAFE] p-[16px]">
-        <div className="text-[14px] font-medium text-[#1E40AF]">
-          Waitlist is closed.
+        <div className="text-[16px] font-semibold text-[#92400E]">
+          ⚠️ Waitlist closed. Processing starts after the network upgrade and
+          mint module launch via governance proposal.
         </div>
-        <div className="mt-[8px] text-[14px] text-[#1E40AF]">
-          You cannot submit requests at this time.
+        <div className="mt-[8px] text-[14px] text-[#92400E]">
+          Stay tuned for updates.
         </div>
       </div>
     );
@@ -71,21 +73,6 @@ export function StatusMessages({
       <div className="mb-[24px] rounded-[8px] bg-[#D1FAE5] p-[16px]">
         <div className="text-[14px] font-medium text-[#065F46]">
           Waitlist is open. You can participate now.
-        </div>
-      </div>
-    );
-  }
-
-  // Show message only if canSubmit is explicitly false (not undefined)
-  // This means submission is not allowed even though waitlist might be in other states
-  if (canSubmit === false) {
-    return (
-      <div className="mb-[24px] rounded-[8px] border-2 border-[#F59E0B] bg-[#FEF3C7] p-[16px]">
-        <div className="text-[16px] font-semibold text-[#92400E]">
-          ⚠️ Please wait for the public announcement of the application start.
-        </div>
-        <div className="mt-[8px] text-[14px] text-[#92400E]">
-          You cannot submit requests at this time.
         </div>
       </div>
     );
