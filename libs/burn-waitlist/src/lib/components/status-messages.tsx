@@ -56,10 +56,11 @@ export function StatusMessages({
     return (
       <div className="mb-[24px] rounded-[8px] border-2 border-[#F59E0B] bg-[#FEF3C7] p-[16px]">
         <div className="text-[16px] font-semibold text-[#92400E]">
-          ⚠️ Please wait for the public announcement of the application start.
+          ⚠️ Waitlist closed. Processing starts after the network upgrade and
+          mint module launch via governance proposal.
         </div>
         <div className="mt-[8px] text-[14px] text-[#92400E]">
-          You cannot submit requests at this time.
+          Stay tuned for updates.
         </div>
       </div>
     );
