@@ -109,7 +109,7 @@ export function useEthiqAllowance(
     functionName: 'allowance',
     args:
       effectiveGrantee && address
-        ? [effectiveGrantee, address, method]
+        ? [address, effectiveGrantee, method]
         : undefined,
     chainId,
     query: {
