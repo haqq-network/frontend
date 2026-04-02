@@ -52,7 +52,11 @@ export function StatusMessages({
 
   // Show message only if canSubmit is explicitly false (not undefined)
   // This means submission is not allowed even though waitlist might be in other states
-  if (canSubmit === false) {
+  if (
+    canSubmit === false ||
+    currentState === RequestsState.Closed ||
+    currentState === RequestsState.Finalized
+  ) {
     return (
       <div className="mb-[24px] rounded-[8px] border-2 border-[#F59E0B] bg-[#FEF3C7] p-[16px]">
         <div className="text-[16px] font-semibold text-[#92400E]">
@@ -61,26 +65,6 @@ export function StatusMessages({
         </div>
         <div className="mt-[8px] text-[14px] text-[#92400E]">
           Stay tuned for updates.
-        </div>
-      </div>
-    );
-  }
-
-  if (currentState === RequestsState.Closed) {
-    return (
-      <div className="mb-[24px] rounded-[8px] bg-[#FEF3C7] p-[16px]">
-        <div className="text-[14px] font-medium text-[#92400E]">
-          Waitlist is closed. You can still cancel your requests.
-        </div>
-      </div>
-    );
-  }
-
-  if (currentState === RequestsState.Finalized) {
-    return (
-      <div className="mb-[24px] rounded-[8px] bg-[#DBEAFE] p-[16px]">
-        <div className="text-[14px] font-medium text-[#1E40AF]">
-          Waitlist has been finalized
         </div>
       </div>
     );
