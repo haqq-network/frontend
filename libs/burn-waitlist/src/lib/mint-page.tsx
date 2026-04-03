@@ -608,6 +608,13 @@ export function MintPage() {
                 >
                   {isSubmitting ? 'Minting...' : 'Burn ISLM & Mint HAQQ'}
                 </Button>
+                {!isSubmitting &&
+                  !isValid &&
+                  (!parsedAmount || parsedAmount <= 0n) && (
+                    <div className="text-center text-[13px] text-gray-400">
+                      Enter an amount to continue
+                    </div>
+                  )}
               </div>
             </div>
           )}

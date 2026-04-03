@@ -227,9 +227,7 @@ export function RequestsList({
                           <Button
                             variant={5}
                             onClick={() => onMintHaqq(requestId)}
-                            disabled={
-                              isMinting || needsApproval || needsSafeAccount
-                            }
+                            disabled={isMinting || needsSafeAccount}
                             isLoading={
                               isMinting && mintingApplicationId === requestId
                             }
