@@ -11,7 +11,7 @@ export interface RequestsSectionProps {
   hasData: boolean;
   canCancel: boolean;
   onCancel: (requestId: bigint) => void;
-  onApprove?: (amount: bigint) => void;
+  onApprove?: (applicationId: bigint) => void;
   onMintHaqq?: (applicationId: bigint) => void;
   isCancelling: boolean;
   cancellingRequestId?: bigint;

@@ -164,7 +164,7 @@ export function useWaitlistPage() {
 
   // Mint HAQQ by application
   const {
-    approve: approveByApplicationTx,
+    approveByApplicationId: approveByApplicationIdTx,
     mintHaqqByApplication: mintHaqqByApplicationTx,
     isSafe,
     isApproving: isApprovingByApp,
@@ -390,7 +390,7 @@ export function useWaitlistPage() {
 
   // Handle approve for Safe users (per application)
   const handleApproveByApplication = useCallback(
-    async (amount: bigint) => {
+    async (applicationId: bigint) => {
       if (!address || !validSafeAccount) {
         return;
       }
@@ -399,9 +399,9 @@ export function useWaitlistPage() {
         console.log('approve mintHaqqByApplication', {
           grantee: validSafeAccount,
           granter: address,
-          amount: amount.toString(),
+          applicationId: applicationId.toString(),
         });
-        await approveByApplicationTx(validSafeAccount, amount);
+        await approveByApplicationIdTx(validSafeAccount, applicationId);
         refetchMintByAppAllowance();
       } catch (error) {
         console.error('Failed to approve application:', error);
@@ -410,7 +410,7 @@ export function useWaitlistPage() {
     [
       address,
       validSafeAccount,
-      approveByApplicationTx,
+      approveByApplicationIdTx,
       refetchMintByAppAllowance,
     ],
   );

@@ -249,12 +249,51 @@ function useEthiqMintBase(method: string) {
     [writeApproveAsync, chainId, method, isSafe, waitForSafeExecution],
   );
 
+  const approveByApplicationId = useCallback(
+    async (sender: `0x${string}`, applicationId: bigint) => {
+      if (!writeApproveAsync) {
+        throw new Error('Wallet not connected');
+      }
+      if (!chainId) {
+        throw new Error('Chain ID not available');
+      }
+
+      console.log('approveByApplicationId', {
+        method,
+        sender,
+        applicationId: applicationId.toString(),
+      });
+
+      const txHash = await writeApproveAsync({
+        address: ETHIQ_PRECOMPILE_ADDRESS,
+        abi: EthiqAbi,
+        functionName: 'approveApplicationID',
+        args: [sender, applicationId, [method]],
+        chainId,
+      });
+
+      console.log('approveByApplicationId tx sent', { method, txHash });
+
+      if (isSafe) {
+        const executedHash = await waitForSafeExecution(txHash, 30, 1500);
+        console.log('approveByApplicationId Safe tx executed', {
+          method,
+          executedHash,
+        });
+      }
+
+      return txHash;
+    },
+    [writeApproveAsync, chainId, method, isSafe, waitForSafeExecution],
+  );
+
   return {
     writeContractAsync,
     chainId,
     isSafe,
     waitForSafeExecution,
     approve,
+    approveByApplicationId,
     isApproving,
     hash,
     isPending: isMintPending,

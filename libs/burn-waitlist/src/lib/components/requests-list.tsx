@@ -8,6 +8,7 @@ import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
 import { formatEthDecimal } from '@haqq/shell-shared';
 import { formatWaitlistPrice } from '../utils/format-waitlist-price';
 import { StatusBadge } from './status-badge';
+import { SafeApproveWarning } from './safe-approve-warning';
 
 export interface RequestsListProps {
   applications: Array<
@@ -19,7 +20,7 @@ export interface RequestsListProps {
   >;
   canCancel: boolean;
   onCancel: (requestId: bigint) => void;
-  onApprove?: (amount: bigint) => void;
+  onApprove?: (applicationId: bigint) => void;
   onMintHaqq?: (applicationId: bigint) => void;
   isCancelling?: boolean;
   cancellingRequestId?: bigint;
@@ -62,6 +63,7 @@ export function RequestsList({
 
   return (
     <div className="space-y-[12px]">
+      {isSafe && onApprove && <SafeApproveWarning />}
       <div className="space-y-[12px]">
         {applications.map((app) => {
           const requestId =
@@ -205,17 +207,23 @@ export function RequestsList({
 
                       return (
                         <>
-                          {needsApproval && onApprove && (
-                            <Button
-                              variant={4}
-                              onClick={() => onApprove(burnAmount)}
-                              disabled={isApproving || needsSafeAccount}
-                              isLoading={isApproving}
-                              className="w-full sm:w-auto"
-                            >
-                              {isApproving ? 'Approving...' : 'Approve'}
-                            </Button>
-                          )}
+                          {isSafe &&
+                            onApprove &&
+                            (needsApproval || needsSafeAccount) && (
+                              <Button
+                                variant={4}
+                                onClick={() => onApprove(requestId)}
+                                disabled={isApproving || needsSafeAccount}
+                                isLoading={isApproving}
+                                className="w-full sm:w-auto"
+                              >
+                                {isApproving
+                                  ? 'Approving...'
+                                  : needsSafeAccount
+                                    ? 'Select Safe Account to Approve'
+                                    : 'Approve'}
+                              </Button>
+                            )}
                           <Button
                             variant={5}
                             onClick={() => onMintHaqq(requestId)}
