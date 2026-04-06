@@ -25,6 +25,9 @@ const withNextIntl = createNextIntlPlugin(relativeRequestPath);
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
+  experimental: {
+    webpackMemoryOptimizations: true,
+  },
   images: {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     remotePatterns: [
@@ -126,7 +129,11 @@ const plugins = [
   withNextIntl,
 ];
 
-export default withSentryConfig(
-  composePlugins(...plugins)(nextConfig),
-  sentryWebpackPluginOptions,
-);
+const isDev = process.env.NODE_ENV !== 'production';
+
+export default isDev
+  ? composePlugins(...plugins)(nextConfig)
+  : withSentryConfig(
+      composePlugins(...plugins)(nextConfig),
+      sentryWebpackPluginOptions,
+    );
