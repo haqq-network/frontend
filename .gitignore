@@ -69,3 +69,5 @@ vitest.config.*.timestamp*
 
 # Scripts
 scripts/test.txt
+
+.claude

@@ -33,8 +33,8 @@ export async function GET(
     }
 
     const endpoint = new URL(
-      `/api/stride/lcd/Stride-Labs/stride/stakeibc/unbondings/${address}`,
-      'https://edge.stride.zone',
+      `/Stride-Labs/stride/stakeibc/unbondings/${address}`,
+      'https://stride-api.polkachu.com',
     );
 
     const response = await fetch(endpoint);
