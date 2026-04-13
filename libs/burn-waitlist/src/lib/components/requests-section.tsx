@@ -11,13 +11,12 @@ export interface RequestsSectionProps {
   hasData: boolean;
   canCancel: boolean;
   onCancel: (requestId: bigint) => void;
-  onApprove?: () => void;
+  onApprove?: (applicationId: bigint) => void;
   onMintHaqq?: (applicationId: bigint) => void;
   isCancelling: boolean;
   cancellingRequestId?: bigint;
   isSafe?: boolean;
   isApproving?: boolean;
-  allowance?: bigint;
   isMinting: boolean;
   mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
@@ -36,7 +35,6 @@ export function RequestsSection({
   cancellingRequestId,
   isSafe,
   isApproving,
-  allowance,
   isMinting,
   mintingApplicationId,
   balances,
@@ -60,7 +58,6 @@ export function RequestsSection({
           cancellingRequestId={cancellingRequestId}
           isSafe={isSafe}
           isApproving={isApproving}
-          allowance={allowance}
           isMinting={isMinting}
           mintingApplicationId={mintingApplicationId}
           balances={balances}

@@ -20,13 +20,12 @@ export interface RequestsListProps {
   >;
   canCancel: boolean;
   onCancel: (requestId: bigint) => void;
-  onApprove?: () => void;
+  onApprove?: (applicationId: bigint) => void;
   onMintHaqq?: (applicationId: bigint) => void;
   isCancelling?: boolean;
   cancellingRequestId?: bigint;
   isSafe?: boolean;
   isApproving?: boolean;
-  allowance?: bigint;
   isMinting?: boolean;
   mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
@@ -43,7 +42,6 @@ export function RequestsList({
   cancellingRequestId,
   isSafe = false,
   isApproving = false,
-  allowance,
   isMinting = false,
   mintingApplicationId,
   balances,
@@ -195,40 +193,32 @@ export function RequestsList({
                     !isCancelled &&
                     app.valid &&
                     app.ready &&
-                    onMintHaqq &&
-                    (() => {
-                      const burnAmount = BigInt(app.amount);
-                      const needsApproval =
-                        isSafe &&
-                        (allowance === undefined || allowance < burnAmount);
-
-                      return (
-                        <>
-                          {isSafe && onApprove && needsApproval && (
-                            <Button
-                              variant={4}
-                              onClick={() => onApprove()}
-                              disabled={isApproving}
-                              isLoading={isApproving}
-                              className="w-full sm:w-auto"
-                            >
-                              {isApproving ? 'Approving...' : 'Approve'}
-                            </Button>
-                          )}
+                    onMintHaqq && (
+                      <>
+                        {isSafe && onApprove && (
                           <Button
-                            variant={5}
-                            onClick={() => onMintHaqq(requestId)}
-                            disabled={isMinting}
-                            isLoading={
-                              isMinting && mintingApplicationId === requestId
-                            }
+                            variant={4}
+                            onClick={() => onApprove(requestId)}
+                            disabled={isApproving}
+                            isLoading={isApproving}
                             className="w-full sm:w-auto"
                           >
-                            Mint HAQQ
+                            {isApproving ? 'Approving...' : 'Approve'}
                           </Button>
-                        </>
-                      );
-                    })()}
+                        )}
+                        <Button
+                          variant={5}
+                          onClick={() => onMintHaqq(requestId)}
+                          disabled={isMinting}
+                          isLoading={
+                            isMinting && mintingApplicationId === requestId
+                          }
+                          className="w-full sm:w-auto"
+                        >
+                          Mint HAQQ
+                        </Button>
+                      </>
+                    )}
                   {canCancel && !isCancelled && !isBurned && !isPending && (
                     <Button
                       variant={3}

@@ -70,7 +70,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
     isSafe,
     isApprovingByApp,
-    mintByAppAllowance,
 
     isMinting,
     mintingApplicationId,
@@ -175,7 +174,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                     cancellingRequestId={cancellingRequestId}
                     isSafe={isSafe}
                     isApproving={isApprovingByApp}
-                    allowance={mintByAppAllowance}
                     isMinting={isMinting}
                     mintingApplicationId={mintingApplicationId}
                     balances={waitlistBalances}

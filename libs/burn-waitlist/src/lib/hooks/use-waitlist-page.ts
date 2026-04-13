@@ -15,7 +15,6 @@ import {
   useMintHaqqByApplication,
   useEthiqSenderApplications,
   useEthiqTotalBurned,
-  useWaitlistSafeApprove,
 } from './index';
 import type { Application } from './use-waitlist-applications';
 import { useBackendSignature } from './use-backend-signature';
@@ -26,7 +25,6 @@ import {
   RequestsState,
   WAITLIST_DEFAULT_CHAIN_ID,
 } from '../constants/waitlist-config';
-import { ETHIQ_PRECOMPILE_ADDRESS } from '../constants/ethiq-config';
 import { sanitizeErrorMessage } from '../utils/sanitize-error-message';
 import { ethToHaqq } from '@haqq/shell-shared';
 
@@ -164,21 +162,13 @@ export function useWaitlistPage() {
   // Mint HAQQ by application
   const {
     mintHaqqByApplication: mintHaqqByApplicationTx,
+    approveByApplicationId,
+    isSafe,
+    isApproving: isApprovingByApp,
     isPending: isMintingByApp,
     isConfirming: isConfirmingMintByApp,
     error: mintByAppError,
   } = useMintHaqqByApplication();
-
-  // Safe approve for mint by application (ethiq precompile, MsgMintHaqqByApplication)
-  const {
-    isSafe,
-    allowance: mintByAppAllowance,
-    isApproving: isApprovingByApp,
-    handleApprove: handleMintByAppApprove,
-  } = useWaitlistSafeApprove(undefined, {
-    precompileAddress: ETHIQ_PRECOMPILE_ADDRESS,
-    methods: ['/haqq.ethiq.v1.MsgMintHaqqByApplication'],
-  });
 
   const [cancellingRequestId, setCancellingRequestId] = useState<
     bigint | undefined
@@ -372,14 +362,20 @@ export function useWaitlistPage() {
     ],
   );
 
-  // Handle approve for Safe users (max approve, covers all applications)
-  const handleApproveByApplication = useCallback(async () => {
-    try {
-      await handleMintByAppApprove();
-    } catch (error) {
-      console.error('Failed to approve:', error);
-    }
-  }, [handleMintByAppApprove]);
+  // Handle approve for Safe users (per application ID)
+  const handleApproveByApplication = useCallback(
+    async (applicationId: bigint) => {
+      if (!address) {
+        return;
+      }
+      try {
+        await approveByApplicationId(address, applicationId);
+      } catch (error) {
+        console.error('Failed to approve:', error);
+      }
+    },
+    [address, approveByApplicationId],
+  );
 
   // Handle mint HAQQ by application
   const handleMintHaqqByApplication = useCallback(
@@ -761,7 +757,6 @@ export function useWaitlistPage() {
     // Safe / approve state
     isSafe,
     isApprovingByApp,
-    mintByAppAllowance,
 
     // Mint state
     isMinting: isMintingByApp || isConfirmingMintByApp,
