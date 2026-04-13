@@ -629,6 +629,16 @@ export function MintPage() {
                 </Button>
                 {!isSubmitting &&
                   !isValid &&
+                  parsedAmount !== undefined &&
+                  parsedAmount > 0n &&
+                  activeBalance !== undefined &&
+                  parsedAmount > activeBalance && (
+                    <div className="text-center text-[13px] text-red-500">
+                      Insufficient balance
+                    </div>
+                  )}
+                {!isSubmitting &&
+                  !isValid &&
                   (!parsedAmount || parsedAmount <= 0n) && (
                     <div className="text-center text-[13px] text-gray-400">
                       Enter an amount to continue
