@@ -530,9 +530,7 @@ export function MintPage() {
                   variant={5}
                   onClick={handleSubmit}
                   className="w-full"
-                  disabled={
-                    !isValid || isSubmitting || (isSafe && needsApproval)
-                  }
+                  disabled={!isValid || isSubmitting}
                   isLoading={isSubmitting}
                 >
                   {isSubmitting ? 'Minting...' : 'Burn ISLM & Mint HAQQ'}
