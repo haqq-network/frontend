@@ -302,25 +302,28 @@ export function MintPage() {
   }, [activeBalance]);
 
   const handleApprove = useCallback(async () => {
-    if (!address || !validSafeAccount) {
+    if (!address || !validSafeAccount || !parsedAmount || parsedAmount <= 0n) {
       return;
     }
 
     try {
-      const approveAmount = BigInt(
-        '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe',
-      );
       console.log('[MintPage] approve mintHaqq', {
         grantee: validSafeAccount,
         granter: address,
-        amount: approveAmount.toString(),
+        amount: parsedAmount.toString(),
       });
-      await approveMintTx(validSafeAccount, approveAmount);
+      await approveMintTx(validSafeAccount, parsedAmount);
       refetchMintAllowance();
     } catch (error) {
       console.error('Failed to approve:', error);
     }
-  }, [address, validSafeAccount, approveMintTx, refetchMintAllowance]);
+  }, [
+    address,
+    validSafeAccount,
+    parsedAmount,
+    approveMintTx,
+    refetchMintAllowance,
+  ]);
 
   const handleSubmit = useCallback(async () => {
     if (!address || !parsedAmount || parsedAmount <= 0n) {
@@ -598,7 +601,11 @@ export function MintPage() {
                       onClick={handleApprove}
                       className="w-full"
                       disabled={
-                        isApproving || !validSafeAccount || !needsApproval
+                        isApproving ||
+                        !validSafeAccount ||
+                        !needsApproval ||
+                        !parsedAmount ||
+                        parsedAmount <= 0n
                       }
                       isLoading={isApproving}
                     >
