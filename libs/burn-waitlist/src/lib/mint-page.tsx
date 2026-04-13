@@ -312,7 +312,8 @@ export function MintPage() {
         granter: address,
         amount: parsedAmount.toString(),
       });
-      await approveMintTx(validSafeAccount, parsedAmount);
+      // dont use safe address
+      await approveMintTx(address, parsedAmount);
       refetchMintAllowance();
     } catch (error) {
       console.error('Failed to approve:', error);
