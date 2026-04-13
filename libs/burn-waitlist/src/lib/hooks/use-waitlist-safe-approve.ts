@@ -40,6 +40,14 @@ export function useWaitlistSafeApprove(
   const { writeContractAsync } = useWriteContract();
   const [isApproving, setIsApproving] = useState(false);
 
+  console.log('[useWaitlistSafeApprove] init', {
+    address,
+    isSafe,
+    precompileAddress,
+    methods,
+    formAmount: formAmount?.toString(),
+  });
+
   // Check allowance for the primary method
   const { data: allowance, refetch: refetchAllowance } = useReadContract<
     typeof allowanceAbi,
@@ -57,19 +65,36 @@ export function useWaitlistSafeApprove(
     },
   });
 
+  console.log('[useWaitlistSafeApprove] allowance result', {
+    allowance: allowance?.toString(),
+    allowanceRaw: allowance,
+  });
+
   // Determine if approval is needed: isSafe + allowance < formAmount
   const needsApproval = useMemo(() => {
     if (!isSafe) {
+      console.log('[useWaitlistSafeApprove] needsApproval: false (not Safe)');
       return false;
     }
     if (!formAmount || formAmount <= 0n) {
+      console.log(
+        '[useWaitlistSafeApprove] needsApproval: false (no formAmount)',
+      );
       return false;
     }
     if (allowance === undefined) {
       // Still loading — assume approval needed
+      console.log(
+        '[useWaitlistSafeApprove] needsApproval: true (allowance loading)',
+      );
       return true;
     }
-    return allowance < formAmount;
+    const needs = allowance < formAmount;
+    console.log('[useWaitlistSafeApprove] needsApproval:', needs, {
+      allowance: allowance.toString(),
+      formAmount: formAmount.toString(),
+    });
+    return needs;
   }, [isSafe, formAmount, allowance]);
 
   // Max approve on the precompile
@@ -79,6 +104,12 @@ export function useWaitlistSafeApprove(
     }
 
     setIsApproving(true);
+    console.log('[useWaitlistSafeApprove] handleApprove called', {
+      address,
+      precompileAddress,
+      methods,
+      maxAmount: MAX_UINT256_MINUS_ONE.toString(),
+    });
     try {
       const txHash = await writeContractAsync({
         address: precompileAddress,
@@ -86,6 +117,8 @@ export function useWaitlistSafeApprove(
         functionName: 'approve',
         args: [address, MAX_UINT256_MINUS_ONE, methods],
       });
+
+      console.log('[useWaitlistSafeApprove] approve tx hash:', txHash);
 
       if (!txHash) {
         throw new Error('Approve transaction failed');
@@ -95,12 +128,21 @@ export function useWaitlistSafeApprove(
         hash: txHash,
       });
 
+      console.log('[useWaitlistSafeApprove] approve receipt:', {
+        status: receipt.status,
+        hash: receipt.transactionHash,
+      });
+
       if (receipt.status !== 'success') {
         throw new Error('Approve transaction failed');
       }
 
       await refetchAllowance();
+      console.log('[useWaitlistSafeApprove] allowance refetched after approve');
       return receipt;
+    } catch (error) {
+      console.error('[useWaitlistSafeApprove] approve error:', error);
+      throw error;
     } finally {
       setIsApproving(false);
     }

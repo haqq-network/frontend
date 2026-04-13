@@ -178,13 +178,26 @@ export function MintPage() {
   } = useMintHaqq();
 
   // Safe approve (ethiq precompile, MsgMintHaqq method)
-  const { needsApproval, isApproving, handleApprove } = useWaitlistSafeApprove(
-    parsedAmount,
-    {
-      precompileAddress: ETHIQ_PRECOMPILE_ADDRESS,
-      methods: ['/haqq.ethiq.v1.MsgMintHaqq'],
-    },
-  );
+  const {
+    needsApproval,
+    isApproving,
+    handleApprove,
+    allowance,
+    isSafe: isSafeApprove,
+  } = useWaitlistSafeApprove(parsedAmount, {
+    precompileAddress: ETHIQ_PRECOMPILE_ADDRESS,
+    methods: ['/haqq.ethiq.v1.MsgMintHaqq'],
+  });
+
+  console.log('[MintPage] approve state', {
+    isSafe,
+    isSafeApprove,
+    needsApproval,
+    isApproving,
+    allowance: allowance?.toString(),
+    parsedAmount: parsedAmount?.toString(),
+    precompileAddress: ETHIQ_PRECOMPILE_ADDRESS,
+  });
 
   // Convert hook (ucDAO balance via UCDAO precompile)
   const {
