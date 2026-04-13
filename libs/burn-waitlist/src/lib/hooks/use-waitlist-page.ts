@@ -3,7 +3,6 @@
 import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 
-import { isAddress } from 'viem';
 import {
   useWaitlistContractState,
   useCreateWaitlistRequest,
@@ -14,10 +13,9 @@ import {
   useWaitlistPriceChart,
   useWaitlistGlobalStats,
   useMintHaqqByApplication,
-  useEthiqAllowance,
   useEthiqSenderApplications,
   useEthiqTotalBurned,
-  useSafeAccounts,
+  useWaitlistSafeApprove,
 } from './index';
 import type { Application } from './use-waitlist-applications';
 import { useBackendSignature } from './use-backend-signature';
@@ -28,6 +26,7 @@ import {
   RequestsState,
   WAITLIST_DEFAULT_CHAIN_ID,
 } from '../constants/waitlist-config';
+import { ETHIQ_PRECOMPILE_ADDRESS } from '../constants/ethiq-config';
 import { sanitizeErrorMessage } from '../utils/sanitize-error-message';
 import { ethToHaqq } from '@haqq/shell-shared';
 
@@ -164,37 +163,22 @@ export function useWaitlistPage() {
 
   // Mint HAQQ by application
   const {
-    approveByApplicationId: approveByApplicationIdTx,
     mintHaqqByApplication: mintHaqqByApplicationTx,
-    isSafe,
-    isApproving: isApprovingByApp,
     isPending: isMintingByApp,
     isConfirming: isConfirmingMintByApp,
     error: mintByAppError,
   } = useMintHaqqByApplication();
 
-  // Safe accounts (owners) for Safe wallet users
-  const { owners: safeOwners, isLoading: isSafeOwnersLoading } =
-    useSafeAccounts();
-
-  const [safeAccountAddress, setSafeAccountAddress] = useState('');
-
-  const validSafeAccount = useMemo(() => {
-    if (!isSafe) {
-      return undefined;
-    }
-    if (safeAccountAddress && isAddress(safeAccountAddress)) {
-      return safeAccountAddress as `0x${string}`;
-    }
-    return undefined;
-  }, [isSafe, safeAccountAddress]);
-
-  // Allowance check for Safe users (MintHaqqByApplication method)
-  const { allowance: mintByAppAllowance, refetch: refetchMintByAppAllowance } =
-    useEthiqAllowance(
-      '/haqq.ethiq.v1.MsgMintHaqqByApplication',
-      validSafeAccount,
-    );
+  // Safe approve for mint by application (ethiq precompile, MsgMintHaqqByApplication)
+  const {
+    isSafe,
+    allowance: mintByAppAllowance,
+    isApproving: isApprovingByApp,
+    handleApprove: handleMintByAppApprove,
+  } = useWaitlistSafeApprove(undefined, {
+    precompileAddress: ETHIQ_PRECOMPILE_ADDRESS,
+    methods: ['/haqq.ethiq.v1.MsgMintHaqqByApplication'],
+  });
 
   const [cancellingRequestId, setCancellingRequestId] = useState<
     bigint | undefined
@@ -388,32 +372,14 @@ export function useWaitlistPage() {
     ],
   );
 
-  // Handle approve for Safe users (per application)
-  const handleApproveByApplication = useCallback(
-    async (applicationId: bigint) => {
-      if (!address || !validSafeAccount) {
-        return;
-      }
-
-      try {
-        console.log('approve mintHaqqByApplication', {
-          grantee: validSafeAccount,
-          granter: address,
-          applicationId: applicationId.toString(),
-        });
-        await approveByApplicationIdTx(validSafeAccount, applicationId);
-        refetchMintByAppAllowance();
-      } catch (error) {
-        console.error('Failed to approve application:', error);
-      }
-    },
-    [
-      address,
-      validSafeAccount,
-      approveByApplicationIdTx,
-      refetchMintByAppAllowance,
-    ],
-  );
+  // Handle approve for Safe users (max approve, covers all applications)
+  const handleApproveByApplication = useCallback(async () => {
+    try {
+      await handleMintByAppApprove();
+    } catch (error) {
+      console.error('Failed to approve:', error);
+    }
+  }, [handleMintByAppApprove]);
 
   // Handle mint HAQQ by application
   const handleMintHaqqByApplication = useCallback(
@@ -796,11 +762,6 @@ export function useWaitlistPage() {
     isSafe,
     isApprovingByApp,
     mintByAppAllowance,
-    safeOwners,
-    isSafeOwnersLoading,
-    safeAccountAddress,
-    setSafeAccountAddress,
-    validSafeAccount,
 
     // Mint state
     isMinting: isMintingByApp || isConfirmingMintByApp,

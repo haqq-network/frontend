@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { useAccount, useBalance, useReadContract, useSwitchChain } from 'wagmi';
-import { erc20Abi, parseEther, formatEther, maxUint256, isAddress } from 'viem';
+import { erc20Abi, parseEther, formatEther } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { Button, ModalInput } from '@haqq/shell-ui-kit';
 import {
@@ -15,8 +15,7 @@ import {
   useMintHaqq,
   useEthiqTotalBurned,
   useEthiqCalculateRest,
-  useEthiqAllowance,
-  useSafeAccounts,
+  useWaitlistSafeApprove,
 } from './hooks';
 import {
   WAITLIST_DEFAULT_CHAIN_ID,
@@ -24,10 +23,10 @@ import {
   isWaitlistChainSupported,
   getHaqqTokenAddress,
 } from './constants/waitlist-config';
+import { ETHIQ_PRECOMPILE_ADDRESS } from './constants/ethiq-config';
 import { WalletConnectionWarning } from './components/wallet-connection-warning';
 import { NetworkWarning } from './components/network-warning';
 import { SafeApproveWarning } from './components/safe-approve-warning';
-import { SafeAccountSelector } from './components/safe-account-selector';
 
 function sanitizeErrorMessage(
   error: Error | null | undefined,
@@ -91,7 +90,6 @@ export function MintPage() {
 
   const [amount, setAmount] = useState('');
   const [source, setSource] = useState<FundsSource>(FundsSource.OwnBalance);
-  const [safeAccountAddress, setSafeAccountAddress] = useState('');
 
   // Parse user input to bigint (wei) — strip commas from ModalInput formatting
   const parsedAmount = useMemo(() => {
@@ -170,10 +168,8 @@ export function MintPage() {
 
   // Mint hook (own balance via Ethiq precompile)
   const {
-    approve: approveMintTx,
     mintHaqq: mintHaqqTx,
     isSafe,
-    isApproving,
     isPending: isMinting,
     isConfirming,
     isSuccess,
@@ -181,40 +177,14 @@ export function MintPage() {
     error: mintError,
   } = useMintHaqq();
 
-  // Safe accounts (owners) for Safe wallet users
-  const { owners: safeOwners, isLoading: isSafeOwnersLoading } =
-    useSafeAccounts();
-
-  // Validated safe account address for approve/allowance
-  const validSafeAccount = useMemo(() => {
-    if (!isSafe) {
-      return undefined;
-    }
-    if (safeAccountAddress && isAddress(safeAccountAddress)) {
-      return safeAccountAddress as `0x${string}`;
-    }
-    return undefined;
-  }, [isSafe, safeAccountAddress]);
-
-  // Allowance check for Safe users (MintHaqq method)
-  const {
-    allowance: mintAllowance,
-    refetch: refetchMintAllowance,
-    isLoading: isMintAllowanceLoading,
-  } = useEthiqAllowance('/haqq.ethiq.v1.MsgMintHaqq', validSafeAccount);
-
-  const needsApproval = useMemo(() => {
-    if (!isSafe || !validSafeAccount) {
-      return false;
-    }
-    if (mintAllowance === undefined) {
-      return true;
-    }
-    if (parsedAmount === undefined || parsedAmount <= 0n) {
-      return mintAllowance === 0n;
-    }
-    return mintAllowance < parsedAmount;
-  }, [isSafe, validSafeAccount, mintAllowance, parsedAmount]);
+  // Safe approve (ethiq precompile, MsgMintHaqq method)
+  const { needsApproval, isApproving, handleApprove } = useWaitlistSafeApprove(
+    parsedAmount,
+    {
+      precompileAddress: ETHIQ_PRECOMPILE_ADDRESS,
+      methods: ['/haqq.ethiq.v1.MsgMintHaqq'],
+    },
+  );
 
   // Convert hook (ucDAO balance via UCDAO precompile)
   const {
@@ -291,25 +261,6 @@ export function MintPage() {
       setAmount(formatEther(activeBalance));
     }
   }, [activeBalance]);
-
-  const handleApprove = useCallback(async () => {
-    if (!address || !validSafeAccount) {
-      return;
-    }
-
-    try {
-      const approveAmount = maxUint256 - 1n;
-      console.log('approve mintHaqq', {
-        grantee: validSafeAccount,
-        granter: address,
-        amount: approveAmount.toString(),
-      });
-      await approveMintTx(validSafeAccount, approveAmount);
-      refetchMintAllowance();
-    } catch (error) {
-      console.error('Failed to approve:', error);
-    }
-  }, [address, validSafeAccount, approveMintTx, refetchMintAllowance]);
 
   const handleSubmit = useCallback(async () => {
     if (!address || !parsedAmount || parsedAmount <= 0n) {
@@ -546,49 +497,16 @@ export function MintPage() {
                 </div>
               )}
 
-              {/* Safe account selector */}
-              {isSafe && (
-                <SafeAccountSelector
-                  owners={safeOwners}
-                  selectedAddress={safeAccountAddress}
-                  onSelect={setSafeAccountAddress}
-                  isLoading={isSafeOwnersLoading}
-                  disabled={isSubmitting || isApproving}
-                />
-              )}
-
-              {/* Allowance status for Safe users */}
-              {isSafe && validSafeAccount && !isMintAllowanceLoading && (
-                <div
-                  className={`flex items-center justify-between rounded-[8px] p-[12px] ${
-                    needsApproval ? 'bg-yellow-50' : 'bg-green-50'
-                  }`}
-                >
-                  <span className="text-[14px] text-gray-500">
-                    Allowance Status
-                  </span>
-                  <span
-                    className={`text-[14px] font-medium ${
-                      needsApproval ? 'text-yellow-700' : 'text-emerald-700'
-                    }`}
-                  >
-                    {needsApproval ? 'Approval required' : 'Approved'}
-                  </span>
-                </div>
-              )}
-
               {/* Submit */}
               <div className="flex flex-col gap-[8px] pt-[8px]">
-                {isSafe && (
+                {isSafe && needsApproval && (
                   <>
                     <SafeApproveWarning />
                     <Button
                       variant={4}
                       onClick={handleApprove}
                       className="w-full"
-                      disabled={
-                        isApproving || !validSafeAccount || !needsApproval
-                      }
+                      disabled={isApproving}
                       isLoading={isApproving}
                     >
                       {isApproving ? 'Approving...' : 'Approve'}
@@ -600,9 +518,7 @@ export function MintPage() {
                   onClick={handleSubmit}
                   className="w-full"
                   disabled={
-                    !isValid ||
-                    isSubmitting ||
-                    (isSafe && (!validSafeAccount || needsApproval))
+                    !isValid || isSubmitting || (isSafe && needsApproval)
                   }
                   isLoading={isSubmitting}
                 >

@@ -14,7 +14,6 @@ import {
   WaitlistFormSection,
   RequestsSection,
 } from './components';
-import { SafeAccountSelector } from './components/safe-account-selector';
 
 export interface WaitlistPageProps {
   locale?: string;
@@ -72,11 +71,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     isSafe,
     isApprovingByApp,
     mintByAppAllowance,
-    safeOwners,
-    isSafeOwnersLoading,
-    safeAccountAddress,
-    setSafeAccountAddress,
-    validSafeAccount,
 
     isMinting,
     mintingApplicationId,
@@ -163,15 +157,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                 )}
 
                 <div className="space-y-[16px]">
-                  {isSafe && isWaitlistStopped && (
-                    <SafeAccountSelector
-                      owners={safeOwners}
-                      selectedAddress={safeAccountAddress}
-                      onSelect={setSafeAccountAddress}
-                      isLoading={isSafeOwnersLoading}
-                      disabled={isMinting || isApprovingByApp}
-                    />
-                  )}
                   <RequestsSection
                     applications={mergedApplications}
                     isLoading={requestsLoading}
@@ -195,7 +180,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                     mintingApplicationId={mintingApplicationId}
                     balances={waitlistBalances}
                     locale={locale}
-                    needsSafeAccount={isSafe && !validSafeAccount}
                   />
                 </div>
               </div>

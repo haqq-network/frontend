@@ -20,7 +20,7 @@ export interface RequestsListProps {
   >;
   canCancel: boolean;
   onCancel: (requestId: bigint) => void;
-  onApprove?: (applicationId: bigint) => void;
+  onApprove?: () => void;
   onMintHaqq?: (applicationId: bigint) => void;
   isCancelling?: boolean;
   cancellingRequestId?: bigint;
@@ -31,7 +31,6 @@ export interface RequestsListProps {
   mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
   locale?: string;
-  needsSafeAccount?: boolean;
 }
 
 export function RequestsList({
@@ -49,7 +48,6 @@ export function RequestsList({
   mintingApplicationId,
   balances,
   locale = 'en',
-  needsSafeAccount = false,
 }: RequestsListProps) {
   if (applications.length === 0) {
     return (
@@ -202,32 +200,25 @@ export function RequestsList({
                       const burnAmount = BigInt(app.amount);
                       const needsApproval =
                         isSafe &&
-                        !needsSafeAccount &&
                         (allowance === undefined || allowance < burnAmount);
 
                       return (
                         <>
-                          {isSafe &&
-                            onApprove &&
-                            (needsApproval || needsSafeAccount) && (
-                              <Button
-                                variant={4}
-                                onClick={() => onApprove(requestId)}
-                                disabled={isApproving || needsSafeAccount}
-                                isLoading={isApproving}
-                                className="w-full sm:w-auto"
-                              >
-                                {isApproving
-                                  ? 'Approving...'
-                                  : needsSafeAccount
-                                    ? 'Select Safe Account to Approve'
-                                    : 'Approve'}
-                              </Button>
-                            )}
+                          {isSafe && onApprove && needsApproval && (
+                            <Button
+                              variant={4}
+                              onClick={() => onApprove()}
+                              disabled={isApproving}
+                              isLoading={isApproving}
+                              className="w-full sm:w-auto"
+                            >
+                              {isApproving ? 'Approving...' : 'Approve'}
+                            </Button>
+                          )}
                           <Button
                             variant={5}
                             onClick={() => onMintHaqq(requestId)}
-                            disabled={isMinting || needsSafeAccount}
+                            disabled={isMinting}
                             isLoading={
                               isMinting && mintingApplicationId === requestId
                             }
