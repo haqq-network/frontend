@@ -2,7 +2,8 @@ export function SafeApproveWarning() {
   return (
     <div className="text-haqq-orange text-[12px] leading-[16px]">
       Warning: In SAFE, the sender of the transaction (executing the
-      transaction) must necessarily do <b>Approve</b> before proceeding.
+      transaction) must necessarily do <b>Approve</b> before proceeding. Approve
+      and Mint must be initiated by the same account.
     </div>
   );
 }
