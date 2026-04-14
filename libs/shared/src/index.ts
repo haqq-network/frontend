@@ -44,6 +44,7 @@ export * from './hooks/use-coinomics-params/use-coinomics-params';
 export * from './precompile/staking-abi';
 export * from './precompile/distribution-abi';
 export * from './precompile/adresses';
+export * from './precompile/use-safe-execution-waiter';
 
 export * from './utils/ethereum-mainnet';
 export * from './utils/bridge';

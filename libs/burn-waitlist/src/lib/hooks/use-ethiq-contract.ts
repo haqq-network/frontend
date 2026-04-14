@@ -7,9 +7,7 @@ import {
   useWaitForTransactionReceipt,
   useAccount,
 } from 'wagmi';
-import type { Hash } from 'viem';
-import SafeAppsSDK, { TransactionStatus } from '@safe-global/safe-apps-sdk';
-import { useConnectorType } from '@haqq/shell-shared';
+import { useConnectorType, useSafeExecutionWaiter } from '@haqq/shell-shared';
 import { EthiqAbi } from '../abi/ethiq';
 import { ETHIQ_PRECOMPILE_ADDRESS } from '../constants/ethiq-config';
 import { WAITLIST_DEFAULT_CHAIN_ID } from '../constants/waitlist-config';
@@ -141,7 +139,7 @@ export function useEthiqAllowance(
  */
 function useEthiqMintBase(method: string) {
   const { chain } = useAccount();
-  const { isSafe } = useConnectorType();
+  const { isSafe, waitForSafeExecution } = useSafeExecutionWaiter();
   const chainId = chain?.id;
 
   const {
@@ -161,62 +159,6 @@ function useEthiqMintBase(method: string) {
     hash,
     chainId: chainId || WAITLIST_DEFAULT_CHAIN_ID,
   });
-
-  const fetchSafeTransactionStatus = useCallback(
-    async (safeTxHash: string) => {
-      if (!isSafe) {
-        return null;
-      }
-
-      try {
-        const sdk = new SafeAppsSDK();
-        const txDetails = await sdk.txs.getBySafeTxHash(safeTxHash);
-
-        return {
-          isExecuted:
-            txDetails.txStatus === TransactionStatus.AWAITING_EXECUTION ||
-            txDetails.txStatus === TransactionStatus.SUCCESS,
-          transactionHash: txDetails.txHash,
-        };
-      } catch (error) {
-        console.error('Error fetching Safe transaction status:', error);
-        throw error;
-      }
-    },
-    [isSafe],
-  );
-
-  const waitForSafeExecution = useCallback(
-    async (
-      safeTxHash: string,
-      maxAttempts = 20,
-      interval = 5000,
-    ): Promise<Hash | null> => {
-      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-        try {
-          const status = await fetchSafeTransactionStatus(safeTxHash);
-
-          if (status && status.isExecuted) {
-            return (status.transactionHash as Hash) ?? null;
-          }
-
-          await new Promise((resolve) => {
-            return setTimeout(resolve, interval);
-          });
-        } catch (error) {
-          console.error(`Attempt ${attempt} failed:`, error);
-
-          if (attempt === maxAttempts) {
-            console.error('Max attempts reached. Transaction tracking failed.');
-            return null;
-          }
-        }
-      }
-
-      return null;
-    },
-    [fetchSafeTransactionStatus],
-  );
 
   const approve = useCallback(
     async (sender: `0x${string}`, amount: bigint) => {

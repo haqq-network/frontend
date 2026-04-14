@@ -10,7 +10,11 @@ import {
   useAddress,
   useDaoAllBalancesQuery,
 } from '@haqq/shell-shared';
-import { useUcdaoConvertToHaqq } from '@haqq/shell-ucdao';
+import {
+  useUcdaoConvertToHaqq,
+  useUcdaoAllowance,
+  UCDAO_MSG_CONVERT_TO_HAQQ,
+} from '@haqq/shell-ucdao';
 import {
   useMintHaqq,
   useEthiqTotalBurned,
@@ -168,18 +172,9 @@ export function MintPage() {
     chainId: chain?.id ?? WAITLIST_DEFAULT_CHAIN_ID,
   });
 
-  // Mint hook (own balance via Ethiq precompile)
-  const {
-    mintHaqq: mintHaqqTx,
-    approve: approveMintTx,
-    isApproving,
-    isSafe,
-    isPending: isMinting,
-    isConfirming,
-    isSuccess,
-    hash: mintHash,
-    error: mintError,
-  } = useMintHaqq();
+  // Mint flow (own balance via Ethiq precompile)
+  const ethiqMint = useMintHaqq();
+  const { isSafe } = ethiqMint;
 
   // Safe accounts (owners) for Safe wallet users
   const { owners: safeOwners, isLoading: isSafeOwnersLoading } =
@@ -196,60 +191,80 @@ export function MintPage() {
     return undefined;
   }, [isSafe, safeAccountAddress]);
 
-  // Allowance check for Safe users (MintHaqq method)
-  const {
-    allowance: mintAllowance,
-    refetch: refetchMintAllowance,
-    isLoading: isMintAllowanceLoading,
-  } = useEthiqAllowance('/haqq.ethiq.v1.MsgMintHaqq', validSafeAccount);
+  // Allowance check for Safe users (Ethiq MintHaqq method)
+  const ethiqAllowance = useEthiqAllowance(
+    '/haqq.ethiq.v1.MsgMintHaqq',
+    validSafeAccount,
+  );
+
+  // Convert flow (ucDAO balance via UCDAO precompile)
+  const ucdaoConvert = useUcdaoConvertToHaqq();
+
+  // Allowance check for Safe users (UCDAO ConvertToHaqq method)
+  const ucdaoAllowance = useUcdaoAllowance(
+    UCDAO_MSG_CONVERT_TO_HAQQ,
+    validSafeAccount,
+  );
+
+  // Source-aware bundle: pick the active write+allowance pair in one place
+  const flow =
+    source === FundsSource.ucDAO
+      ? {
+          submit: (s: `0x${string}`, r: `0x${string}`, amt: bigint) =>
+            ucdaoConvert.convertToHaqq(s, r, amt),
+          approve: ucdaoConvert.approve,
+          isApproving: ucdaoConvert.isApproving,
+          isPending: ucdaoConvert.isPending,
+          isConfirming: ucdaoConvert.isConfirming,
+          isSuccess: ucdaoConvert.isSuccess,
+          hash: ucdaoConvert.hash,
+          error: ucdaoConvert.error,
+          allowance: ucdaoAllowance.allowance,
+          refetchAllowance: ucdaoAllowance.refetch,
+          isAllowanceLoading: ucdaoAllowance.isLoading,
+        }
+      : {
+          submit: (s: `0x${string}`, r: `0x${string}`, amt: bigint) =>
+            ethiqMint.mintHaqq(s, r, amt),
+          approve: ethiqMint.approve,
+          isApproving: ethiqMint.isApproving,
+          isPending: ethiqMint.isPending,
+          isConfirming: ethiqMint.isConfirming,
+          isSuccess: ethiqMint.isSuccess,
+          hash: ethiqMint.hash,
+          error: ethiqMint.error,
+          allowance: ethiqAllowance.allowance,
+          refetchAllowance: ethiqAllowance.refetch,
+          isAllowanceLoading: ethiqAllowance.isLoading,
+        };
 
   const needsApproval = useMemo(() => {
     if (!isSafe || !validSafeAccount) {
       return false;
     }
-    if (mintAllowance === undefined) {
+    if (flow.allowance === undefined) {
       return true;
     }
     if (parsedAmount === undefined || parsedAmount <= 0n) {
-      return mintAllowance === 0n;
+      return flow.allowance === 0n;
     }
-    return mintAllowance < parsedAmount;
-  }, [isSafe, validSafeAccount, mintAllowance, parsedAmount]);
+    return flow.allowance < parsedAmount;
+  }, [isSafe, validSafeAccount, flow.allowance, parsedAmount]);
 
   console.log('[MintPage] approve state', {
     isSafe,
+    source,
     needsApproval,
-    isApproving: isMinting,
-    mintAllowance: mintAllowance?.toString(),
+    allowance: flow.allowance?.toString(),
     parsedAmount: parsedAmount?.toString(),
     validSafeAccount,
   });
-
-  // Convert hook (ucDAO balance via UCDAO precompile)
-  const {
-    convertToHaqq: convertToHaqqTx,
-    isPending: isConverting,
-    isConfirming: isConvertConfirming,
-    isSuccess: isConvertSuccess,
-    hash: convertHash,
-    error: convertError,
-  } = useUcdaoConvertToHaqq();
-
-  // Unified state based on source
-  const currentIsPending =
-    source === FundsSource.ucDAO ? isConverting : isMinting;
-  const currentIsConfirming =
-    source === FundsSource.ucDAO ? isConvertConfirming : isConfirming;
-  const currentIsSuccess =
-    source === FundsSource.ucDAO ? isConvertSuccess : isSuccess;
-  const currentHash = source === FundsSource.ucDAO ? convertHash : mintHash;
-  const currentError = source === FundsSource.ucDAO ? convertError : mintError;
 
   const hasProcessedSuccess = useRef(false);
 
   // Handle successful mint/convert
   useEffect(() => {
-    if (currentIsSuccess && currentHash && !hasProcessedSuccess.current) {
+    if (flow.isSuccess && flow.hash && !hasProcessedSuccess.current) {
       hasProcessedSuccess.current = true;
       setAmount('');
       refetchBalance();
@@ -257,12 +272,12 @@ export function MintPage() {
       refetchHaqqTokenBalance();
     }
 
-    if (!currentIsSuccess) {
+    if (!flow.isSuccess) {
       hasProcessedSuccess.current = false;
     }
   }, [
-    currentIsSuccess,
-    currentHash,
+    flow.isSuccess,
+    flow.hash,
     refetchBalance,
     refetchDaoBalance,
     refetchHaqqTokenBalance,
@@ -307,24 +322,19 @@ export function MintPage() {
     }
 
     try {
-      console.log('[MintPage] approve mintHaqq', {
+      console.log('[MintPage] approve', {
+        source,
         grantee: validSafeAccount,
         granter: address,
         amount: parsedAmount.toString(),
       });
       // dont use safe address
-      await approveMintTx(address, parsedAmount);
-      refetchMintAllowance();
+      await flow.approve(address, parsedAmount);
+      flow.refetchAllowance();
     } catch (error) {
       console.error('Failed to approve:', error);
     }
-  }, [
-    address,
-    validSafeAccount,
-    parsedAmount,
-    approveMintTx,
-    refetchMintAllowance,
-  ]);
+  }, [address, validSafeAccount, parsedAmount, source, flow]);
 
   const handleSubmit = useCallback(async () => {
     if (!address || !parsedAmount || parsedAmount <= 0n) {
@@ -332,20 +342,16 @@ export function MintPage() {
     }
 
     try {
-      if (source === FundsSource.ucDAO) {
-        await convertToHaqqTx(address, address, parsedAmount);
-      } else {
-        await mintHaqqTx(address, address, parsedAmount);
-      }
+      await flow.submit(address, address, parsedAmount);
     } catch (error) {
       console.error('Failed to mint HAQQ:', error);
     }
-  }, [address, parsedAmount, source, mintHaqqTx, convertToHaqqTx]);
+  }, [address, parsedAmount, flow]);
 
-  const isSubmitting = currentIsPending || currentIsConfirming;
+  const isSubmitting = flow.isPending || flow.isConfirming;
   const errorMessage = useMemo(
-    () => sanitizeErrorMessage(currentError || undefined),
-    [currentError],
+    () => sanitizeErrorMessage(flow.error || undefined),
+    [flow.error],
   );
 
   const isValid =
@@ -544,7 +550,7 @@ export function MintPage() {
               )}
 
               {/* Success message */}
-              {currentIsSuccess && currentHash && (
+              {flow.isSuccess && flow.hash && (
                 <div className="rounded-[8px] bg-green-100 p-[12px]">
                   <div className="text-[14px] font-medium text-emerald-800">
                     HAQQ tokens minted successfully!
@@ -568,12 +574,12 @@ export function MintPage() {
                   selectedAddress={safeAccountAddress}
                   onSelect={setSafeAccountAddress}
                   isLoading={isSafeOwnersLoading}
-                  disabled={isSubmitting || isApproving}
+                  disabled={isSubmitting || flow.isApproving}
                 />
               )}
 
               {/* Allowance status for Safe users */}
-              {isSafe && validSafeAccount && !isMintAllowanceLoading && (
+              {isSafe && validSafeAccount && !flow.isAllowanceLoading && (
                 <div
                   className={`flex items-center justify-between rounded-[8px] p-[12px] ${
                     needsApproval ? 'bg-yellow-50' : 'bg-green-50'
@@ -602,15 +608,15 @@ export function MintPage() {
                       onClick={handleApprove}
                       className="w-full"
                       disabled={
-                        isApproving ||
+                        flow.isApproving ||
                         !validSafeAccount ||
                         !needsApproval ||
                         !parsedAmount ||
                         parsedAmount <= 0n
                       }
-                      isLoading={isApproving}
+                      isLoading={flow.isApproving}
                     >
-                      {isApproving ? 'Approving...' : 'Approve'}
+                      {flow.isApproving ? 'Approving...' : 'Approve'}
                     </Button>
                   </>
                 )}
