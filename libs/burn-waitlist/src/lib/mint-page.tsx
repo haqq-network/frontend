@@ -147,6 +147,7 @@ export function MintPage() {
         }, 0n) ?? 0n
     );
   }, [bankBalances]);
+  console.log('bankLiquidSum', bankLiquidSum);
 
   // ucDAO balance
   const { data: daoBalances, refetch: refetchDaoBalance } =
@@ -342,6 +343,10 @@ export function MintPage() {
     return (walletBalance?.value ?? 0n) + bankLiquidSum;
   }, [walletBalance?.value, bankLiquidSum]);
 
+  console.log('ownBalance', ownBalance);
+  console.log('walletBalance', walletBalance);
+  console.log('bankLiquidSum', bankLiquidSum);
+
   const activeBalance =
     source === FundsSource.ucDAO ? daoIslmBalance : ownBalance;
 
@@ -480,11 +485,9 @@ export function MintPage() {
                       />
                       <span className="text-haqq-black text-[14px]">
                         Own Balance
-                        {walletBalance?.value !== undefined && (
-                          <span className="ml-[4px] text-gray-500">
-                            ({formatEthDecimal(walletBalance.value, 4)} ISLM)
-                          </span>
-                        )}
+                        <span className="ml-[4px] text-gray-500">
+                          ({formatEthDecimal(ownBalance, 4)} ISLM)
+                        </span>
                       </span>
                     </label>
                     <label className="flex cursor-pointer items-center space-x-[8px]">
