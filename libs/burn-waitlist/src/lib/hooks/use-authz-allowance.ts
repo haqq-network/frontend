@@ -12,19 +12,12 @@ const ETHIQ_MSG_MINT_HAQQ = '/haqq.ethiq.v1.MsgMintHaqq';
 const ETHIQ_MSG_MINT_HAQQ_BY_APPLICATION =
   '/haqq.ethiq.v1.MsgMintHaqqByApplication';
 
-/**
- * Hook to check cosmos authz grants for Safe wallet allowance.
- * Queries /cosmos/authz/v1beta1/grants?granter=<safe>&grantee=<owner>
- * to verify if the Safe has granted permission for specific message types.
- *
- * @param granteeAddress - The Safe owner (grantee) 0x address
- */
-export function useAuthzAllowance(granteeAddress?: `0x${string}`) {
+export function useAuthzAllowance(granterAddress?: `0x${string}`) {
   const { address } = useAccount();
   const { isSafe } = useConnectorType();
 
   // Convert EVM addresses to haqq (bech32) format for cosmos query
-  const granterHaqq = useMemo(() => {
+  const granteeHaqq = useMemo(() => {
     if (!address) {
       return '';
     }
@@ -35,16 +28,16 @@ export function useAuthzAllowance(granteeAddress?: `0x${string}`) {
     }
   }, [address]);
 
-  const granteeHaqq = useMemo(() => {
-    if (!granteeAddress) {
+  const granterHaqq = useMemo(() => {
+    if (!granterAddress) {
       return '';
     }
     try {
-      return ethToHaqq(granteeAddress);
+      return ethToHaqq(granterAddress);
     } catch {
       return '';
     }
-  }, [granteeAddress]);
+  }, [granterAddress]);
 
   const enabled = isSafe && !!granterHaqq && !!granteeHaqq;
 
@@ -89,7 +82,7 @@ export function useAuthzAllowance(granteeAddress?: `0x${string}`) {
     if (!isSafe) {
       return false;
     }
-    if (!granteeAddress) {
+    if (!granterAddress) {
       return false;
     }
     if (isLoading) {
@@ -97,20 +90,20 @@ export function useAuthzAllowance(granteeAddress?: `0x${string}`) {
       return true;
     }
     return !hasMintByApplicationGrant;
-  }, [isSafe, granteeAddress, isLoading, hasMintByApplicationGrant]);
+  }, [isSafe, granterAddress, isLoading, hasMintByApplicationGrant]);
 
   const needsMintApproval = useMemo(() => {
     if (!isSafe) {
       return false;
     }
-    if (!granteeAddress) {
+    if (!granterAddress) {
       return false;
     }
     if (isLoading) {
       return true;
     }
     return !hasMintHaqqGrant;
-  }, [isSafe, granteeAddress, isLoading, hasMintHaqqGrant]);
+  }, [isSafe, granterAddress, isLoading, hasMintHaqqGrant]);
 
   console.log('[useAuthzAllowance]', {
     isSafe,
