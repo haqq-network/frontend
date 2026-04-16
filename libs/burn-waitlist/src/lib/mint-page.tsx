@@ -8,6 +8,7 @@ import { Button, ModalInput } from '@haqq/shell-ui-kit';
 import {
   formatEthDecimal,
   useAddress,
+  useBankBalance,
   useDaoAllBalancesQuery,
 } from '@haqq/shell-shared';
 import {
@@ -129,6 +130,23 @@ export function MintPage() {
         enabled: Boolean(haqqTokenAddress && address),
       },
     });
+
+  // Bank balance (cosmos) — includes aISLM + aLIQUID tokens
+  const { data: bankBalances, refetch: refetchBankBalance } =
+    useBankBalance(haqqAddress);
+
+  // aLIQUID tokens sum from bank (wallet) balance
+  const bankLiquidSum = useMemo(() => {
+    return (
+      bankBalances
+        ?.filter((coin) => {
+          return coin.denom.startsWith('aLIQUID');
+        })
+        .reduce((sum, coin) => {
+          return sum + BigInt(coin.amount);
+        }, 0n) ?? 0n
+    );
+  }, [bankBalances]);
 
   // ucDAO balance
   const { data: daoBalances, refetch: refetchDaoBalance } =
@@ -278,6 +296,7 @@ export function MintPage() {
       hasProcessedSuccess.current = true;
       setAmount('');
       refetchBalance();
+      refetchBankBalance();
       refetchDaoBalance();
       refetchHaqqTokenBalance();
     }
@@ -289,6 +308,7 @@ export function MintPage() {
     flow.isSuccess,
     flow.hash,
     refetchBalance,
+    refetchBankBalance,
     refetchDaoBalance,
     refetchHaqqTokenBalance,
   ]);
@@ -317,8 +337,13 @@ export function MintPage() {
     }
   }, [isConnected, chain?.id, isCorrectChain, handleSwitchChain]);
 
+  // Own Balance = native ISLM (wagmi) + aLIQUID tokens from bank
+  const ownBalance = useMemo(() => {
+    return (walletBalance?.value ?? 0n) + bankLiquidSum;
+  }, [walletBalance?.value, bankLiquidSum]);
+
   const activeBalance =
-    source === FundsSource.ucDAO ? daoIslmBalance : walletBalance?.value;
+    source === FundsSource.ucDAO ? daoIslmBalance : ownBalance;
 
   const handleMaxClick = useCallback(() => {
     if (activeBalance && activeBalance > 0n) {
