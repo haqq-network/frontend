@@ -26,6 +26,7 @@ export interface RequestsListProps {
   cancellingRequestId?: bigint;
   isSafe?: boolean;
   isApproving?: boolean;
+  authzNeedsApproval?: boolean;
   isMinting?: boolean;
   mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
@@ -42,6 +43,7 @@ export function RequestsList({
   cancellingRequestId,
   isSafe = false,
   isApproving = false,
+  authzNeedsApproval,
   isMinting = false,
   mintingApplicationId,
   balances,
@@ -195,7 +197,7 @@ export function RequestsList({
                     app.ready &&
                     onMintHaqq && (
                       <>
-                        {isSafe && onApprove && (
+                        {isSafe && onApprove && authzNeedsApproval && (
                           <Button
                             variant={4}
                             onClick={() => onApprove(requestId)}
@@ -209,7 +211,9 @@ export function RequestsList({
                         <Button
                           variant={5}
                           onClick={() => onMintHaqq(requestId)}
-                          disabled={isMinting}
+                          disabled={
+                            isMinting || (isSafe && authzNeedsApproval === true)
+                          }
                           isLoading={
                             isMinting && mintingApplicationId === requestId
                           }

@@ -14,3 +14,4 @@ export * from './user-aggregates';
 export * from './waitlist-form-section';
 export * from './requests-section';
 export * from './safe-approve-warning';
+export * from './safe-account-selector';

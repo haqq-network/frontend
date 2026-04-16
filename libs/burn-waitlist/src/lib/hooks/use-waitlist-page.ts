@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useAccount, useBalance, useSwitchChain } from 'wagmi';
 
+import { isAddress } from 'viem';
 import {
   useWaitlistContractState,
   useCreateWaitlistRequest,
@@ -15,10 +16,12 @@ import {
   useMintHaqqByApplication,
   useEthiqSenderApplications,
   useEthiqTotalBurned,
+  useSafeAccounts,
 } from './index';
 import type { Application } from './use-waitlist-applications';
 import { useBackendSignature } from './use-backend-signature';
 import { useWaitlistForm } from './use-waitlist-form';
+import { useAuthzAllowance } from './use-authz-allowance';
 import { useEthiqCalcForApplications } from './use-ethiq-calc-for-applications';
 import {
   FundsSource,
@@ -169,6 +172,30 @@ export function useWaitlistPage() {
     isConfirming: isConfirmingMintByApp,
     error: mintByAppError,
   } = useMintHaqqByApplication();
+
+  // Safe accounts (owners) for Safe wallet users
+  const { owners: safeOwners, isLoading: isSafeOwnersLoading } =
+    useSafeAccounts();
+  const [safeAccountAddress, setSafeAccountAddress] = useState('');
+
+  // Validated safe account address for authz allowance check
+  const validSafeAccount = useMemo(() => {
+    if (!isSafe) {
+      return undefined;
+    }
+    if (safeAccountAddress && isAddress(safeAccountAddress)) {
+      return safeAccountAddress as `0x${string}`;
+    }
+    return undefined;
+  }, [isSafe, safeAccountAddress]);
+
+  // Authz allowance check: granter=Safe, grantee=selectedOwner
+  const {
+    needsApproval: authzNeedsApproval,
+    hasMintByApplicationGrant,
+    isLoading: isAuthzLoading,
+    refetch: refetchAuthzAllowance,
+  } = useAuthzAllowance(validSafeAccount);
 
   const [cancellingRequestId, setCancellingRequestId] = useState<
     bigint | undefined
@@ -370,11 +397,13 @@ export function useWaitlistPage() {
       }
       try {
         await approveByApplicationId(address, applicationId);
+        // Refetch authz grants to update approval status
+        refetchAuthzAllowance();
       } catch (error) {
         console.error('Failed to approve:', error);
       }
     },
-    [address, approveByApplicationId],
+    [address, approveByApplicationId, refetchAuthzAllowance],
   );
 
   // Handle mint HAQQ by application
@@ -757,6 +786,16 @@ export function useWaitlistPage() {
     // Safe / approve state
     isSafe,
     isApprovingByApp,
+    safeOwners,
+    isSafeOwnersLoading,
+    safeAccountAddress,
+    setSafeAccountAddress,
+    validSafeAccount,
+
+    // Authz allowance (cosmos grants check)
+    authzNeedsApproval,
+    hasMintByApplicationGrant,
+    isAuthzLoading,
 
     // Mint state
     isMinting: isMintingByApp || isConfirmingMintByApp,

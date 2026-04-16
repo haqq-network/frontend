@@ -17,6 +17,7 @@ export interface RequestsSectionProps {
   cancellingRequestId?: bigint;
   isSafe?: boolean;
   isApproving?: boolean;
+  authzNeedsApproval?: boolean;
   isMinting: boolean;
   mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
@@ -35,6 +36,7 @@ export function RequestsSection({
   cancellingRequestId,
   isSafe,
   isApproving,
+  authzNeedsApproval,
   isMinting,
   mintingApplicationId,
   balances,
@@ -58,6 +60,7 @@ export function RequestsSection({
           cancellingRequestId={cancellingRequestId}
           isSafe={isSafe}
           isApproving={isApproving}
+          authzNeedsApproval={authzNeedsApproval}
           isMinting={isMinting}
           mintingApplicationId={mintingApplicationId}
           balances={balances}

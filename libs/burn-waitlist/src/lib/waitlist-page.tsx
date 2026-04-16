@@ -13,6 +13,7 @@ import {
   UserAggregates,
   WaitlistFormSection,
   RequestsSection,
+  SafeAccountSelector,
 } from './components';
 
 export interface WaitlistPageProps {
@@ -70,6 +71,14 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
     isSafe,
     isApprovingByApp,
+    safeOwners,
+    isSafeOwnersLoading,
+    safeAccountAddress,
+    setSafeAccountAddress,
+    validSafeAccount,
+
+    authzNeedsApproval,
+    isAuthzLoading,
 
     isMinting,
     mintingApplicationId,
@@ -156,6 +165,42 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                 )}
 
                 <div className="space-y-[16px]">
+                  {/* Safe account selector and allowance status */}
+                  {isSafe && isWaitlistStopped && (
+                    <div className="space-y-[12px]">
+                      <SafeAccountSelector
+                        owners={safeOwners}
+                        selectedAddress={safeAccountAddress}
+                        onSelect={setSafeAccountAddress}
+                        isLoading={isSafeOwnersLoading}
+                        disabled={isApprovingByApp || isMinting}
+                      />
+
+                      {validSafeAccount && !isAuthzLoading && (
+                        <div
+                          className={`flex items-center justify-between rounded-[8px] p-[12px] ${
+                            authzNeedsApproval ? 'bg-yellow-50' : 'bg-green-50'
+                          }`}
+                        >
+                          <span className="text-[14px] text-gray-500">
+                            Allowance Status
+                          </span>
+                          <span
+                            className={`text-[14px] font-medium ${
+                              authzNeedsApproval
+                                ? 'text-yellow-700'
+                                : 'text-emerald-700'
+                            }`}
+                          >
+                            {authzNeedsApproval
+                              ? 'Approval required'
+                              : 'Approved'}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <RequestsSection
                     applications={mergedApplications}
                     isLoading={requestsLoading}
@@ -174,6 +219,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                     cancellingRequestId={cancellingRequestId}
                     isSafe={isSafe}
                     isApproving={isApprovingByApp}
+                    authzNeedsApproval={authzNeedsApproval}
                     isMinting={isMinting}
                     mintingApplicationId={mintingApplicationId}
                     balances={waitlistBalances}
