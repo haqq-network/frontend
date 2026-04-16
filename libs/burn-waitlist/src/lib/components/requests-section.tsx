@@ -18,6 +18,8 @@ export interface RequestsSectionProps {
   isSafe?: boolean;
   isApproving?: boolean;
   authzNeedsApproval?: boolean;
+  isApplicationApproved?: (applicationId: string) => boolean;
+  hasSelectedGrantee?: boolean;
   isMinting: boolean;
   mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
@@ -37,6 +39,8 @@ export function RequestsSection({
   isSafe,
   isApproving,
   authzNeedsApproval,
+  isApplicationApproved,
+  hasSelectedGrantee,
   isMinting,
   mintingApplicationId,
   balances,
@@ -61,6 +65,8 @@ export function RequestsSection({
           isSafe={isSafe}
           isApproving={isApproving}
           authzNeedsApproval={authzNeedsApproval}
+          isApplicationApproved={isApplicationApproved}
+          hasSelectedGrantee={hasSelectedGrantee}
           isMinting={isMinting}
           mintingApplicationId={mintingApplicationId}
           balances={balances}

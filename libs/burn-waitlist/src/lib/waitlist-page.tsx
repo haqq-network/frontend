@@ -78,6 +78,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     validSafeAccount,
 
     authzNeedsApproval,
+    isApplicationApproved,
     isAuthzLoading,
 
     isMinting,
@@ -220,6 +221,8 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                     isSafe={isSafe}
                     isApproving={isApprovingByApp}
                     authzNeedsApproval={authzNeedsApproval}
+                    isApplicationApproved={isApplicationApproved}
+                    hasSelectedGrantee={!!validSafeAccount}
                     isMinting={isMinting}
                     mintingApplicationId={mintingApplicationId}
                     balances={waitlistBalances}

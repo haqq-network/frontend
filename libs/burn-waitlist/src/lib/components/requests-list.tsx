@@ -27,6 +27,8 @@ export interface RequestsListProps {
   isSafe?: boolean;
   isApproving?: boolean;
   authzNeedsApproval?: boolean;
+  isApplicationApproved?: (applicationId: string) => boolean;
+  hasSelectedGrantee?: boolean;
   isMinting?: boolean;
   mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
@@ -44,6 +46,8 @@ export function RequestsList({
   isSafe = false,
   isApproving = false,
   authzNeedsApproval,
+  isApplicationApproved,
+  hasSelectedGrantee = false,
   isMinting = false,
   mintingApplicationId,
   balances,
@@ -73,6 +77,8 @@ export function RequestsList({
           const isBurned = app.burned || false;
           const isCancellingThis = cancellingRequestId === requestId;
           const isPending = app.isPending || false;
+          const appApproved = isApplicationApproved?.(app.requestId) ?? false;
+          const appNeedsApproval = isSafe && hasSelectedGrantee && !appApproved;
 
           return (
             <div
@@ -197,22 +203,32 @@ export function RequestsList({
                     app.ready &&
                     onMintHaqq && (
                       <>
-                        {isSafe && onApprove && authzNeedsApproval && (
-                          <Button
-                            variant={4}
-                            onClick={() => onApprove(requestId)}
-                            disabled={isApproving}
-                            isLoading={isApproving}
-                            className="w-full sm:w-auto"
-                          >
-                            {isApproving ? 'Approving...' : 'Approve'}
-                          </Button>
+                        {isSafe && !hasSelectedGrantee && (
+                          <span className="text-[13px] text-amber-600">
+                            Please select grantee in list
+                          </span>
                         )}
+                        {isSafe &&
+                          hasSelectedGrantee &&
+                          onApprove &&
+                          appNeedsApproval && (
+                            <Button
+                              variant={4}
+                              onClick={() => onApprove(requestId)}
+                              disabled={isApproving}
+                              isLoading={isApproving}
+                              className="w-full sm:w-auto"
+                            >
+                              {isApproving ? 'Approving...' : 'Approve'}
+                            </Button>
+                          )}
                         <Button
                           variant={5}
                           onClick={() => onMintHaqq(requestId)}
                           disabled={
-                            isMinting || (isSafe && authzNeedsApproval === true)
+                            isMinting ||
+                            (isSafe &&
+                              (!hasSelectedGrantee || appNeedsApproval))
                           }
                           isLoading={
                             isMinting && mintingApplicationId === requestId

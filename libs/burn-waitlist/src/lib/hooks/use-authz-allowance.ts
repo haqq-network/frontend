@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useAccount } from 'wagmi';
 import {
   useAuthzGrantsQuery,
@@ -8,15 +8,26 @@ import {
   ethToHaqq,
 } from '@haqq/shell-shared';
 
-const ETHIQ_MSG_MINT_HAQQ = '/haqq.ethiq.v1.MsgMintHaqq';
-const ETHIQ_MSG_MINT_HAQQ_BY_APPLICATION =
-  '/haqq.ethiq.v1.MsgMintHaqqByApplication';
+// Authorization @type values from the cosmos authz grants response
+const AUTHZ_TYPE_MINT_HAQQ = '/haqq.ethiq.v1.MintHaqqAuthorization';
+const AUTHZ_TYPE_MINT_BY_APP =
+  '/haqq.ethiq.v1.MintHaqqByApplicationIDAuthorization';
+
+interface AuthzGrant {
+  authorization: {
+    '@type': string;
+    msg?: string;
+    spend_limit?: { denom: string; amount: string };
+    applications_list?: string[];
+  };
+  expiration: string;
+}
 
 export function useAuthzAllowance(granterAddress?: `0x${string}`) {
   const { address } = useAccount();
   const { isSafe } = useConnectorType();
 
-  // Convert EVM addresses to haqq (bech32) format for cosmos query
+  // granter = connected Safe account
   const granteeHaqq = useMemo(() => {
     if (!address) {
       return '';
@@ -28,6 +39,7 @@ export function useAuthzAllowance(granterAddress?: `0x${string}`) {
     }
   }, [address]);
 
+  // grantee = selected owner from Safe accounts list
   const granterHaqq = useMemo(() => {
     if (!granterAddress) {
       return '';
@@ -51,31 +63,50 @@ export function useAuthzAllowance(granterAddress?: `0x${string}`) {
   );
 
   // Normalize grants to always be an array
-  const grants = useMemo(() => {
+  const grants = useMemo((): AuthzGrant[] => {
     if (!grantsResponse?.grants) {
       return [];
     }
-    return Array.isArray(grantsResponse.grants)
-      ? grantsResponse.grants
-      : [grantsResponse.grants];
+    return (
+      Array.isArray(grantsResponse.grants)
+        ? grantsResponse.grants
+        : [grantsResponse.grants]
+    ) as AuthzGrant[];
   }, [grantsResponse]);
 
-  // Check if a specific message type has been granted
-  const hasGrantForMsg = useMemo(() => {
-    return (msgType: string): boolean => {
-      return grants.some((grant) => {
-        return grant?.authorization?.msg === msgType;
+  // Find a grant by its authorization @type
+  const findGrantByType = useCallback(
+    (authzType: string): AuthzGrant | undefined => {
+      return grants.find((grant) => {
+        return grant?.authorization?.['@type'] === authzType;
       });
-    };
-  }, [grants]);
+    },
+    [grants],
+  );
 
-  const hasMintHaqqGrant = useMemo(() => {
-    return hasGrantForMsg(ETHIQ_MSG_MINT_HAQQ);
-  }, [hasGrantForMsg]);
+  const mintHaqqGrant = useMemo(() => {
+    return findGrantByType(AUTHZ_TYPE_MINT_HAQQ);
+  }, [findGrantByType]);
 
-  const hasMintByApplicationGrant = useMemo(() => {
-    return hasGrantForMsg(ETHIQ_MSG_MINT_HAQQ_BY_APPLICATION);
-  }, [hasGrantForMsg]);
+  const mintByAppGrant = useMemo(() => {
+    return findGrantByType(AUTHZ_TYPE_MINT_BY_APP);
+  }, [findGrantByType]);
+
+  const hasMintHaqqGrant = !!mintHaqqGrant;
+  const hasMintByApplicationGrant = !!mintByAppGrant;
+
+  // List of approved application IDs from MintHaqqByApplicationIDAuthorization
+  const approvedApplicationIds = useMemo((): string[] => {
+    return mintByAppGrant?.authorization?.applications_list ?? [];
+  }, [mintByAppGrant]);
+
+  // Check if a specific application ID has been approved
+  const isApplicationApproved = useCallback(
+    (applicationId: string): boolean => {
+      return approvedApplicationIds.includes(applicationId);
+    },
+    [approvedApplicationIds],
+  );
 
   // For Safe users: approval is NOT needed if the grant already exists
   const needsApproval = useMemo(() => {
@@ -86,7 +117,6 @@ export function useAuthzAllowance(granterAddress?: `0x${string}`) {
       return false;
     }
     if (isLoading) {
-      // Still loading — assume approval needed
       return true;
     }
     return !hasMintByApplicationGrant;
@@ -112,6 +142,7 @@ export function useAuthzAllowance(granterAddress?: `0x${string}`) {
     grants,
     hasMintHaqqGrant,
     hasMintByApplicationGrant,
+    approvedApplicationIds,
     needsApproval,
     needsMintApproval,
     isLoading,
@@ -119,9 +150,10 @@ export function useAuthzAllowance(granterAddress?: `0x${string}`) {
 
   return {
     grants,
-    hasGrantForMsg,
     hasMintHaqqGrant,
     hasMintByApplicationGrant,
+    approvedApplicationIds,
+    isApplicationApproved,
     needsApproval,
     needsMintApproval,
     isLoading,

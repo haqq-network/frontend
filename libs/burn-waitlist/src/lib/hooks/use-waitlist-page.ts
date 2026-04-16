@@ -193,6 +193,7 @@ export function useWaitlistPage() {
   const {
     needsApproval: authzNeedsApproval,
     hasMintByApplicationGrant,
+    isApplicationApproved,
     isLoading: isAuthzLoading,
     refetch: refetchAuthzAllowance,
   } = useAuthzAllowance(validSafeAccount);
@@ -795,6 +796,7 @@ export function useWaitlistPage() {
     // Authz allowance (cosmos grants check)
     authzNeedsApproval,
     hasMintByApplicationGrant,
+    isApplicationApproved,
     isAuthzLoading,
 
     // Mint state
