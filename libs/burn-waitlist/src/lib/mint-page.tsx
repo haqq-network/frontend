@@ -133,16 +133,22 @@ export function MintPage() {
   // ucDAO balance
   const { data: daoBalances, refetch: refetchDaoBalance } =
     useDaoAllBalancesQuery(haqqAddress);
-  console.log('daoBalances', daoBalances);
 
   const daoIslmBalance = useMemo(() => {
-    if (!daoBalances || daoBalances.length === 0) {
-      return 0n;
-    }
-    // Sum aISLM + all aliquidX tokens (same 18-decimal denomination)
-    return daoBalances.reduce((sum, coin) => {
-      return sum + BigInt(coin.amount);
-    }, 0n);
+    // Sum all DAO balances (aISLM + aliquidX tokens)
+    const daoSum =
+      daoBalances?.reduce((sum, coin) => {
+        return (
+          sum +
+          (coin.denom.includes('aLIQUID') || coin.denom.includes('aISLM')
+            ? BigInt(coin.amount)
+            : 0n)
+        );
+      }, 0n) ?? 0n;
+
+    console.log('[MintPage] daoSum', daoSum, daoBalances);
+
+    return daoSum;
   }, [daoBalances]);
 
   const hasDaoBalance = daoIslmBalance > 0n;
