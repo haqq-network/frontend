@@ -49,7 +49,6 @@ export function isWaitlistChainSupported(chainId?: number): boolean {
  * Default chain ID for waitlist (first supported chain)
  */
 
-// TODO: Change to mainnet when ready
 export const WAITLIST_DEFAULT_CHAIN_ID = haqqMainnet.id;
 
 /**
@@ -72,7 +71,6 @@ export const getBackendApiUrl = (chainId?: number): string => {
  * Used to call native ethiq module REST endpoints
  */
 export function getCosmosRestUrl(chainId?: number): string {
-  // TODO: temporary hardcoded URL for testing, replace with chain-specific URLs
   if (chainId === haqqTestedge2.id) {
     return 'https://rest.cosmos.testedge2.haqq.network';
   }
@@ -84,6 +82,7 @@ export function getCosmosRestUrl(chainId?: number): string {
  */
 export const HAQQ_TOKEN_ADDRESSES: Record<number, `0x${string}`> = {
   [haqqTestedge2.id]: '0x3af1695e3354Ec35F892b3d0880D4f7E12F4A172',
+  [haqqMainnet.id]: '0x3af1695e3354Ec35F892b3d0880D4f7E12F4A172',
 };
 
 /**

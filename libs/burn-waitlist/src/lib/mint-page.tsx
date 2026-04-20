@@ -343,10 +343,6 @@ export function MintPage() {
     return (walletBalance?.value ?? 0n) + bankLiquidSum;
   }, [walletBalance?.value, bankLiquidSum]);
 
-  console.log('ownBalance', ownBalance);
-  console.log('walletBalance', walletBalance);
-  console.log('bankLiquidSum', bankLiquidSum);
-
   const activeBalance =
     source === FundsSource.ucDAO ? daoIslmBalance : ownBalance;
 
