@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import type { Hash } from 'viem';
 import {
   useReadContract,
   useWriteContract,
@@ -155,10 +156,47 @@ function useEthiqMintBase(method: string) {
     error: mintError,
   } = useWriteContract();
 
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
-    hash,
-    chainId: chainId || WAITLIST_DEFAULT_CHAIN_ID,
-  });
+  // For Safe wallets, wagmi's `hash` is the safeTxHash — the real on-chain tx
+  // hash only becomes available after the Safe app executes the queued tx.
+  // Track it separately so useWaitForTransactionReceipt watches a hash that
+  // actually has a receipt.
+  const [safeExecutedHash, setSafeExecutedHash] = useState<Hash | undefined>(
+    undefined,
+  );
+  const [isSafeExecuting, setIsSafeExecuting] = useState(false);
+
+  // Clear stale executed hash when a fresh write starts.
+  useEffect(() => {
+    setSafeExecutedHash(undefined);
+  }, [hash]);
+
+  const receiptHash = isSafe ? safeExecutedHash : hash;
+
+  const { isLoading: isReceiptLoading, isSuccess } =
+    useWaitForTransactionReceipt({
+      hash: receiptHash,
+      chainId: chainId || WAITLIST_DEFAULT_CHAIN_ID,
+    });
+
+  const isConfirming = isSafeExecuting || isReceiptLoading;
+
+  const trackSafeMintExecution = useCallback(
+    async (safeTxHash: Hash) => {
+      if (!isSafe) {
+        return;
+      }
+      setIsSafeExecuting(true);
+      try {
+        const executedHash = await waitForSafeExecution(safeTxHash, 30, 1500);
+        if (executedHash) {
+          setSafeExecutedHash(executedHash);
+        }
+      } finally {
+        setIsSafeExecuting(false);
+      }
+    },
+    [isSafe, waitForSafeExecution],
+  );
 
   const approve = useCallback(
     async (sender: `0x${string}`, amount: bigint) => {
@@ -233,7 +271,7 @@ function useEthiqMintBase(method: string) {
     writeContractAsync,
     chainId,
     isSafe,
-    waitForSafeExecution,
+    trackSafeMintExecution,
     approve,
     approveByApplicationId,
     isApproving,
@@ -250,8 +288,13 @@ function useEthiqMintBase(method: string) {
  * For Safe users, approve and mint are separate steps controlled by the UI.
  */
 export function useMintHaqq() {
-  const { writeContractAsync, chainId, isSafe, waitForSafeExecution, ...base } =
-    useEthiqMintBase(ETHIQ_MSG_MINT_HAQQ);
+  const {
+    writeContractAsync,
+    chainId,
+    isSafe,
+    trackSafeMintExecution,
+    ...base
+  } = useEthiqMintBase(ETHIQ_MSG_MINT_HAQQ);
 
   const mintHaqq = useCallback(
     async (
@@ -280,14 +323,11 @@ export function useMintHaqq() {
         chainId,
       });
 
-      if (isSafe) {
-        const executedHash = await waitForSafeExecution(txHash, 30, 1500);
-        console.log('mintHaqq Safe tx executed', { executedHash });
-      }
+      await trackSafeMintExecution(txHash);
 
       return txHash;
     },
-    [writeContractAsync, chainId, isSafe, waitForSafeExecution],
+    [writeContractAsync, chainId, trackSafeMintExecution],
   );
 
   return { ...base, isSafe, mintHaqq };
@@ -298,8 +338,13 @@ export function useMintHaqq() {
  * For Safe users, approve and mint are separate steps controlled by the UI.
  */
 export function useMintHaqqByApplication() {
-  const { writeContractAsync, chainId, isSafe, waitForSafeExecution, ...base } =
-    useEthiqMintBase(ETHIQ_MSG_MINT_HAQQ_BY_APPLICATION);
+  const {
+    writeContractAsync,
+    chainId,
+    isSafe,
+    trackSafeMintExecution,
+    ...base
+  } = useEthiqMintBase(ETHIQ_MSG_MINT_HAQQ_BY_APPLICATION);
 
   const mintHaqqByApplication = useCallback(
     async (sender: `0x${string}`, applicationId: bigint) => {
@@ -323,14 +368,11 @@ export function useMintHaqqByApplication() {
         chainId,
       });
 
-      if (isSafe) {
-        const executedHash = await waitForSafeExecution(txHash, 30, 1500);
-        console.log('mintHaqqByApplication Safe tx executed', { executedHash });
-      }
+      await trackSafeMintExecution(txHash);
 
       return txHash;
     },
-    [writeContractAsync, chainId, isSafe, waitForSafeExecution],
+    [writeContractAsync, chainId, trackSafeMintExecution],
   );
 
   return { ...base, isSafe, mintHaqqByApplication };

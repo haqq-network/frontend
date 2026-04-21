@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import type { Hash } from 'viem';
 import {
   useReadContract,
   useWriteContract,
@@ -81,10 +82,46 @@ function useUcdaoBase(method: string) {
     error: writeError,
   } = useWriteContract();
 
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
-    hash,
-    chainId,
-  });
+  // For Safe wallets, wagmi's `hash` is the safeTxHash — the real on-chain tx
+  // hash only becomes available after the Safe app executes the queued tx.
+  // Track it separately so useWaitForTransactionReceipt watches a hash that
+  // actually has a receipt.
+  const [safeExecutedHash, setSafeExecutedHash] = useState<Hash | undefined>(
+    undefined,
+  );
+  const [isSafeExecuting, setIsSafeExecuting] = useState(false);
+
+  useEffect(() => {
+    setSafeExecutedHash(undefined);
+  }, [hash]);
+
+  const receiptHash = isSafe ? safeExecutedHash : hash;
+
+  const { isLoading: isReceiptLoading, isSuccess } =
+    useWaitForTransactionReceipt({
+      hash: receiptHash,
+      chainId,
+    });
+
+  const isConfirming = isSafeExecuting || isReceiptLoading;
+
+  const trackSafeConvertExecution = useCallback(
+    async (safeTxHash: Hash) => {
+      if (!isSafe) {
+        return;
+      }
+      setIsSafeExecuting(true);
+      try {
+        const executedHash = await waitForSafeExecution(safeTxHash, 30, 1500);
+        if (executedHash) {
+          setSafeExecutedHash(executedHash);
+        }
+      } finally {
+        setIsSafeExecuting(false);
+      }
+    },
+    [isSafe, waitForSafeExecution],
+  );
 
   const approve = useCallback(
     async (grantee: `0x${string}`, amount: bigint) => {
@@ -125,7 +162,7 @@ function useUcdaoBase(method: string) {
     writeContractAsync,
     chainId,
     isSafe,
-    waitForSafeExecution,
+    trackSafeConvertExecution,
     approve,
     isApproving,
     hash,
@@ -142,8 +179,13 @@ function useUcdaoBase(method: string) {
  * and convert are separate steps controlled by the UI.
  */
 export function useUcdaoConvertToHaqq() {
-  const { writeContractAsync, chainId, isSafe, waitForSafeExecution, ...base } =
-    useUcdaoBase(UCDAO_MSG_CONVERT_TO_HAQQ);
+  const {
+    writeContractAsync,
+    chainId,
+    isSafe,
+    trackSafeConvertExecution,
+    ...base
+  } = useUcdaoBase(UCDAO_MSG_CONVERT_TO_HAQQ);
 
   const convertToHaqq = useCallback(
     async (
@@ -172,14 +214,11 @@ export function useUcdaoConvertToHaqq() {
         chainId,
       });
 
-      if (isSafe) {
-        const executedHash = await waitForSafeExecution(txHash, 30, 1500);
-        console.log('convertToHaqq Safe tx executed', { executedHash });
-      }
+      await trackSafeConvertExecution(txHash);
 
       return txHash;
     },
-    [writeContractAsync, chainId, isSafe, waitForSafeExecution],
+    [writeContractAsync, chainId, trackSafeConvertExecution],
   );
 
   return { ...base, isSafe, convertToHaqq };
