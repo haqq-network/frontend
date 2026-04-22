@@ -41,7 +41,13 @@ export function useAutoconnect() {
 export function useConnectorType() {
   const { connector } = useAccount();
 
-  const isSafe = connector?.id === 'safe';
+  // Safe Apps always run inside an iframe. The safe wagmi connector may not
+  // be active yet (auto-connect pending) or the user may have connected via
+  // a different connector inside the Safe frame — in both cases
+  // `wallet_watchAsset` is unusable, so fall back to iframe detection.
+  const isInIframe =
+    typeof window !== 'undefined' && window.self !== window.top;
+  const isSafe = connector?.id === 'safe' || isInIframe;
 
   // Mobile browsers cannot inject `window.ethereum`, so its presence on a
   // mobile UA means we're inside a dapp browser. If `isMetaMask` is set,
