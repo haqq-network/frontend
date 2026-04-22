@@ -89,7 +89,7 @@ function sanitizeErrorMessage(
 }
 
 export function MintPage() {
-  const { address, isConnected, chain } = useAccount();
+  const { address, isConnected, chain, connector } = useAccount();
   const { switchChainAsync } = useSwitchChain();
   const { watchAsset } = useWallet();
   const isCorrectChain = isWaitlistChainSupported(chain?.id);
@@ -99,6 +99,8 @@ export function MintPage() {
   const [amount, setAmount] = useState('');
   const [source, setSource] = useState<FundsSource>(FundsSource.OwnBalance);
   const [safeAccountAddress, setSafeAccountAddress] = useState('');
+  const [addTokenFallback, setAddTokenFallback] = useState<string | null>(null);
+  const [isAddressCopied, setIsAddressCopied] = useState(false);
 
   // Parse user input to bigint (wei) — strip commas from ModalInput formatting
   const parsedAmount = useMemo(() => {
@@ -320,8 +322,36 @@ export function MintPage() {
     if (!haqqTokenAddress) {
       return;
     }
-    await watchAsset('HAQQ', haqqTokenAddress);
-  }, [watchAsset, haqqTokenAddress]);
+    const isMobile =
+      typeof navigator !== 'undefined' &&
+      /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isWalletConnect = connector?.id === 'walletConnect';
+    // MetaMask mobile over WalletConnect silently drops wallet_watchAsset.
+    // Show a manual fallback so users can copy the address into MM mobile.
+    if (isMobile && isWalletConnect) {
+      setAddTokenFallback(haqqTokenAddress);
+      setIsAddressCopied(false);
+      return;
+    }
+    try {
+      await watchAsset('HAQQ', haqqTokenAddress);
+    } catch {
+      setAddTokenFallback(haqqTokenAddress);
+      setIsAddressCopied(false);
+    }
+  }, [watchAsset, haqqTokenAddress, connector?.id]);
+
+  const handleCopyTokenAddress = useCallback(async () => {
+    if (!haqqTokenAddress) {
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(haqqTokenAddress);
+      setIsAddressCopied(true);
+    } catch {
+      setIsAddressCopied(false);
+    }
+  }, [haqqTokenAddress]);
 
   const handleSwitchChain = useCallback(async () => {
     try {
@@ -421,7 +451,7 @@ export function MintPage() {
     <Container>
       <div className="mx-auto max-w-[600px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <div className="mb-[8px] flex items-start justify-between gap-[12px]">
+          <div className="mb-[8px] flex flex-col items-stretch gap-[12px] md:flex-row md:items-center md:justify-between">
             <h1 className="text-haqq-black text-[24px] font-semibold">
               Burn ISLM &amp; Mint HAQQ
             </h1>
@@ -429,7 +459,7 @@ export function MintPage() {
               <Button
                 variant={3}
                 onClick={handleAddHaqqToken}
-                className="shrink-0"
+                className="w-full md:w-auto md:shrink-0"
               >
                 Add HAQQ token
               </Button>
@@ -439,6 +469,27 @@ export function MintPage() {
             Burn your ISLM tokens and receive HAQQ tokens in return. The
             exchange rate is determined by the bonding curve.
           </p>
+
+          {addTokenFallback && (
+            <div className="mb-[16px] rounded-[8px] bg-yellow-50 p-[12px]">
+              <div className="mb-[8px] text-[13px] text-yellow-800">
+                Your wallet can&apos;t auto-add tokens on mobile. Copy the HAQQ
+                token address and import it manually in MetaMask.
+              </div>
+              <div className="flex flex-col gap-[8px] sm:flex-row sm:items-center">
+                <code className="text-haqq-black block flex-1 overflow-x-auto rounded-[6px] bg-white px-[8px] py-[6px] text-[12px]">
+                  {addTokenFallback}
+                </code>
+                <Button
+                  variant={4}
+                  onClick={handleCopyTokenAddress}
+                  className="w-full sm:w-auto sm:shrink-0"
+                >
+                  {isAddressCopied ? 'Copied' : 'Copy'}
+                </Button>
+              </div>
+            </div>
+          )}
 
           {/* Total burned stats */}
           {totalBurnedData && (
