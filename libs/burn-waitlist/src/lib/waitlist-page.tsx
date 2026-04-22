@@ -104,16 +104,16 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     <Container>
       <div className="mx-auto max-w-[1200px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <div className="mb-[24px] flex items-center justify-between gap-[12px]">
+          <div className="mb-[24px] flex flex-col items-stretch gap-[12px] md:flex-row md:items-center md:justify-between">
             <h1 className="text-haqq-black text-[24px] font-semibold">
               Burn Waitlist
             </h1>
-            <div className="flex items-center gap-[12px]">
+            <div className="flex flex-col items-stretch gap-[12px] sm:flex-row sm:items-center">
               {haqqTokenAddress && isConnected && isCorrectChain && (
                 <Button
                   variant={3}
                   onClick={handleAddHaqqToken}
-                  className="shrink-0"
+                  className="w-full sm:w-auto sm:shrink-0"
                 >
                   Add HAQQ token
                 </Button>
