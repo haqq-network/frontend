@@ -8,19 +8,27 @@ import type { WaitlistBalancesResponse } from '../hooks/use-waitlist-balances';
 import { formatEthDecimal } from '@haqq/shell-shared';
 import { formatWaitlistPrice } from '../utils/format-waitlist-price';
 import { StatusBadge } from './status-badge';
+import { SafeApproveWarning } from './safe-approve-warning';
 
 export interface RequestsListProps {
   applications: Array<
     Application & {
       isPending?: boolean;
       txHash?: string;
+      burned?: boolean;
     }
   >;
   canCancel: boolean;
   onCancel: (requestId: bigint) => void;
+  onApprove?: (applicationId: bigint) => void;
   onMintHaqq?: (applicationId: bigint) => void;
   isCancelling?: boolean;
   cancellingRequestId?: bigint;
+  isSafe?: boolean;
+  isApproving?: boolean;
+  authzNeedsApproval?: boolean;
+  isApplicationApproved?: (applicationId: string) => boolean;
+  hasSelectedGrantee?: boolean;
   isMinting?: boolean;
   mintingApplicationId?: bigint;
   balances?: WaitlistBalancesResponse;
@@ -31,9 +39,15 @@ export function RequestsList({
   applications,
   canCancel,
   onCancel,
+  onApprove,
   onMintHaqq,
   isCancelling = false,
   cancellingRequestId,
+  isSafe = false,
+  isApproving = false,
+  authzNeedsApproval,
+  isApplicationApproved,
+  hasSelectedGrantee = false,
   isMinting = false,
   mintingApplicationId,
   balances,
@@ -41,8 +55,8 @@ export function RequestsList({
 }: RequestsListProps) {
   if (applications.length === 0) {
     return (
-      <div className="rounded-[8px] bg-[#F3F4F6] p-[16px] text-center">
-        <div className="text-[14px] text-[#6B7280]">
+      <div className="rounded-[8px] bg-gray-100 p-[16px] text-center">
+        <div className="text-[14px] text-gray-500">
           You haven't created any requests yet
         </div>
       </div>
@@ -51,6 +65,7 @@ export function RequestsList({
 
   return (
     <div className="space-y-[12px]">
+      {isSafe && onApprove && <SafeApproveWarning />}
       <div className="space-y-[12px]">
         {applications.map((app) => {
           const requestId =
@@ -59,18 +74,21 @@ export function RequestsList({
           const sourceLabel =
             app.source === FundsSource.OwnBalance ? 'Own Balance' : 'ucDAO';
           const isCancelled = app.cancelled;
+          const isBurned = app.burned || false;
           const isCancellingThis = cancellingRequestId === requestId;
           const isPending = app.isPending || false;
+          const appApproved = isApplicationApproved?.(app.requestId) ?? false;
+          const appNeedsApproval = isSafe && hasSelectedGrantee && !appApproved;
 
           return (
             <div
               key={app.requestId || app.txHash || `pending-${app.amount}`}
-              className="rounded-[8px] border border-[#E5E7EB] bg-white p-[16px]"
+              className="rounded-[8px] border border-gray-200 bg-white p-[16px]"
             >
               <div className="flex flex-col gap-[12px] sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex-1">
                   <div className="mb-[8px] flex items-center space-x-[8px]">
-                    <span className="text-[14px] font-medium text-[#0D0D0E]">
+                    <span className="text-haqq-black text-[14px] font-medium">
                       {app.requestId === 'pending'
                         ? 'Request (Pending)'
                         : `Request #${app.requestId}`}
@@ -79,49 +97,64 @@ export function RequestsList({
                       <StatusBadge
                         label="Waiting"
                         tooltip="Your request is being processed on the blockchain. It will appear here once confirmed."
-                        className="bg-[#FEF3C7] text-[#92400E]"
+                        className="bg-amber-100 text-amber-800"
                       />
                     )}
-                    {!isPending && isCancelled && (
+                    {!isPending && isBurned && (
+                      <StatusBadge
+                        label="Executed"
+                        tooltip="This request has been executed and the tokens have been burned."
+                        className="bg-emerald-100 text-emerald-800"
+                      />
+                    )}
+                    {!isPending && !isBurned && isCancelled && (
                       <StatusBadge
                         label="Cancelled"
                         tooltip="This request was cancelled and will not be fulfilled."
-                        className="bg-[#FEE2E2] text-[#DC2626]"
+                        className="bg-red-100 text-red-600"
                       />
                     )}
-                    {!isPending && !isCancelled && !app.valid && (
+                    {!isPending && !isBurned && !isCancelled && !app.valid && (
                       <StatusBadge
                         label="Invalid"
                         tooltip="This request is no longer valid (e.g. conditions have changed). It will not be fulfilled."
-                        className="bg-[#FEF3C7] text-[#92400E]"
+                        className="bg-amber-100 text-amber-800"
                       />
                     )}
-                    {!isPending && !isCancelled && app.valid && app.ready && (
-                      <StatusBadge
-                        label="Ready"
-                        tooltip="This request is valid and your balance is sufficient. You can mint HAQQ when the burn period opens."
-                        className="bg-[#D1FAE5] text-[#065F46]"
-                      />
-                    )}
-                    {!isPending && !isCancelled && app.valid && !app.ready && (
-                      <StatusBadge
-                        label="Not Ready"
-                        tooltip="All your requests have been accepted and are valid, but your wallet balance is insufficient to fulfill them as some of your coins are currently staked. We recommend starting the undelegate process now."
-                        className="bg-[#DBEAFE] text-[#1E40AF]"
-                      />
-                    )}
+                    {!isPending &&
+                      !isBurned &&
+                      !isCancelled &&
+                      app.valid &&
+                      app.ready && (
+                        <StatusBadge
+                          label="Ready"
+                          tooltip="This request is valid and your balance is sufficient. You can mint HAQQ when the burn period opens."
+                          className="bg-green-100 text-emerald-800"
+                        />
+                      )}
+                    {!isPending &&
+                      !isBurned &&
+                      !isCancelled &&
+                      app.valid &&
+                      !app.ready && (
+                        <StatusBadge
+                          label="Not Ready"
+                          tooltip="All your requests have been accepted and are valid, but your wallet balance is insufficient to fulfill them as some of your coins are currently staked. We recommend starting the undelegate process now."
+                          className="bg-blue-100 text-blue-800"
+                        />
+                      )}
                   </div>
-                  <div className="space-y-[4px] text-[14px] text-[#6B7280]">
+                  <div className="space-y-[4px] text-[14px] text-gray-500">
                     <div>
                       Burn Amount:{' '}
-                      <span className="font-medium text-[#0D0D0E]">
+                      <span className="text-haqq-black font-medium">
                         {amount} ISLM
                       </span>
                     </div>
                     {app.price !== undefined && app.price !== '' && (
                       <div>
                         Minting price:{' '}
-                        <span className="font-[500] text-[#0D0D0E]">
+                        <span className="text-haqq-black font-medium">
                           {formatWaitlistPrice(app.price, { precision: 4 })}{' '}
                           ISLM/HAQQ
                         </span>
@@ -131,7 +164,7 @@ export function RequestsList({
                       app.receiveAmount !== '' && (
                         <div>
                           Mint amount:{' '}
-                          <span className="font-[500] text-[#0D0D0E]">
+                          <span className="text-haqq-black font-medium">
                             {formatEthDecimal(BigInt(app.receiveAmount), 4, 18)}{' '}
                             HAQQ
                           </span>
@@ -139,27 +172,74 @@ export function RequestsList({
                       )}
                     <div>
                       Funds Source:{' '}
-                      <span className="font-medium text-[#0D0D0E]">
+                      <span className="text-haqq-black font-medium">
                         {sourceLabel}
                       </span>
                     </div>
                     {/* Show undelegate link if not ready (happens when request uses staking funds) */}
-                    {!isPending && !isCancelled && app.valid && !app.ready && (
-                      <div className="mt-[8px]">
-                        <Link
-                          href={`/${locale}/staking`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-haqq-orange text-[14px] font-medium hover:underline"
-                        >
-                          Start undelegate
-                        </Link>
-                      </div>
-                    )}
+                    {!isPending &&
+                      !isBurned &&
+                      !isCancelled &&
+                      app.valid &&
+                      !app.ready && (
+                        <div className="mt-[8px]">
+                          <Link
+                            href={`/${locale}/staking`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-haqq-orange text-[14px] font-medium hover:underline"
+                          >
+                            Start undelegate
+                          </Link>
+                        </div>
+                      )}
                   </div>
                 </div>
                 <div className="flex flex-col gap-[8px] sm:flex-row">
-                  {canCancel && !isCancelled && !isPending && (
+                  {!isPending &&
+                    !isBurned &&
+                    !isCancelled &&
+                    app.valid &&
+                    app.ready &&
+                    onMintHaqq && (
+                      <>
+                        {isSafe && !hasSelectedGrantee && (
+                          <span className="text-[13px] text-amber-600">
+                            Please select grantee in list
+                          </span>
+                        )}
+                        {isSafe &&
+                          hasSelectedGrantee &&
+                          onApprove &&
+                          appNeedsApproval && (
+                            <Button
+                              variant={4}
+                              onClick={() => onApprove(requestId)}
+                              disabled={isApproving}
+                              isLoading={isApproving}
+                              className="w-full sm:w-auto"
+                            >
+                              {isApproving ? 'Approving...' : 'Approve'}
+                            </Button>
+                          )}
+                        <Button
+                          variant={5}
+                          onClick={() => onMintHaqq(requestId)}
+                          disabled={
+                            isMinting ||
+                            (isSafe &&
+                              (!hasSelectedGrantee || appNeedsApproval))
+                          }
+                          isLoading={
+                            isMinting && mintingApplicationId === requestId
+                          }
+                          className="w-full sm:w-auto"
+                        >
+                          Mint HAQQ
+                        </Button>
+                      </>
+                    )}
+                  {canCancel && !isCancelled && !isBurned && !isPending && (
                     <Button
                       variant={3}
                       onClick={() => onCancel(requestId)}

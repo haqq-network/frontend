@@ -49,7 +49,6 @@ export function isWaitlistChainSupported(chainId?: number): boolean {
  * Default chain ID for waitlist (first supported chain)
  */
 
-// TODO: Change to mainnet when ready
 export const WAITLIST_DEFAULT_CHAIN_ID = haqqMainnet.id;
 
 /**
@@ -66,6 +65,37 @@ export const getBackendApiUrl = (chainId?: number): string => {
   // Default to production URL for testnet or unknown chains
   return 'https://waitlist.vorobevsa.com';
 };
+
+/**
+ * Get Cosmos REST endpoint URL for a given chain ID
+ * Used to call native ethiq module REST endpoints
+ */
+export function getCosmosRestUrl(chainId?: number): string {
+  if (chainId === haqqTestedge2.id) {
+    return 'https://rest.cosmos.testedge2.haqq.network';
+  }
+  return 'https://rest.cosmos.haqq.network';
+}
+
+/**
+ * HAQQ token ERC20 contract addresses mapped by chain ID
+ */
+export const HAQQ_TOKEN_ADDRESSES: Record<number, `0x${string}`> = {
+  [haqqTestedge2.id]: '0x3af1695e3354Ec35F892b3d0880D4f7E12F4A172',
+  [haqqMainnet.id]: '0x3af1695e3354Ec35F892b3d0880D4f7E12F4A172',
+};
+
+/**
+ * Get HAQQ token ERC20 address for a given chain ID
+ */
+export function getHaqqTokenAddress(
+  chainId?: number,
+): `0x${string}` | undefined {
+  if (!chainId) {
+    return undefined;
+  }
+  return HAQQ_TOKEN_ADDRESSES[chainId];
+}
 
 /**
  * Funds source enum values

@@ -15,7 +15,7 @@ import Link from 'next/link';
 import { useLayout } from '@haqq/shell-shared';
 import { BurgerButton } from './burger-button';
 import { Container } from './container';
-import { HeaderLink, HeaderLinkWithHref } from './header';
+import { HeaderLink } from './header';
 import { HeaderNavLink } from './header-nav-link';
 import { ArrowDownIcon, CheckIcon } from './icons';
 import { LocaleOption } from './locale-dropdown';
@@ -163,18 +163,25 @@ export function HeaderMobile({
                 <Container className="flex w-full flex-col gap-[32px] py-[24px]">
                   {links.length > 0 && (
                     <nav className="mb-[24px] flex flex-col gap-[24px]">
-                      {links.map((link) => {
+                      {links.flatMap((link) => {
                         if (link.type === 'dropdown') {
-                          return (
-                            <HeaderDropdownMobile
-                              key={link.label}
-                              label={link.label}
-                              links={link.children}
-                            />
-                          );
+                          return link.children.map((child) => {
+                            return (
+                              <HeaderNavLink
+                                href={child.href}
+                                key={child.href}
+                                className="inline-flex leading-[24px]"
+                                onClick={() => {
+                                  setIsMobileMenuOpened(false);
+                                }}
+                              >
+                                {child.label}
+                              </HeaderNavLink>
+                            );
+                          });
                         }
 
-                        return (
+                        return [
                           <HeaderNavLink
                             href={link.href}
                             key={link.href}
@@ -184,8 +191,8 @@ export function HeaderMobile({
                             }}
                           >
                             {link.label}
-                          </HeaderNavLink>
-                        );
+                          </HeaderNavLink>,
+                        ];
                       })}
                     </nav>
                   )}
@@ -205,29 +212,6 @@ export function HeaderMobile({
         </AnimatedOrNot>
       </div>
     </Fragment>
-  );
-}
-
-function HeaderDropdownMobile({
-  label,
-  links,
-}: {
-  label: string;
-  links: HeaderLinkWithHref[];
-}) {
-  return (
-    <div className="header-dropdown">
-      <span className="font-bold text-white/50">{label}</span>
-      <div className="flex flex-col gap-[8px]">
-        {links.map(({ href, label }) => {
-          return (
-            <HeaderNavLink href={href} key={href}>
-              {label}
-            </HeaderNavLink>
-          );
-        })}
-      </div>
-    </div>
   );
 }
 
