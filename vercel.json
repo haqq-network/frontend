@@ -3,5 +3,5 @@
   "git": {
     "deploymentEnabled": false
   },
-  "buildCommand": "rm -rf .nx node_modules/.cache dist && NX_DAEMON=false pnpm nx build shell --prod --skip-nx-cache --parallel=1"
+  "buildCommand": "pnpm nx build shell --prod"
 }
