@@ -109,7 +109,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
               Burn Waitlist
             </h1>
             <div className="flex flex-col items-stretch gap-[12px] sm:flex-row sm:items-center">
-              {haqqTokenAddress && isConnected && isCorrectChain && (
+              {haqqTokenAddress && isConnected && isCorrectChain && !isSafe && (
                 <Button
                   variant={3}
                   onClick={handleAddHaqqToken}

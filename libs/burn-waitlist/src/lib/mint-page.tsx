@@ -455,7 +455,7 @@ export function MintPage() {
             <h1 className="text-haqq-black text-[24px] font-semibold">
               Burn ISLM &amp; Mint HAQQ
             </h1>
-            {haqqTokenAddress && isConnected && isCorrectChain && (
+            {haqqTokenAddress && isConnected && isCorrectChain && !isSafe && (
               <Button
                 variant={3}
                 onClick={handleAddHaqqToken}
