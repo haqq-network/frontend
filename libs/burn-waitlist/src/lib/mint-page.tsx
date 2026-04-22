@@ -9,6 +9,7 @@ import {
   formatEthDecimal,
   useAddress,
   useBankBalance,
+  useConnectorType,
   useDaoAllBalancesQuery,
   useWallet,
 } from '@haqq/shell-shared';
@@ -208,6 +209,7 @@ export function MintPage() {
   // Mint flow (own balance via Ethiq precompile)
   const ethiqMint = useMintHaqq();
   const { isSafe } = ethiqMint;
+  const { isMetaMaskMobile } = useConnectorType();
 
   // Safe accounts (owners) for Safe wallet users
   const { owners: safeOwners, isLoading: isSafeOwnersLoading } =
@@ -326,9 +328,10 @@ export function MintPage() {
       typeof navigator !== 'undefined' &&
       /android|iphone|ipad|ipod/i.test(navigator.userAgent);
     const isWalletConnect = connector?.id === 'walletConnect';
-    // MetaMask mobile over WalletConnect silently drops wallet_watchAsset.
+    // wallet_watchAsset is unreliable on MetaMask Mobile: dropped over
+    // WalletConnect, silently no-ops in the in-app dapp browser.
     // Show a manual fallback so users can copy the address into MM mobile.
-    if (isMobile && isWalletConnect) {
+    if ((isMobile && isWalletConnect) || isMetaMaskMobile) {
       setAddTokenFallback(haqqTokenAddress);
       setIsAddressCopied(false);
       return;
@@ -339,7 +342,7 @@ export function MintPage() {
       setAddTokenFallback(haqqTokenAddress);
       setIsAddressCopied(false);
     }
-  }, [watchAsset, haqqTokenAddress, connector?.id]);
+  }, [watchAsset, haqqTokenAddress, connector?.id, isMetaMaskMobile]);
 
   const handleCopyTokenAddress = useCallback(async () => {
     if (!haqqTokenAddress) {

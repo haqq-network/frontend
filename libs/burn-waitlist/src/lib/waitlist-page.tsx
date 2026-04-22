@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useAccount } from 'wagmi';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { Button } from '@haqq/shell-ui-kit';
-import { useWallet } from '@haqq/shell-shared';
+import { useConnectorType, useWallet } from '@haqq/shell-shared';
 
 import { useWaitlistPage } from './hooks/use-waitlist-page';
 import { getHaqqTokenAddress } from './constants/waitlist-config';
@@ -92,6 +92,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
   const { chain } = useAccount();
   const { watchAsset } = useWallet();
+  const { isMetaMaskMobile } = useConnectorType();
   const haqqTokenAddress = getHaqqTokenAddress(chain?.id);
   const handleAddHaqqToken = useCallback(async () => {
     if (!haqqTokenAddress) {
@@ -109,15 +110,19 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
               Burn Waitlist
             </h1>
             <div className="flex flex-col items-stretch gap-[12px] sm:flex-row sm:items-center">
-              {haqqTokenAddress && isConnected && isCorrectChain && !isSafe && (
-                <Button
-                  variant={3}
-                  onClick={handleAddHaqqToken}
-                  className="w-full sm:w-auto sm:shrink-0"
-                >
-                  Add HAQQ token
-                </Button>
-              )}
+              {haqqTokenAddress &&
+                isConnected &&
+                isCorrectChain &&
+                !isSafe &&
+                !isMetaMaskMobile && (
+                  <Button
+                    variant={3}
+                    onClick={handleAddHaqqToken}
+                    className="w-full sm:w-auto sm:shrink-0"
+                  >
+                    Add HAQQ token
+                  </Button>
+                )}
               {isWaitlistStopped && (
                 <Link
                   href={`/${locale}/burn`}
