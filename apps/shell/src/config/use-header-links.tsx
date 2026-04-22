@@ -11,13 +11,19 @@ export const useHeaderLinks = (): HeaderLink[] => {
   return [
     {
       type: 'link',
-      label: t('waitlist', 'Waitlist'),
+      label: t('mint-haqq', 'Mint HAQQ'),
+      href: '/burn',
+      chains: allowedChains,
+    },
+    {
+      type: 'link',
+      label: t('haqq-waitlist', 'HAQQ Waitlist'),
       href: '/waitlist',
       chains: allowedChains,
     },
     {
       type: 'link',
-      label: t('bridge', 'Bridge to L2'),
+      label: t('bridge', 'Bridge to Ethiq'),
       href: '/bridge',
       chains: allowedChains,
     },
@@ -40,12 +46,6 @@ export const useHeaderLinks = (): HeaderLink[] => {
       chains: allowedChains,
     },
     {
-      type: 'link',
-      label: t('authz', 'Authz'),
-      href: '/authz',
-      chains: allowedChains,
-    },
-    {
       type: 'dropdown',
       label: t('tools', 'Tools'),
       children: [
@@ -54,6 +54,12 @@ export const useHeaderLinks = (): HeaderLink[] => {
           label: t('faucet', 'Faucet'),
           href: '/faucet',
           chains: FAUCET_CHAINS,
+        },
+        {
+          type: 'link',
+          label: t('authz', 'Authz'),
+          href: '/authz',
+          chains: allowedChains,
         },
         {
           type: 'link',

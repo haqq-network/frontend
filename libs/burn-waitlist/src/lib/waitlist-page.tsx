@@ -1,9 +1,14 @@
 'use client';
 
+import { useCallback } from 'react';
 import Link from 'next/link';
+import { useAccount } from 'wagmi';
 import { Container } from '@haqq/shell-ui-kit/server';
+import { Button } from '@haqq/shell-ui-kit';
+import { useWallet } from '@haqq/shell-shared';
 
 import { useWaitlistPage } from './hooks/use-waitlist-page';
+import { getHaqqTokenAddress } from './constants/waitlist-config';
 import {
   PriceChart,
   StatusMessages,
@@ -85,22 +90,43 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     mintingApplicationId,
   } = useWaitlistPage();
 
+  const { chain } = useAccount();
+  const { watchAsset } = useWallet();
+  const haqqTokenAddress = getHaqqTokenAddress(chain?.id);
+  const handleAddHaqqToken = useCallback(async () => {
+    if (!haqqTokenAddress) {
+      return;
+    }
+    await watchAsset('HAQQ', haqqTokenAddress);
+  }, [watchAsset, haqqTokenAddress]);
+
   return (
     <Container>
       <div className="mx-auto max-w-[1200px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <div className="mb-[24px] flex items-center justify-between">
+          <div className="mb-[24px] flex items-center justify-between gap-[12px]">
             <h1 className="text-haqq-black text-[24px] font-semibold">
               Burn Waitlist
             </h1>
-            {isWaitlistStopped && (
-              <Link
-                href={`/${locale}/burn`}
-                className="text-haqq-orange text-[14px] font-medium hover:underline"
-              >
-                Go to Haqq Mint →
-              </Link>
-            )}
+            <div className="flex items-center gap-[12px]">
+              {haqqTokenAddress && isConnected && isCorrectChain && (
+                <Button
+                  variant={3}
+                  onClick={handleAddHaqqToken}
+                  className="shrink-0"
+                >
+                  Add HAQQ token
+                </Button>
+              )}
+              {isWaitlistStopped && (
+                <Link
+                  href={`/${locale}/burn`}
+                  className="text-haqq-orange text-[14px] font-medium hover:underline"
+                >
+                  Go to Haqq Mint →
+                </Link>
+              )}
+            </div>
           </div>
 
           <GlobalStats

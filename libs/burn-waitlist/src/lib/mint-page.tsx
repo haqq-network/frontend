@@ -10,6 +10,7 @@ import {
   useAddress,
   useBankBalance,
   useDaoAllBalancesQuery,
+  useWallet,
 } from '@haqq/shell-shared';
 import {
   useUcdaoConvertToHaqq,
@@ -90,6 +91,7 @@ function sanitizeErrorMessage(
 export function MintPage() {
   const { address, isConnected, chain } = useAccount();
   const { switchChainAsync } = useSwitchChain();
+  const { watchAsset } = useWallet();
   const isCorrectChain = isWaitlistChainSupported(chain?.id);
   const hasAttemptedSwitch = useRef<number | undefined>(undefined);
   const { haqqAddress } = useAddress();
@@ -314,6 +316,13 @@ export function MintPage() {
     refetchHaqqTokenBalance,
   ]);
 
+  const handleAddHaqqToken = useCallback(async () => {
+    if (!haqqTokenAddress) {
+      return;
+    }
+    await watchAsset('HAQQ', haqqTokenAddress);
+  }, [watchAsset, haqqTokenAddress]);
+
   const handleSwitchChain = useCallback(async () => {
     try {
       await switchChainAsync({ chainId: WAITLIST_DEFAULT_CHAIN_ID });
@@ -412,9 +421,20 @@ export function MintPage() {
     <Container>
       <div className="mx-auto max-w-[600px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <h1 className="text-haqq-black mb-[8px] text-[24px] font-semibold">
-            Burn ISLM &amp; Mint HAQQ
-          </h1>
+          <div className="mb-[8px] flex items-start justify-between gap-[12px]">
+            <h1 className="text-haqq-black text-[24px] font-semibold">
+              Burn ISLM &amp; Mint HAQQ
+            </h1>
+            {haqqTokenAddress && isConnected && isCorrectChain && (
+              <Button
+                variant={3}
+                onClick={handleAddHaqqToken}
+                className="shrink-0"
+              >
+                Add HAQQ token
+              </Button>
+            )}
+          </div>
           <p className="mb-[24px] text-[14px] text-gray-500">
             Burn your ISLM tokens and receive HAQQ tokens in return. The
             exchange rate is determined by the bonding curve.

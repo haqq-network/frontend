@@ -58,11 +58,12 @@ export function StatusMessages({
     return (
       <div className="mb-[24px] rounded-[8px] bg-[#DBEAFE] p-[16px]">
         <div className="text-[16px] font-semibold text-[#92400E]">
-          ⚠️ Waitlist closed. Processing starts after the network upgrade and
-          mint module launch via governance proposal.
-        </div>
-        <div className="mt-[8px] text-[14px] text-[#92400E]">
-          Stay tuned for updates.
+          The whitelist is closed; you can execute your applications or go to
+          the HAQQ token{' '}
+          <a href="/burn" className="underline">
+            mint page
+          </a>
+          .
         </div>
       </div>
     );
