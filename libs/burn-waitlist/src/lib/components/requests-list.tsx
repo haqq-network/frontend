@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { parseEther } from 'viem';
 import { Button } from '@haqq/shell-ui-kit';
 import { FundsSource } from '../constants/waitlist-config';
 import type { Application } from '../hooks/use-waitlist-applications';
@@ -9,6 +10,8 @@ import { formatEthDecimal } from '@haqq/shell-shared';
 import { formatWaitlistPrice } from '../utils/format-waitlist-price';
 import { StatusBadge } from './status-badge';
 import { SafeApproveWarning } from './safe-approve-warning';
+
+const FEE_RESERVE = parseEther('0.2');
 
 export interface RequestsListProps {
   applications: Array<
@@ -79,6 +82,19 @@ export function RequestsList({
           const isPending = app.isPending || false;
           const appApproved = isApplicationApproved?.(app.requestId) ?? false;
           const appNeedsApproval = isSafe && hasSelectedGrantee && !appApproved;
+
+          const isOwnBalance = app.source === FundsSource.OwnBalance;
+          const requiredBalance =
+            BigInt(app.amount) + (isOwnBalance ? FEE_RESERVE : 0n);
+          const walletBalance = balances
+            ? BigInt(
+                isOwnBalance
+                  ? balances.available_balance
+                  : balances.available_ucdao_balance,
+              )
+            : undefined;
+          const hasInsufficientForFees =
+            walletBalance !== undefined && walletBalance < requiredBalance;
 
           return (
             <div
@@ -191,6 +207,19 @@ export function RequestsList({
                           >
                             Start undelegate
                           </Link>
+                        </div>
+                      )}
+                    {/* Warn when wallet balance cannot cover the request amount plus network fees */}
+                    {!isPending &&
+                      !isBurned &&
+                      !isCancelled &&
+                      app.valid &&
+                      app.ready &&
+                      hasInsufficientForFees && (
+                        <div className="text-haqq-orange mt-[8px] text-[14px] font-medium">
+                          Insufficient wallet balance to cover request{' '}
+                          {isOwnBalance ? 'amount and fees' : 'amount'}. Please
+                          top up your wallet.
                         </div>
                       )}
                   </div>
