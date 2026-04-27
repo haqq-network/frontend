@@ -11,7 +11,7 @@ export const useHeaderLinks = (): HeaderLink[] => {
   return [
     {
       type: 'link',
-      label: t('haqq-waitlist', 'HAQQ Waitlist'),
+      label: t('haqq-waitlist', 'Mint HAQQ'),
       href: '/waitlist',
       chains: allowedChains,
     },

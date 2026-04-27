@@ -456,7 +456,7 @@ export function MintPage() {
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
           <div className="mb-[8px] flex flex-col items-stretch gap-[12px] md:flex-row md:items-center md:justify-between">
             <h1 className="text-haqq-black text-[24px] font-semibold">
-              Burn ISLM &amp; Mint HAQQ
+              Swap ISLM for HAQQ
             </h1>
             {haqqTokenAddress && isConnected && isCorrectChain && !isSafe && (
               <Button
@@ -469,8 +469,9 @@ export function MintPage() {
             )}
           </div>
           <p className="mb-[24px] text-[14px] text-gray-500">
-            Burn your ISLM tokens and receive HAQQ tokens in return. The
-            exchange rate is determined by the bonding curve.
+            By swapping ISLM for HAQQ, you permanently burn your ISLM tokens and
+            receive HAQQ tokens in return. The swap rate is determined by the
+            bonding curve.
           </p>
 
           {addTokenFallback && (
@@ -510,7 +511,7 @@ export function MintPage() {
                 </div>
                 <div>
                   <div className="text-[12px] text-gray-500">
-                    Burned from Applications
+                    Swapped with this form
                   </div>
                   <div className="text-haqq-black text-[18px] font-semibold">
                     {formatEthDecimal(
@@ -586,7 +587,7 @@ export function MintPage() {
               {/* Amount input */}
               <div>
                 <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
-                  Amount to burn
+                  Amount to swap
                 </label>
                 <ModalInput
                   symbol="ISLM"
@@ -612,7 +613,7 @@ export function MintPage() {
               {haqqTokenAddress && haqqTokenBalance !== undefined && (
                 <div className="flex items-center justify-between rounded-[8px] bg-gray-100 p-[12px]">
                   <span className="text-[14px] text-gray-500">
-                    HAQQ Token Balance (ERC20)
+                    Your HAQQ Token Balance
                   </span>
                   <span className="text-haqq-black text-[14px] font-medium">
                     {formatEthDecimal(haqqTokenBalance, 4)} HAQQ
@@ -739,7 +740,7 @@ export function MintPage() {
                   }
                   isLoading={isSubmitting}
                 >
-                  {isSubmitting ? 'Minting...' : 'Burn ISLM & Mint HAQQ'}
+                  {isSubmitting ? 'Swapping...' : 'Swap ISLM for HAQQ'}
                 </Button>
                 {!isSubmitting &&
                   !isValid &&
