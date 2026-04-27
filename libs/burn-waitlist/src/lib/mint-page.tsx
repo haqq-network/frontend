@@ -454,18 +454,23 @@ export function MintPage() {
     <Container>
       <div className="mx-auto max-w-[600px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <div className="mb-[8px] flex flex-col items-stretch gap-[12px] md:flex-row md:items-center md:justify-between">
+          <div className="mb-[16px] flex flex-col items-stretch gap-[12px] md:flex-row md:items-center md:justify-between">
             <h1 className="text-haqq-black text-[24px] font-semibold">
               Swap ISLM for HAQQ
             </h1>
             {haqqTokenAddress && isConnected && isCorrectChain && !isSafe && (
-              <Button
-                variant={3}
-                onClick={handleAddHaqqToken}
-                className="w-full md:w-auto md:shrink-0"
-              >
-                Click to add to your wallet
-              </Button>
+              <div className="relative w-full md:w-auto md:shrink-0">
+                <Button
+                  variant={3}
+                  onClick={handleAddHaqqToken}
+                  className="w-full md:w-auto md:shrink-0"
+                >
+                  Add HAQQ token
+                </Button>
+                <span className="absolute top-full right-0 mt-[0px] text-[10px] text-gray-400">
+                  Click to add to your wallet
+                </span>
+              </div>
             )}
           </div>
           <p className="mb-[24px] text-[14px] text-gray-500">

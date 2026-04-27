@@ -115,13 +115,18 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                 isCorrectChain &&
                 !isSafe &&
                 !isMetaMaskMobile && (
-                  <Button
-                    variant={3}
-                    onClick={handleAddHaqqToken}
-                    className="w-full sm:w-auto sm:shrink-0"
-                  >
-                    Click to add to your wallet
-                  </Button>
+                  <div className="relative w-full sm:w-auto sm:shrink-0">
+                    <Button
+                      variant={3}
+                      onClick={handleAddHaqqToken}
+                      className="w-full sm:w-auto sm:shrink-0"
+                    >
+                      ADD HAQQ TOKEN
+                    </Button>
+                    <span className="absolute top-full right-0 mt-[0px] text-[10px] text-gray-400">
+                      Click to add to your wallet
+                    </span>
+                  </div>
                 )}
               {isWaitlistStopped && (
                 <Link
