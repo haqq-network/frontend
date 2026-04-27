@@ -106,34 +106,34 @@ export function RequestsList({
                   <div className="mb-[8px] flex items-center space-x-[8px]">
                     <span className="text-haqq-black text-[14px] font-medium">
                       {app.requestId === 'pending'
-                        ? 'Request (Pending)'
-                        : `Request #${app.requestId}`}
+                        ? 'Application (Pending)'
+                        : `Application #${app.requestId}`}
                     </span>
                     {isPending && (
                       <StatusBadge
                         label="Waiting"
-                        tooltip="Your request is being processed on the blockchain. It will appear here once confirmed."
+                        tooltip="Your application is being processed on the blockchain. It will appear here once confirmed."
                         className="bg-amber-100 text-amber-800"
                       />
                     )}
                     {!isPending && isBurned && (
                       <StatusBadge
                         label="Executed"
-                        tooltip="This request has been executed and the tokens have been burned."
+                        tooltip="This application has been executed and the tokens have been burned."
                         className="bg-emerald-100 text-emerald-800"
                       />
                     )}
                     {!isPending && !isBurned && isCancelled && (
                       <StatusBadge
                         label="Cancelled"
-                        tooltip="This request was cancelled and will not be fulfilled."
+                        tooltip="This application was cancelled and will not be fulfilled."
                         className="bg-red-100 text-red-600"
                       />
                     )}
                     {!isPending && !isBurned && !isCancelled && !app.valid && (
                       <StatusBadge
                         label="Invalid"
-                        tooltip="This request is no longer valid (e.g. conditions have changed). It will not be fulfilled."
+                        tooltip="This application is no longer valid (e.g. conditions have changed). It will not be fulfilled."
                         className="bg-amber-100 text-amber-800"
                       />
                     )}
@@ -144,7 +144,7 @@ export function RequestsList({
                       app.ready && (
                         <StatusBadge
                           label="Ready"
-                          tooltip="This request is valid and your balance is sufficient. You can mint HAQQ when the burn period opens."
+                          tooltip="This application is valid and your balance is sufficient. You can mint HAQQ when the burn period opens."
                           className="bg-green-100 text-emerald-800"
                         />
                       )}
@@ -155,7 +155,7 @@ export function RequestsList({
                       !app.ready && (
                         <StatusBadge
                           label="Not Ready"
-                          tooltip="All your requests have been accepted and are valid, but your wallet balance is insufficient to fulfill them as some of your coins are currently staked. We recommend starting the undelegate process now."
+                          tooltip="All your applications have been accepted and are valid, but your wallet balance is insufficient to fulfill them as some of your coins are currently staked. We recommend starting the undelegate process now."
                           className="bg-blue-100 text-blue-800"
                         />
                       )}

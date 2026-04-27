@@ -464,7 +464,7 @@ export function MintPage() {
                 onClick={handleAddHaqqToken}
                 className="w-full md:w-auto md:shrink-0"
               >
-                Add HAQQ token
+                Click to add to your wallet
               </Button>
             )}
           </div>

@@ -107,7 +107,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
           <div className="mb-[24px] flex flex-col items-stretch gap-[12px] md:flex-row md:items-center md:justify-between">
             <h1 className="text-haqq-black text-[24px] font-semibold">
-              Burn Waitlist
+              HAQQ Waitlist
             </h1>
             <div className="flex flex-col items-stretch gap-[12px] sm:flex-row sm:items-center">
               {haqqTokenAddress &&
@@ -120,7 +120,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                     onClick={handleAddHaqqToken}
                     className="w-full sm:w-auto sm:shrink-0"
                   >
-                    Add HAQQ token
+                    Click to add to your wallet
                   </Button>
                 )}
               {isWaitlistStopped && (
@@ -128,7 +128,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
                   href={`/${locale}/burn`}
                   className="text-haqq-orange text-[14px] font-medium hover:underline"
                 >
-                  Go to Haqq Mint →
+                  Go to ISLM/HAQQ swap →
                 </Link>
               )}
             </div>
