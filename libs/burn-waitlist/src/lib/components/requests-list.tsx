@@ -86,12 +86,11 @@ export function RequestsList({
           const isOwnBalance = app.source === FundsSource.OwnBalance;
           const requiredBalance =
             BigInt(app.amount) + (isOwnBalance ? FEE_RESERVE : 0n);
+          // Use the total wallet holdings of the matching token. `available_*`
+          // values already subtract this application's own reservation, which
+          // would double-count and falsely trigger an insufficient warning.
           const walletBalance = balances
-            ? BigInt(
-                isOwnBalance
-                  ? balances.available_balance
-                  : balances.available_ucdao_balance,
-              )
+            ? BigInt(isOwnBalance ? balances.balance : balances.ucdao)
             : undefined;
           const hasInsufficientForFees =
             walletBalance !== undefined && walletBalance < requiredBalance;
