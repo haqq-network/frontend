@@ -467,7 +467,7 @@ export function MintPage() {
                 >
                   Add HAQQ token
                 </Button>
-                <span className="absolute top-full right-0 mt-[0px] text-[10px] text-gray-400">
+                <span className="absolute top-full left-1/2 mt-[0px] -translate-x-1/2 text-[10px] whitespace-nowrap text-gray-400">
                   Click to add to your wallet
                 </span>
               </div>
