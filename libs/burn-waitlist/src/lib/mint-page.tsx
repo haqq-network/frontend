@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
-import { useAccount, useBalance, useReadContract, useSwitchChain } from 'wagmi';
-import { erc20Abi, parseEther, formatEther, isAddress } from 'viem';
+import { useAccount, useBalance, useSwitchChain } from 'wagmi';
+import { parseEther, formatEther, isAddress } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { Button, ModalInput } from '@haqq/shell-ui-kit';
 import {
@@ -11,6 +11,7 @@ import {
   useBankBalance,
   useConnectorType,
   useDaoAllBalancesQuery,
+  useHaqqTokenBalance,
   useWallet,
 } from '@haqq/shell-shared';
 import {
@@ -29,7 +30,6 @@ import {
   WAITLIST_DEFAULT_CHAIN_ID,
   FundsSource,
   isWaitlistChainSupported,
-  getHaqqTokenAddress,
 } from './constants/waitlist-config';
 import { WalletConnectionWarning } from './components/wallet-connection-warning';
 import { NetworkWarning } from './components/network-warning';
@@ -123,18 +123,14 @@ export function MintPage() {
   });
 
   // HAQQ token ERC20 balance
-  const haqqTokenAddress = getHaqqTokenAddress(chain?.id);
-  const { data: haqqTokenBalance, refetch: refetchHaqqTokenBalance } =
-    useReadContract({
-      address: haqqTokenAddress,
-      abi: erc20Abi,
-      functionName: 'balanceOf',
-      args: address ? [address] : undefined,
-      chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
-      query: {
-        enabled: Boolean(haqqTokenAddress && address),
-      },
-    });
+  const {
+    haqqTokenAddress,
+    haqqTokenBalance,
+    refetch: refetchHaqqTokenBalance,
+  } = useHaqqTokenBalance({
+    chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
+    address: address as `0x${string}` | undefined,
+  });
 
   // Bank balance (cosmos) — includes aISLM + aLIQUID tokens
   const { data: bankBalances, refetch: refetchBankBalance } =

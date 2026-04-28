@@ -19,6 +19,7 @@ export function MyAccountBlockDesktop({
   onConnectWalletClick,
   isRewardsPending = false,
   minRewardsToClaim = 1,
+  haqqBalance,
 }: {
   onRewardsClaim: () => void;
   balance: number;
@@ -30,7 +31,19 @@ export function MyAccountBlockDesktop({
   onConnectWalletClick: () => void;
   isRewardsPending?: boolean;
   minRewardsToClaim?: number;
+  haqqBalance?: number;
 }) {
+  console.log('MyAccountBlockDesktop', {
+    balance,
+    unbounded,
+    totalRewards,
+    delegated,
+    symbol,
+    isConnected,
+    isRewardsPending,
+    minRewardsToClaim,
+    haqqBalance,
+  });
   const { t } = useTranslate('common');
   const [isInfoShown, setInfoShown] = useState(false);
 
@@ -118,6 +131,15 @@ export function MyAccountBlockDesktop({
                       {formatNumber(totalRewards)} {symbol.toLocaleUpperCase()}
                     </MyAccountCardBlock>
                   </div>
+                  {haqqBalance !== undefined && (
+                    <div>
+                      <MyAccountCardBlock
+                        title={t('haqq-balance', 'HAQQ Balance')}
+                      >
+                        {formatNumber(haqqBalance)} HAQQ
+                      </MyAccountCardBlock>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Tooltip
