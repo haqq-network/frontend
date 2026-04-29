@@ -10,7 +10,6 @@ import { useConnectorType, useWallet } from '@haqq/shell-shared';
 import { useWaitlistPage } from './hooks/use-waitlist-page';
 import { getHaqqTokenAddress } from './constants/waitlist-config';
 import {
-  PriceChart,
   StatusMessages,
   WalletConnectionWarning,
   NetworkWarning,
@@ -39,10 +38,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     globalStats,
     isLoadingGlobalStats,
     totalBurnedData,
-
-    chartData,
-    isLoadingChart,
-    chartError,
 
     formState,
     setAmount,
@@ -146,15 +141,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
           />
 
           {!isConnected && <WalletConnectionWarning />}
-
-          <div className="mb-[24px]">
-            <PriceChart
-              data={chartData?.data ?? []}
-              isLoading={isLoadingChart}
-              error={chartError}
-              priceInAtto
-            />
-          </div>
 
           {isConnected ? (
             <>
