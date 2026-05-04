@@ -40,6 +40,7 @@ export * from './hooks/dao/use-dao-queries';
 export * from './hooks/use-deep-link/use-deep-link';
 export * from './hooks/use-autoconnect/use-autoconnect';
 export * from './hooks/use-coinomics-params/use-coinomics-params';
+export * from './hooks/use-haqq-token-balance/use-haqq-token-balance';
 
 export * from './precompile/staking-abi';
 export * from './precompile/distribution-abi';

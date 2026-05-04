@@ -32,6 +32,7 @@ import {
   getFormattedAddress,
   useBalanceAwareActions,
   useIndexerBalanceQuery,
+  useHaqqTokenBalance,
 } from '@haqq/shell-shared';
 import {
   Button,
@@ -96,6 +97,7 @@ interface ValidatorInfoComponentProps {
   onRewardsClaim: () => void;
   isRewardPending?: boolean;
   isRewardsPending?: boolean;
+  haqqBalance?: number;
 }
 
 interface Commission {
@@ -183,6 +185,7 @@ export function ValidatorInfoComponent({
   onRewardsClaim,
   isRewardPending,
   isRewardsPending,
+  haqqBalance,
 }: ValidatorInfoComponentProps) {
   const { t } = useTranslate();
   const [isHaqqAddressCopy, setHaqqAddressCopy] = useState(false);
@@ -373,6 +376,7 @@ export function ValidatorInfoComponent({
                   isConnected={isConnected}
                   onConnectWalletClick={openSelectWallet}
                   isRewardsPending={isRewardsPending}
+                  haqqBalance={haqqBalance}
                 />
                 <ValidatorBlockDesktop
                   validatorInfo={validatorInfo}
@@ -420,6 +424,7 @@ export function ValidatorInfoComponent({
                     unbounded={unbounded}
                     symbol={symbol}
                     isRewardsPending={isRewardsPending}
+                    haqqBalance={haqqBalance}
                   />
                 </SwiperSlide>
               </Swiper>
@@ -499,6 +504,13 @@ export function ValidatorInfo({
   const posthog = usePostHog();
   const explorerLink = shouldUsePrecompile ? explorer.evm : explorer.cosmos;
 
+  const { address: walletAddress } = useAccount();
+  const { haqqBalance } = useHaqqTokenBalance({
+    chainId: chain?.id,
+    address: walletAddress,
+  });
+
+  console.log('haqqBalance', haqqBalance);
   useEffect(() => {
     if (balances) {
       const { availableForStake } = balances;
@@ -777,6 +789,7 @@ export function ValidatorInfo({
       }}
       isRewardPending={isRewardPending}
       isRewardsPending={isRewardsPending}
+      haqqBalance={haqqBalance}
     />
   );
 }

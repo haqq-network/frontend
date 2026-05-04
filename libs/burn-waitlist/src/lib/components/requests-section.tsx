@@ -49,7 +49,7 @@ export function RequestsSection({
   return (
     <div>
       <h2 className="text-haqq-black mb-[16px] text-[18px] font-semibold">
-        Your Requests
+        Your Applications
       </h2>
       {isLoading ? (
         <RequestsListSkeleton />

@@ -5,12 +5,11 @@ import Link from 'next/link';
 import { useAccount } from 'wagmi';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { Button } from '@haqq/shell-ui-kit';
-import { useWallet } from '@haqq/shell-shared';
+import { useConnectorType, useWallet } from '@haqq/shell-shared';
 
 import { useWaitlistPage } from './hooks/use-waitlist-page';
 import { getHaqqTokenAddress } from './constants/waitlist-config';
 import {
-  PriceChart,
   StatusMessages,
   WalletConnectionWarning,
   NetworkWarning,
@@ -39,10 +38,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
     globalStats,
     isLoadingGlobalStats,
     totalBurnedData,
-
-    chartData,
-    isLoadingChart,
-    chartError,
 
     formState,
     setAmount,
@@ -92,6 +87,7 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
 
   const { chain } = useAccount();
   const { watchAsset } = useWallet();
+  const { isMetaMaskMobile } = useConnectorType();
   const haqqTokenAddress = getHaqqTokenAddress(chain?.id);
   const handleAddHaqqToken = useCallback(async () => {
     if (!haqqTokenAddress) {
@@ -106,24 +102,33 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
           <div className="mb-[24px] flex flex-col items-stretch gap-[12px] md:flex-row md:items-center md:justify-between">
             <h1 className="text-haqq-black text-[24px] font-semibold">
-              Burn Waitlist
+              HAQQ Waitlist
             </h1>
             <div className="flex flex-col items-stretch gap-[12px] sm:flex-row sm:items-center">
-              {haqqTokenAddress && isConnected && isCorrectChain && (
-                <Button
-                  variant={3}
-                  onClick={handleAddHaqqToken}
-                  className="w-full sm:w-auto sm:shrink-0"
-                >
-                  Add HAQQ token
-                </Button>
-              )}
+              {haqqTokenAddress &&
+                isConnected &&
+                isCorrectChain &&
+                !isSafe &&
+                !isMetaMaskMobile && (
+                  <div className="relative w-full sm:w-auto sm:shrink-0">
+                    <Button
+                      variant={3}
+                      onClick={handleAddHaqqToken}
+                      className="w-full sm:w-auto sm:shrink-0"
+                    >
+                      Add HAQQ token
+                    </Button>
+                    <span className="absolute top-full left-1/2 mt-[0px] -translate-x-1/2 text-[10px] whitespace-nowrap text-gray-400">
+                      Click to add to your wallet
+                    </span>
+                  </div>
+                )}
               {isWaitlistStopped && (
                 <Link
                   href={`/${locale}/burn`}
                   className="text-haqq-orange text-[14px] font-medium hover:underline"
                 >
-                  Go to Haqq Mint →
+                  Go to ISLM/HAQQ swap →
                 </Link>
               )}
             </div>
@@ -136,15 +141,6 @@ export function WaitlistPage({ locale = 'en' }: WaitlistPageProps = {}) {
           />
 
           {!isConnected && <WalletConnectionWarning />}
-
-          <div className="mb-[24px]">
-            <PriceChart
-              data={chartData?.data ?? []}
-              isLoading={isLoadingChart}
-              error={chartError}
-              priceInAtto
-            />
-          </div>
 
           {isConnected ? (
             <>

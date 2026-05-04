@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useMediaQuery } from 'usehooks-ts';
 // import { useMediaQuery } from 'react-responsive';
 import { Hex, formatUnits, parseUnits } from 'viem';
+import { useAccount } from 'wagmi';
 import {
   useAddress,
   useClipboard,
@@ -13,6 +14,7 @@ import {
   useWallet,
   useIndexerBalanceQuery,
   useFeatureFlag,
+  useHaqqTokenBalance,
 } from '@haqq/shell-shared';
 import { useStislmBalance, useStrideRates } from '@haqq/shell-staking';
 import {
@@ -115,6 +117,11 @@ function MyAccountConnected({
   const { data: { islmAmountFromStIslm } = {} } = useStrideRates(stIslmBalance);
   const isTablet = useMediaQuery('(max-width: 1023px)');
   const isLiquidStakingEnabled = useFeatureFlag('LIQUID_STAKING');
+  const { chain } = useAccount();
+  const { haqqBalance } = useHaqqTokenBalance({
+    chainId: chain?.id,
+    address: ethAddress,
+  });
 
   const rewards = useMemo(() => {
     if (rewardsInfo?.total?.length) {
@@ -320,6 +327,12 @@ function MyAccountConnected({
               title={t('liquid-staked', 'Liquid staked', { ns: 'main' })}
               value={`${formatNumber(stIslmBalance)} stISLM`}
               subValue={`≈${formatNumber(islmAmountFromStIslm ?? 0)} ISLM`}
+            />
+          )}
+          {haqqBalance !== undefined && (
+            <MyAccountAmountBlock
+              title={t('haqq-balance', 'HAQQ Balance', { ns: 'common' })}
+              value={`${formatNumber(haqqBalance)} HAQQ`}
             />
           )}
           <MyAccountAmountBlock

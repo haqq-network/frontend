@@ -16,6 +16,7 @@ interface MyAccountBlockProps {
   symbol: string;
   isRewardsPending?: boolean;
   minRewardsToClaim?: number;
+  haqqBalance?: number;
 }
 
 export function MyAccountBlockMobile({
@@ -27,6 +28,7 @@ export function MyAccountBlockMobile({
   symbol,
   isRewardsPending = false,
   minRewardsToClaim = 1,
+  haqqBalance,
 }: MyAccountBlockProps) {
   const { t } = useTranslate('common');
   return (
@@ -54,6 +56,12 @@ export function MyAccountBlockMobile({
         <MyAccountCardBlock title={t('rewards', 'Rewards')}>
           {formatNumber(totalRewards)} {symbol.toLocaleUpperCase()}
         </MyAccountCardBlock>
+
+        {haqqBalance !== undefined && (
+          <MyAccountCardBlock title={t('haqq-balance', 'HAQQ Balance')}>
+            {formatNumber(haqqBalance)} HAQQ
+          </MyAccountCardBlock>
+        )}
       </div>
 
       <div className="mt-[16px] md:mt-[12px]">

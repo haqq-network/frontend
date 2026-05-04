@@ -3,7 +3,6 @@
   "packageManager": "pnpm",
   "defaultBase": "dev",
   "parallel": 5,
-  "useDaemonProcess": false,
   "workspaceLayout": {
     "appsDir": "apps",
     "libsDir": "libs"

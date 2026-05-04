@@ -1,15 +1,17 @@
 'use client';
 
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
-import { useAccount, useBalance, useReadContract, useSwitchChain } from 'wagmi';
-import { erc20Abi, parseEther, formatEther, isAddress } from 'viem';
+import { useAccount, useBalance, useSwitchChain } from 'wagmi';
+import { parseEther, formatEther, isAddress } from 'viem';
 import { Container } from '@haqq/shell-ui-kit/server';
 import { Button, ModalInput } from '@haqq/shell-ui-kit';
 import {
   formatEthDecimal,
   useAddress,
   useBankBalance,
+  useConnectorType,
   useDaoAllBalancesQuery,
+  useHaqqTokenBalance,
   useWallet,
 } from '@haqq/shell-shared';
 import {
@@ -28,7 +30,6 @@ import {
   WAITLIST_DEFAULT_CHAIN_ID,
   FundsSource,
   isWaitlistChainSupported,
-  getHaqqTokenAddress,
 } from './constants/waitlist-config';
 import { WalletConnectionWarning } from './components/wallet-connection-warning';
 import { NetworkWarning } from './components/network-warning';
@@ -122,18 +123,14 @@ export function MintPage() {
   });
 
   // HAQQ token ERC20 balance
-  const haqqTokenAddress = getHaqqTokenAddress(chain?.id);
-  const { data: haqqTokenBalance, refetch: refetchHaqqTokenBalance } =
-    useReadContract({
-      address: haqqTokenAddress,
-      abi: erc20Abi,
-      functionName: 'balanceOf',
-      args: address ? [address] : undefined,
-      chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
-      query: {
-        enabled: Boolean(haqqTokenAddress && address),
-      },
-    });
+  const {
+    haqqTokenAddress,
+    haqqTokenBalance,
+    refetch: refetchHaqqTokenBalance,
+  } = useHaqqTokenBalance({
+    chainId: chain?.id || WAITLIST_DEFAULT_CHAIN_ID,
+    address: address as `0x${string}` | undefined,
+  });
 
   // Bank balance (cosmos) — includes aISLM + aLIQUID tokens
   const { data: bankBalances, refetch: refetchBankBalance } =
@@ -208,6 +205,7 @@ export function MintPage() {
   // Mint flow (own balance via Ethiq precompile)
   const ethiqMint = useMintHaqq();
   const { isSafe } = ethiqMint;
+  const { isMetaMaskMobile } = useConnectorType();
 
   // Safe accounts (owners) for Safe wallet users
   const { owners: safeOwners, isLoading: isSafeOwnersLoading } =
@@ -326,9 +324,10 @@ export function MintPage() {
       typeof navigator !== 'undefined' &&
       /android|iphone|ipad|ipod/i.test(navigator.userAgent);
     const isWalletConnect = connector?.id === 'walletConnect';
-    // MetaMask mobile over WalletConnect silently drops wallet_watchAsset.
+    // wallet_watchAsset is unreliable on MetaMask Mobile: dropped over
+    // WalletConnect, silently no-ops in the in-app dapp browser.
     // Show a manual fallback so users can copy the address into MM mobile.
-    if (isMobile && isWalletConnect) {
+    if ((isMobile && isWalletConnect) || isMetaMaskMobile) {
       setAddTokenFallback(haqqTokenAddress);
       setIsAddressCopied(false);
       return;
@@ -339,7 +338,7 @@ export function MintPage() {
       setAddTokenFallback(haqqTokenAddress);
       setIsAddressCopied(false);
     }
-  }, [watchAsset, haqqTokenAddress, connector?.id]);
+  }, [watchAsset, haqqTokenAddress, connector?.id, isMetaMaskMobile]);
 
   const handleCopyTokenAddress = useCallback(async () => {
     if (!haqqTokenAddress) {
@@ -451,23 +450,29 @@ export function MintPage() {
     <Container>
       <div className="mx-auto max-w-[600px] px-[16px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          <div className="mb-[8px] flex flex-col items-stretch gap-[12px] md:flex-row md:items-center md:justify-between">
+          <div className="mb-[16px] flex flex-col items-stretch gap-[12px] md:flex-row md:items-center md:justify-between">
             <h1 className="text-haqq-black text-[24px] font-semibold">
-              Burn ISLM &amp; Mint HAQQ
+              Swap ISLM for HAQQ
             </h1>
-            {haqqTokenAddress && isConnected && isCorrectChain && (
-              <Button
-                variant={3}
-                onClick={handleAddHaqqToken}
-                className="w-full md:w-auto md:shrink-0"
-              >
-                Add HAQQ token
-              </Button>
+            {haqqTokenAddress && isConnected && isCorrectChain && !isSafe && (
+              <div className="relative w-full md:w-auto md:shrink-0">
+                <Button
+                  variant={3}
+                  onClick={handleAddHaqqToken}
+                  className="w-full md:w-auto md:shrink-0"
+                >
+                  Add HAQQ token
+                </Button>
+                <span className="absolute top-full left-1/2 mt-[0px] -translate-x-1/2 text-[10px] whitespace-nowrap text-gray-400">
+                  Click to add to your wallet
+                </span>
+              </div>
             )}
           </div>
           <p className="mb-[24px] text-[14px] text-gray-500">
-            Burn your ISLM tokens and receive HAQQ tokens in return. The
-            exchange rate is determined by the bonding curve.
+            By swapping ISLM for HAQQ, you permanently burn your ISLM tokens and
+            receive HAQQ tokens in return. The swap rate is determined by the
+            bonding curve.
           </p>
 
           {addTokenFallback && (
@@ -507,7 +512,7 @@ export function MintPage() {
                 </div>
                 <div>
                   <div className="text-[12px] text-gray-500">
-                    Burned from Applications
+                    Swapped with this form
                   </div>
                   <div className="text-haqq-black text-[18px] font-semibold">
                     {formatEthDecimal(
@@ -583,7 +588,7 @@ export function MintPage() {
               {/* Amount input */}
               <div>
                 <label className="text-haqq-black mb-[8px] block text-[14px] font-medium">
-                  Amount to burn
+                  Amount to swap
                 </label>
                 <ModalInput
                   symbol="ISLM"
@@ -609,7 +614,7 @@ export function MintPage() {
               {haqqTokenAddress && haqqTokenBalance !== undefined && (
                 <div className="flex items-center justify-between rounded-[8px] bg-gray-100 p-[12px]">
                   <span className="text-[14px] text-gray-500">
-                    HAQQ Token Balance (ERC20)
+                    Your HAQQ Token Balance
                   </span>
                   <span className="text-haqq-black text-[14px] font-medium">
                     {formatEthDecimal(haqqTokenBalance, 4)} HAQQ
@@ -736,7 +741,7 @@ export function MintPage() {
                   }
                   isLoading={isSubmitting}
                 >
-                  {isSubmitting ? 'Minting...' : 'Burn ISLM & Mint HAQQ'}
+                  {isSubmitting ? 'Swapping...' : 'Swap ISLM for HAQQ'}
                 </Button>
                 {!isSubmitting &&
                   !isValid &&

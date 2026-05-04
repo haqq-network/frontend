@@ -58,10 +58,10 @@ export function StatusMessages({
     return (
       <div className="mb-[24px] rounded-[8px] bg-[#DBEAFE] p-[16px]">
         <div className="text-[16px] font-semibold text-[#92400E]">
-          The whitelist is closed; you can execute your applications or go to
-          the HAQQ token{' '}
+          The whitelist is closed; you can execute your applications or swap
+          your ISLM for HAQQ on{' '}
           <a href="/burn" className="underline">
-            mint page
+            this page
           </a>
           .
         </div>

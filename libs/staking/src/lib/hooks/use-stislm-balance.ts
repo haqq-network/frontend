@@ -13,8 +13,6 @@ export function useStislmBalance() {
     address: ethAddress,
   });
 
-  console.log('balanceInStIslm', balanceInStIslm.data?.value, ethAddress);
-
   return useMemo(() => {
     return Number(formatUnits(balanceInStIslm.data?.value ?? 0n, 18));
   }, [balanceInStIslm.data?.value]);
