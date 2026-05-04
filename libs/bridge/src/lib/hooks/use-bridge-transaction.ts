@@ -100,7 +100,8 @@ export function useBridgeTransaction({
       const isL2ToL1 =
         (sourceChainId === CHAIN_CONFIG.l2ChainId &&
           targetChainId === CHAIN_CONFIG.l1ChainId) ||
-        (sourceChainId === CHAIN_CONFIG.l2TestChainId &&
+        ((sourceChainId === CHAIN_CONFIG.l2TestChainId ||
+          sourceChainId === CHAIN_CONFIG.l2DevnetChainId) &&
           targetChainId === CHAIN_CONFIG.l1TestChainId);
 
       if (isL2ToL1) {

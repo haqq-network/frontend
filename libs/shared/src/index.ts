@@ -50,6 +50,7 @@ export * from './precompile/use-safe-execution-waiter';
 export * from './utils/ethereum-mainnet';
 export * from './utils/bridge';
 export * from './utils/bridge-testethiq';
+export * from './utils/bridge-devnet';
 export * from './utils/common-bridge-utils';
 export * from './utils/chain-utils';
 export * from './utils/chains';
