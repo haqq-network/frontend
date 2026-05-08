@@ -26,6 +26,12 @@ import { useWithdrawalOrders } from '../hooks/use-withdrawal-orders';
 import { formatTimeRemaining } from '../hooks/use-withdrawal-timers';
 import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';
 
+const formatAge = (createdAt: number, now: number) => {
+  const seconds = Math.max(0, Math.floor((now - createdAt) / 1000));
+  if (seconds < 60) return 'just now';
+  return `${formatTimeRemaining(seconds)} ago`;
+};
+
 interface WithdrawalOrderCardProps {
   order: WithdrawalOrder;
 }
@@ -48,6 +54,18 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
     isReady: boolean;
     formattedTime: string;
   } | null>(null);
+  const [now, setNow] = useState(() => {
+    return Date.now();
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(Date.now());
+    }, 30000);
+    return () => {
+      return clearInterval(interval);
+    };
+  }, []);
 
   const { deleteOrderByInitiateHash, updateOrderByInitiateHash } =
     useWithdrawalOrders();
@@ -326,6 +344,14 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
             )}
 
             <div className="space-y-1 text-sm text-gray-600">
+              <div className="mb-1 text-xs text-gray-500">
+                <span className="font-medium">
+                  {t('initiated', 'Initiated')}:
+                </span>{' '}
+                <span title={formatDate(order.createdAt)}>
+                  {formatAge(order.createdAt, now)}
+                </span>
+              </div>
               <div className="grid grid-cols-2 gap-1">
                 <div>
                   <span className="font-medium">From:</span>{' '}
