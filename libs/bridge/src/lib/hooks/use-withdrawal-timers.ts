@@ -2,8 +2,8 @@
 
 import { useCallback, useState } from 'react';
 import { getWithdrawals } from 'viem/op-stack';
-import { useOpStackClients } from './use-op-stack-clients';
 import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';
+import { buildPublicClientsForOrder } from '../utils/order-clients';
 
 interface TimerInfo {
   seconds: number;
@@ -20,6 +20,23 @@ interface UseWithdrawalTimersReturn {
   timers: Map<string, TimerInfo>;
 }
 
+export function formatTimeRemaining(seconds: number): string {
+  if (seconds <= 0) {
+    return 'Ready now';
+  }
+
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+
+  const parts: string[] = [];
+  if (days > 0) parts.push(`${days}d`);
+  if (hours > 0) parts.push(`${hours}h`);
+  if (minutes > 0) parts.push(`${minutes}m`);
+
+  return parts.join(' ') || '0s';
+}
+
 /**
  * Hook to manage withdrawal timers for prove and finalize steps
  */
@@ -27,25 +44,6 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
   const [timers, setTimers] = useState<Map<string, TimerInfo>>(() => {
     return new Map();
   });
-  const { getChains, getPublicClientReadonlyL1, getPublicClientReadonlyL2 } =
-    useOpStackClients();
-
-  const formatTimeRemaining = useCallback((seconds: number): string => {
-    if (seconds <= 0) {
-      return 'Ready now';
-    }
-
-    const days = Math.floor(seconds / 86400);
-    const hours = Math.floor((seconds % 86400) / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-
-    const parts: string[] = [];
-    if (days > 0) parts.push(`${days}d`);
-    if (hours > 0) parts.push(`${hours}h`);
-    if (minutes > 0) parts.push(`${minutes}m`);
-
-    return parts.join(' ') || '0s';
-  }, []);
 
   const getTimeToProve = useCallback(
     async (order: WithdrawalOrder): Promise<TimerInfo | null> => {
@@ -54,21 +52,19 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
       }
 
       try {
-        const chains = getChains();
-        const publicClientReadonlyL1 = getPublicClientReadonlyL1();
-        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+        const { chains, publicClientL1, publicClientL2 } =
+          buildPublicClientsForOrder(order);
 
         // Get withdrawal receipt from L2
-        const receipt = await publicClientReadonlyL2.getTransactionReceipt({
+        const receipt = await publicClientL2.getTransactionReceipt({
           hash: order.initiateHash as `0x${string}`,
         });
 
         // Get time to prove
-        const { seconds, timestamp } =
-          await publicClientReadonlyL1.getTimeToProve({
-            receipt,
-            targetChain: chains.L2_WITH_CONTRACTS,
-          });
+        const { seconds, timestamp } = await publicClientL1.getTimeToProve({
+          receipt,
+          targetChain: chains.L2_WITH_CONTRACTS,
+        });
 
         const isReady = seconds <= 0;
         const formattedTime = formatTimeRemaining(seconds);
@@ -91,12 +87,7 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
         return null;
       }
     },
-    [
-      getChains,
-      getPublicClientReadonlyL1,
-      getPublicClientReadonlyL2,
-      formatTimeRemaining,
-    ],
+    [],
   );
 
   const getTimeToFinalize = useCallback(
@@ -106,12 +97,11 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
       }
 
       try {
-        const chains = getChains();
-        const publicClientReadonlyL1 = getPublicClientReadonlyL1();
-        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
+        const { chains, publicClientL1, publicClientL2 } =
+          buildPublicClientsForOrder(order);
 
         // Get withdrawal receipt from L2
-        const receipt = await publicClientReadonlyL2.getTransactionReceipt({
+        const receipt = await publicClientL2.getTransactionReceipt({
           hash: order.initiateHash as `0x${string}`,
         });
 
@@ -119,11 +109,10 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
         const [withdrawal] = getWithdrawals(receipt);
 
         // Get time to finalize
-        const { seconds, timestamp } =
-          await publicClientReadonlyL1.getTimeToFinalize({
-            withdrawalHash: withdrawal.withdrawalHash,
-            targetChain: chains.L2_WITH_CONTRACTS,
-          });
+        const { seconds, timestamp } = await publicClientL1.getTimeToFinalize({
+          withdrawalHash: withdrawal.withdrawalHash,
+          targetChain: chains.L2_WITH_CONTRACTS,
+        });
 
         const isReady = seconds <= 0;
         const formattedTime = formatTimeRemaining(seconds);
@@ -146,12 +135,7 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
         return null;
       }
     },
-    [
-      getChains,
-      getPublicClientReadonlyL1,
-      getPublicClientReadonlyL2,
-      formatTimeRemaining,
-    ],
+    [],
   );
 
   const getWaitingTimeWarning = useCallback(

@@ -3,7 +3,7 @@
  */
 
 import { sepolia } from 'viem/chains';
-import { haqqEthiq, haqqTestethiq } from '@haqq/shell-shared';
+import { haqqDevnet2, haqqEthiq, haqqTestethiq } from '@haqq/shell-shared';
 import { mainnet } from '../constants/mainnet';
 
 const SCANNER_API_BASE_URL = 'https://scanner.ethiq.network/api/v1';
@@ -167,6 +167,8 @@ export function getChainNameFromId(chainId: number): string {
       return 'HAQQ Testethiq';
     case haqqEthiq.id:
       return 'HAQQ Ethiq';
+    case haqqDevnet2.id:
+      return 'HAQQ Devnet 2';
     case mainnet.id:
       return 'Mainnet';
     default:

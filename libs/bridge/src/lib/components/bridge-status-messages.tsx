@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { getAddressExplorerUrl } from '@haqq/shell-shared';
 
@@ -43,9 +43,12 @@ export function BridgeStatusMessages({
   remoteTokenAddress,
   remoteTokenChainId,
 }: BridgeStatusMessagesProps) {
-  if (tokensError) {
-    console.warn('Token Loading Error', tokensError);
-  }
+  useEffect(() => {
+    if (tokensError) {
+      console.warn('Token Loading Error', tokensError);
+    }
+  }, [tokensError]);
+
   return (
     <>
       {isProving && (

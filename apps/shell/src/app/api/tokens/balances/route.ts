@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createPublicClient, http, formatEther, Chain } from 'viem';
 import { haqqMainnet, haqqTestedge2, sepolia } from 'viem/chains';
-import { haqqEthiq, haqqTestethiq, mainnet } from '@haqq/shell-shared';
+import {
+  haqqDevnet2,
+  haqqEthiq,
+  haqqTestethiq,
+  mainnet,
+} from '@haqq/shell-shared';
 
 export interface TokenBalance {
   symbol: string;
@@ -49,58 +54,48 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Make the API request to the explorer
+    // Make the API request to the explorer (best-effort; on failure we still
+    // return the native token via RPC below so the UI keeps working).
     const url = `${chainConfig.apiUrl}/v2/addresses/${address}/tokens?type=ERC-20`;
-
     console.log('Explorer API URL:', url);
 
-    const response = await fetch(url, {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
+    let tokenBalances: TokenBalance[] = [];
+    try {
+      const response = await fetch(url, {
+        headers: { Accept: 'application/json' },
+      });
+      console.log('Explorer API response status:', response.status);
 
-    console.log('Explorer API response status:', response.status);
-
-    if (!response.ok) {
-      console.log('Explorer API error:', response.status, response.statusText);
-
-      return NextResponse.json(
-        {
-          error: `Explorer API error: ${response.status} ${response.statusText}`,
-        },
-        { status: response.status },
+      if (!response.ok) {
+        console.warn(
+          `Explorer API non-OK for chain ${chainId}: ${response.status} ${response.statusText}. Falling back to native-only.`,
+        );
+      } else {
+        const data = (await response.json()) as ExplorerApiResponse;
+        const items = data.items ?? [];
+        const filteredTokens = items.filter((item) => {
+          return item.value !== '0' && item.value !== '0x0';
+        });
+        tokenBalances = filteredTokens.map((item) => {
+          const decimals = Number(item.token.decimals);
+          const balanceWei = BigInt(item.value);
+          const formattedBalance = Number(balanceWei) / Math.pow(10, decimals);
+          return {
+            symbol: item.token.symbol,
+            address: item.token.address_hash || item.token.address || '',
+            name: item.token.name,
+            balance: item.value,
+            decimals,
+            formattedBalance,
+          };
+        });
+      }
+    } catch (error) {
+      console.warn(
+        `Explorer fetch failed for chain ${chainId}, falling back to native-only:`,
+        error,
       );
     }
-
-    const data = (await response.json()) as ExplorerApiResponse;
-
-    console.log('Explorer API data items count:', data.items?.length || 0);
-
-    // Filter out tokens with zero balance
-    const filteredTokens: ExplorerToken[] = data.items.filter((item) => {
-      return item.value !== '0' && item.value !== '0x0';
-    });
-
-    console.log(
-      `Found ${filteredTokens.length} tokens with non-zero balance out of ${data.items.length} total tokens`,
-    );
-
-    // Process token balances
-    const tokenBalances: TokenBalance[] = filteredTokens.map((item) => {
-      const decimals = Number(item.token.decimals);
-      const balanceWei = BigInt(item.value);
-      const formattedBalance = Number(balanceWei) / Math.pow(10, decimals);
-
-      return {
-        symbol: item.token.symbol,
-        address: item.token.address_hash || item.token.address || '',
-        name: item.token.name,
-        balance: item.value,
-        decimals,
-        formattedBalance,
-      };
-    });
 
     // Check if native token (0xeee...) is already in results
     const NATIVE_TOKEN_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
@@ -156,10 +151,9 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error in token balances API:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 },
-    );
+    const message =
+      error instanceof Error ? error.message : 'Internal server error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -185,6 +179,12 @@ function getChainConfig(chainId: number): ChainConfig | null {
     [haqqEthiq.id]: {
       // HAQQ Ethiq
       apiUrl: haqqEthiq.blockExplorers.default.apiUrl,
+      nativeSymbol: 'ETH',
+      nativeName: 'Ethereum',
+    },
+    [haqqDevnet2.id]: {
+      // HAQQ Devnet 2
+      apiUrl: haqqDevnet2.blockExplorers.default.apiUrl,
       nativeSymbol: 'ETH',
       nativeName: 'Ethereum',
     },
@@ -230,6 +230,13 @@ function getChainConfigWithRpc(chainId: number): ChainConfigWithRpc | null {
       chain: haqqEthiq,
       apiUrl: haqqEthiq.blockExplorers.default.apiUrl,
       rpcUrl: haqqEthiq.rpcUrls.default.http[0],
+      nativeSymbol: 'ETH',
+      nativeName: 'Ethereum',
+    },
+    [haqqDevnet2.id]: {
+      chain: haqqDevnet2 as Chain,
+      apiUrl: haqqDevnet2.blockExplorers.default.apiUrl,
+      rpcUrl: haqqDevnet2.rpcUrls.default.http[0],
       nativeSymbol: 'ETH',
       nativeName: 'Ethereum',
     },
