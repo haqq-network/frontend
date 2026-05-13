@@ -88,6 +88,14 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
     onError: reset,
   });
 
+  // Clear stale timer info immediately when the order moves to a new stage
+  // (e.g. INITIATED → PROVED after a successful prove tx). Without this,
+  // the previous stage's isReady=true briefly enables the next stage's
+  // action button while the new getTimeTo… RPC call is in flight.
+  useEffect(() => {
+    setTimerInfo(null);
+  }, [order.status]);
+
   // Update timer information for this order.
   //
   // Monotonic clamp: viem's getTimeToNextGame returns the timestamp of the
