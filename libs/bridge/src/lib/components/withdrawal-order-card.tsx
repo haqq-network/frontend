@@ -90,10 +90,10 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
 
   // Update timer information for this order.
   //
-  // Monotonic clamp: viem's getTimeToProve returns the timestamp of the *next*
-  // L2 output proposal, not the proposal that will actually cover this
-  // receipt's block. When a proposal lands without including the block, the
-  // raw value jumps back up to the next-next proposal — making the timer
+  // Monotonic clamp: viem's getTimeToNextGame returns the timestamp of the
+  // *next* L2 dispute game, not the game that will actually cover this
+  // receipt's block. When a game lands without including the block, the
+  // raw value jumps back up to the next-next game — making the timer
   // appear to restart. We persist the highest timestamp ever seen on the
   // order and never display a value below it (until viem itself flips
   // isReady=true).

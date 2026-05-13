@@ -55,14 +55,17 @@ export function useWithdrawalTimers(): UseWithdrawalTimersReturn {
         const { chains, publicClientL1, publicClientL2 } =
           buildPublicClientsForOrder(order);
 
-        // Get withdrawal receipt from L2
+        // Get withdrawal receipt from L2 — needed for its L2 block number,
+        // which is the input to the dispute-game lookup.
         const receipt = await publicClientL2.getTransactionReceipt({
           hash: order.initiateHash as `0x${string}`,
         });
 
-        // Get time to prove
-        const { seconds, timestamp } = await publicClientL1.getTimeToProve({
-          receipt,
+        // Time until the next L2 dispute game covering this receipt's block
+        // is submitted. Fault-proof equivalent of the deprecated
+        // getTimeToProve (which relied on the L2OutputOracle).
+        const { seconds, timestamp } = await publicClientL1.getTimeToNextGame({
+          l2BlockNumber: receipt.blockNumber,
           targetChain: chains.L2_WITH_CONTRACTS,
         });
 
