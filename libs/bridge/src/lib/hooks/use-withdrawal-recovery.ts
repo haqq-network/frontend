@@ -12,7 +12,6 @@ import { useOpStackClients } from './use-op-stack-clients';
 import { useWithdrawalOrders } from './use-withdrawal-orders';
 import { WithdrawalStatus, WithdrawalOrder } from '../types/withdrawal-order';
 
-// ERC20 ABI for reading token info
 const ERC20_ABI = [
   {
     inputs: [],
