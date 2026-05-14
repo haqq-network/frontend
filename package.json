@@ -40,7 +40,7 @@
     "@floating-ui/react": "0.26.26",
     "@headlessui/react": "2.2.0",
     "@next/eslint-plugin-next": "16.2.6",
-    "@react-spring/web": "9.7.5",
+    "@react-spring/web": "10.0.3",
     "@safe-global/safe-apps-sdk": "9.1.0",
     "@sentry/nextjs": "9.4.0",
     "@sentry/react": "9.4.0",

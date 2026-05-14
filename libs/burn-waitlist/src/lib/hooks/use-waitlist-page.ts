@@ -211,7 +211,7 @@ export function useWaitlistPage() {
   >([]);
 
   const hasProcessedSuccess = useRef(false);
-  const hasProcessedCancelSuccess = useRef<string | undefined>();
+  const hasProcessedCancelSuccess = useRef<string | undefined>(undefined);
   const hasAttemptedSwitch = useRef<number | undefined>(undefined);
 
   // Backend signature
