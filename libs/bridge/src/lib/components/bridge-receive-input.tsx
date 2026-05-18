@@ -22,6 +22,7 @@ export function BridgeReceiveInput({
           // Read-only input
         }}
         disabled
+        className="!cursor-default !bg-[#F5F5F5] text-[#0D0D0E] placeholder-[#0D0D0E]/[.5] !opacity-100 focus:border-[#F5F5F5] focus:bg-[#F5F5F5] focus:text-[#0D0D0E] focus:placeholder-[#0D0D0E]/[.5] focus:ring-0"
       />
     </div>
   );

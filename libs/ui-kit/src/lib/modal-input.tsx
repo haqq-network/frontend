@@ -62,7 +62,14 @@ const CurrencyInput = ({
   });
 
   const { inputValue } = usePreparedMaskValue(inputProps.value);
-  return <MaskedInput mask={currencyMask} {...inputProps} value={inputValue} />;
+  return (
+    <MaskedInput
+      mask={currencyMask}
+      className={inputProps.className}
+      {...inputProps}
+      value={inputValue}
+    />
+  );
 };
 
 export function StringInput({
@@ -124,6 +131,7 @@ export function ModalInput({
   isMaxButtonDisabled = false,
   id,
   disabled = false,
+  className,
 }: {
   symbol: string;
   value: number | string | undefined;
@@ -133,6 +141,7 @@ export function ModalInput({
   isMaxButtonDisabled?: boolean;
   id?: string;
   disabled?: boolean;
+  className?: string;
 }) {
   const { t } = useTranslate('common');
   const handleInputChange = useCallback(
@@ -156,6 +165,7 @@ export function ModalInput({
             disabled
               ? 'cursor-not-allowed bg-[#F3F4F6] opacity-50'
               : 'bg-[#E7E7E7]',
+            className,
           )}
           onChange={handleInputChange}
           id={id}
