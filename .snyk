@@ -1,0 +1,18 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - tailwind > datasette > lodash:
+        patched: '2026-02-12T13:52:47.935Z'
+        id: SNYK-JS-LODASH-567746
+        path: tailwind > datasette > lodash
+    - tailwind > lodash:
+        patched: '2026-02-12T13:52:47.935Z'
+        id: SNYK-JS-LODASH-567746
+        path: tailwind > lodash
+    - tailwind > flaschenpost > lodash:
+        patched: '2026-02-12T13:52:47.935Z'
+        id: SNYK-JS-LODASH-567746
+        path: tailwind > flaschenpost > lodash
