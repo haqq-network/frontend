@@ -48,7 +48,7 @@
     "@t3-oss/env-nextjs": "0.11.1",
     "@tailwindcss/vite": "4.1.18",
     "@tanstack/react-query": "5.67.1",
-    "@tanstack/react-query-devtools": "5.67.1",
+    "@tanstack/react-query-devtools": "5.91.2",
     "@tolgee/format-icu": "6.2.2",
     "@tolgee/react": "6.2.2",
     "@tolgee/web": "6.2.2",
