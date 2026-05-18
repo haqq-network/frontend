@@ -1,5 +1,5 @@
 'use client';
-import { Fragment, ReactNode, useRef } from 'react';
+import { Fragment, ReactNode, useRef, type RefObject } from 'react';
 import {
   useSpring,
   animated,
@@ -178,8 +178,8 @@ function HeaderDropdown({
   label: string;
   links: HeaderLinkWithHref[];
 }) {
-  const hoverRef = useRef(null);
-  const isHover = useHover(hoverRef);
+  const hoverRef = useRef<HTMLDivElement>(null);
+  const isHover = useHover(hoverRef as RefObject<HTMLElement>);
 
   return (
     <div className="relative" ref={hoverRef}>

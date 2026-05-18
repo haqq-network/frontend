@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, type RefObject } from 'react';
 import clsx from 'clsx';
 import { useHover, useMediaQuery } from 'usehooks-ts';
 import { GlobeIcon, CheckIcon } from './icons';
@@ -21,8 +21,8 @@ export function LocaleDropdown({
   switchLocale,
   currentLocale,
 }: LocaleDropdownProps) {
-  const hoverRef = useRef(null);
-  const isHover = useHover(hoverRef);
+  const hoverRef = useRef<HTMLDivElement>(null);
+  const isHover = useHover(hoverRef as RefObject<HTMLElement>);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   const currentLocaleData = locales?.find(({ id }) => {

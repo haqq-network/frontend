@@ -149,7 +149,8 @@ export const TooltipTrigger = forwardRef<
       context.getReferenceProps({
         ref,
         ...props,
-        ...children.props,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ...(children.props as any),
         'data-state': context.open ? 'open' : 'closed',
       }),
     );
