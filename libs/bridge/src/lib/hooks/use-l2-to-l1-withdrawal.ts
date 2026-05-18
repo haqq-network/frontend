@@ -13,6 +13,7 @@ import { useOpStackClients } from './use-op-stack-clients';
 import { useWithdrawalOrders } from './use-withdrawal-orders';
 import { useWithdrawalTimers } from './use-withdrawal-timers';
 import { WithdrawalStatus } from '../types/withdrawal-order';
+import { buildPublicClientsForOrder } from '../utils/order-clients';
 
 interface UseL2ToL1WithdrawalParams {
   onSuccess?: (hash: string) => void;
@@ -326,6 +327,17 @@ export function useL2ToL1Withdrawal({
         throw new Error(errorMessage);
       }
 
+      // Pin chains to the order's actual L2 (not the wallet's current chain)
+      // — Sepolia bridges to multiple L2s, so deriving from the wallet would
+      // build prove args against the wrong rollup.
+      const order = getOrderByInitiateHash(withdrawalHash);
+      if (!order) {
+        const errorMessage = `Withdrawal order not found for hash ${withdrawalHash}`;
+        console.error('Prove withdrawal failed:', errorMessage);
+        toast.error('Withdrawal order not found');
+        throw new Error(errorMessage);
+      }
+
       const walletClient = await getWalletClientL1();
 
       if (!walletClient) {
@@ -339,12 +351,14 @@ export function useL2ToL1Withdrawal({
       setIsProving(true);
       setError(null);
 
+      const {
+        chains,
+        publicClientL1: publicClientReadonlyL1,
+        publicClientL2: publicClientReadonlyL2,
+      } = buildPublicClientsForOrder(order);
+
       const LOG_PREFIX = '[L2→L1 Prove Withdrawal]';
       try {
-        const chains = getChains();
-        const publicClientReadonlyL1 = getPublicClientReadonlyL1();
-        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
-
         // Step 1: Get withdrawal receipt from L2
         console.log(
           `${LOG_PREFIX} Step 1: Getting withdrawal receipt from L2 (hash: ${withdrawalHash})`,
@@ -421,15 +435,13 @@ export function useL2ToL1Withdrawal({
         onError?.(err as Error);
         throw err;
       } finally {
-        await switchChainAsync({ chainId: getChains().L2.id });
+        await switchChainAsync({ chainId: chains.L2.id });
         setIsProving(false);
       }
     },
     [
       isConnected,
-      getChains,
-      getPublicClientReadonlyL1,
-      getPublicClientReadonlyL2,
+      getOrderByInitiateHash,
       getWalletClientL1,
       updateOrderByInitiateHash,
       onProveSuccess,
@@ -449,6 +461,14 @@ export function useL2ToL1Withdrawal({
         throw new Error(errorMessage);
       }
 
+      const order = getOrderByInitiateHash(withdrawalHash);
+      if (!order) {
+        const errorMessage = `Withdrawal order not found for hash ${withdrawalHash}`;
+        console.error('Finalize withdrawal failed:', errorMessage);
+        toast.error('Withdrawal order not found');
+        throw new Error(errorMessage);
+      }
+
       const walletClient = await getWalletClientL1();
 
       if (!walletClient) {
@@ -462,12 +482,14 @@ export function useL2ToL1Withdrawal({
       setIsFinalizing(true);
       setError(null);
 
+      const {
+        chains,
+        publicClientL1: publicClientReadonlyL1,
+        publicClientL2: publicClientReadonlyL2,
+      } = buildPublicClientsForOrder(order);
+
       const LOG_PREFIX = '[L2→L1 Finalize Withdrawal]';
       try {
-        const chains = getChains();
-        const publicClientReadonlyL1 = getPublicClientReadonlyL1();
-        const publicClientReadonlyL2 = getPublicClientReadonlyL2();
-
         // Step 1: Get withdrawal receipt from L2
         console.log(
           `${LOG_PREFIX} Step 1: Getting withdrawal receipt from L2 (hash: ${withdrawalHash})`,
@@ -553,15 +575,13 @@ export function useL2ToL1Withdrawal({
         onError?.(err as Error);
         throw err;
       } finally {
-        await switchChainAsync({ chainId: getChains().L2.id });
+        await switchChainAsync({ chainId: chains.L2.id });
         setIsFinalizing(false);
       }
     },
     [
       isConnected,
-      getChains,
-      getPublicClientReadonlyL1,
-      getPublicClientReadonlyL2,
+      getOrderByInitiateHash,
       getWalletClientL1,
       updateOrderByInitiateHash,
       onFinalizeSuccess,

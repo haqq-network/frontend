@@ -1,5 +1,6 @@
 import { haqqTestedge2, sepolia } from 'viem/chains';
 import { haqqEthiq } from './bridge';
+import { haqqDevnet2 } from './bridge-devnet';
 import { haqqTestethiq } from './bridge-testethiq';
 import { mainnet } from './ethereum-mainnet';
 
@@ -54,8 +55,11 @@ export const getAddressExplorerUrl = (address: string, chainId: number) => {
     // Sepolia
     return `${sepolia.blockExplorers.default.url}/address/${address}`;
   } else if (chainId === haqqTestethiq.id) {
-    // HAQQ Devnet
+    // HAQQ Testethiq
     return `${haqqTestethiq.blockExplorers.default.url}/address/${address}`;
+  } else if (chainId === haqqDevnet2.id) {
+    // HAQQ Devnet 2
+    return `${haqqDevnet2.blockExplorers.default.url}/address/${address}`;
   } else if (chainId === mainnet.id) {
     // Mainnet
     return `${mainnet.blockExplorers.default.url}/address/${address}`;
@@ -71,8 +75,11 @@ export const getTxExplorerUrl = (hash: string, chainId: number) => {
     // Sepolia
     return `${sepolia.blockExplorers.default.url}/tx/${hash}`;
   } else if (chainId === haqqTestethiq.id) {
-    // HAQQ Devnet
+    // HAQQ Testethiq
     return `${haqqTestethiq.blockExplorers.default.url}/tx/${hash}`;
+  } else if (chainId === haqqDevnet2.id) {
+    // HAQQ Devnet 2
+    return `${haqqDevnet2.blockExplorers.default.url}/tx/${hash}`;
   } else if (chainId === mainnet.id) {
     // Mainnet
     return `${mainnet.blockExplorers.default.url}/tx/${hash}`;
@@ -132,7 +139,14 @@ export const CHAIN_CONFIG = {
   l1TestChainId: sepolia.id, // Sepolia
   l2ChainId: haqqEthiq.id,
   l2TestChainId: haqqTestethiq.id,
+  l2DevnetChainId: haqqDevnet2.id,
 };
+
+// L2 chains that bridge to sepolia and require selection when source is sepolia
+export const SEPOLIA_TARGET_L2_CHAIN_IDS = [
+  haqqTestethiq.id,
+  haqqDevnet2.id,
+] as const;
 
 //  l2StandardBridgeProxyAddress https://github.com/ethereum-optimism/ecosystem/blob/8c0ceae82d8e909c0d00b4601d7c7276090774cc/packages/viem/src/actions/withdrawOptimismERC20.ts#L90
 export const L2_STANDARD_BRIDGE_ADDRESS =
@@ -141,4 +155,9 @@ export const L2_STANDARD_BRIDGE_ADDRESS =
 export const L2_OPTIMISM_MINTABLE_ERC20_FACTORY_ADDRESS =
   '0x4200000000000000000000000000000000000012';
 
-export const FAUCET_CHAINS = [haqqTestedge2.id, haqqTestethiq.id, sepolia.id];
+export const FAUCET_CHAINS = [
+  haqqTestedge2.id,
+  haqqTestethiq.id,
+  haqqDevnet2.id,
+  sepolia.id,
+];

@@ -16,6 +16,7 @@ interface UseTokenBalancesReturn {
  */
 export function useTokenBalances(): UseTokenBalancesReturn {
   const { address, chain } = useAccount();
+  const chainId = chain?.id;
   const [tokens, setTokens] = useState<TokenBalance[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -24,6 +25,7 @@ export function useTokenBalances(): UseTokenBalancesReturn {
     if (!address || !chain) {
       console.log('No address or chain available, clearing tokens');
       setTokens([]);
+      setError(null);
       return;
     }
 
@@ -48,9 +50,8 @@ export function useTokenBalances(): UseTokenBalancesReturn {
     } finally {
       setIsLoading(false);
     }
-  }, [address, chain]);
+  }, [address, chainId]);
 
-  // Fetch tokens when address or chain changes
   useEffect(() => {
     fetchTokens();
   }, [fetchTokens]);

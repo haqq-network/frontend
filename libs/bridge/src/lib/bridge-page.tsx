@@ -1,5 +1,5 @@
 'use client';
-import { useState, useLayoutEffect, useEffect, useRef } from 'react';
+import { useState, useLayoutEffect, useEffect, useRef, useMemo } from 'react';
 import { useTranslate } from '@tolgee/react';
 import { sepolia } from 'viem/chains';
 import { useSwitchChain } from 'wagmi';
@@ -7,7 +7,9 @@ import {
   CHAIN_CONFIG,
   L2_STANDARD_BRIDGE_ADDRESS,
   bridgeSupportedChains,
+  haqqDevnet2,
   haqqTestethiq,
+  L1_STANDARD_DEVNET2_BRIDGE_ADDRESS,
   L1_STANDARD_TESTETHIQ_BRIDGE_ADDRESS,
   L1_STANDARD_MAINNET_BRIDGE_ADDRESS,
 } from '@haqq/shell-shared';
@@ -39,18 +41,25 @@ import {
 } from './hooks';
 
 // SUPPORTED_CHAINS is now imported from @haqq/shell-shared
-export const useChainProxyAddress = (chainId: number | undefined) => {
+export const useChainProxyAddress = (
+  chainId: number | undefined,
+  targetL2ChainId?: number,
+) => {
   if (chainId === CHAIN_CONFIG.l1ChainId) {
     return L1_STANDARD_MAINNET_BRIDGE_ADDRESS;
   }
 
   if (chainId === CHAIN_CONFIG.l1TestChainId) {
+    if (targetL2ChainId === CHAIN_CONFIG.l2DevnetChainId) {
+      return L1_STANDARD_DEVNET2_BRIDGE_ADDRESS;
+    }
     return L1_STANDARD_TESTETHIQ_BRIDGE_ADDRESS;
   }
 
   if (
     chainId === CHAIN_CONFIG.l2ChainId ||
-    chainId === CHAIN_CONFIG.l2TestChainId
+    chainId === CHAIN_CONFIG.l2TestChainId ||
+    chainId === CHAIN_CONFIG.l2DevnetChainId
   ) {
     return L2_STANDARD_BRIDGE_ADDRESS;
   }
@@ -103,6 +112,22 @@ export function BridgePage() {
     updateUrlState,
   });
 
+  // When source is sepolia, multiple L2s share it — track which target the
+  // user picked. Persist via the existing chainOut URL param.
+  const selectedTargetL2ChainId = useMemo<number | undefined>(() => {
+    if (
+      urlState.chainOut === haqqDevnet2.id ||
+      urlState.chainOut === haqqTestethiq.id
+    ) {
+      return urlState.chainOut;
+    }
+    return haqqTestethiq.id;
+  }, [urlState.chainOut]);
+
+  const handleTargetL2Select = (newTargetL2ChainId: number) => {
+    updateUrlState({ chainOut: newTargetL2ChainId });
+  };
+
   // Chain management hook - determines source/target chains
   const {
     sourceChainId,
@@ -112,9 +137,13 @@ export function BridgePage() {
     targetChainIdNumber,
   } = useBridgeChains({
     chainId: chain?.id,
+    selectedTargetL2ChainId,
   });
 
-  const bridgeAddress = useChainProxyAddress(sourceChainId);
+  const bridgeAddress = useChainProxyAddress(
+    sourceChainId,
+    selectedTargetL2ChainId,
+  );
 
   // Use bridge token manager for token validation
   const {
@@ -286,9 +315,9 @@ export function BridgePage() {
     <Container>
       <div className="mx-auto max-w-[600px] py-[40px]">
         <div className="rounded-[12px] bg-white p-[24px] shadow-lg">
-          {(chain?.id === sepolia.id || chain?.id === haqqTestethiq.id) && (
-            <FaucetLinksCard />
-          )}
+          {(chain?.id === sepolia.id ||
+            chain?.id === haqqTestethiq.id ||
+            chain?.id === haqqDevnet2.id) && <FaucetLinksCard />}
 
           {!isConnected && <WalletConnectionWarning />}
 
@@ -338,6 +367,9 @@ export function BridgePage() {
                   }
                   onApprove={handleApprove}
                   isL2ToL1={isL2ToL1}
+                  showTargetL2Selector={chain?.id === sepolia.id}
+                  selectedTargetL2ChainId={selectedTargetL2ChainId}
+                  onTargetL2Select={handleTargetL2Select}
                 />
               )}
 

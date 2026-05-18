@@ -23,7 +23,14 @@ import {
 import { getOpStackChains } from '../constants/op-stack-config';
 import { useL2ToL1Withdrawal } from '../hooks/use-l2-to-l1-withdrawal';
 import { useWithdrawalOrders } from '../hooks/use-withdrawal-orders';
+import { formatTimeRemaining } from '../hooks/use-withdrawal-timers';
 import { WithdrawalOrder, WithdrawalStatus } from '../types/withdrawal-order';
+
+const formatAge = (createdAt: number, now: number) => {
+  const seconds = Math.max(0, Math.floor((now - createdAt) / 1000));
+  if (seconds < 60) return 'just now';
+  return `${formatTimeRemaining(seconds)} ago`;
+};
 
 interface WithdrawalOrderCardProps {
   order: WithdrawalOrder;
@@ -47,8 +54,21 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
     isReady: boolean;
     formattedTime: string;
   } | null>(null);
+  const [now, setNow] = useState(() => {
+    return Date.now();
+  });
 
-  const { deleteOrderByInitiateHash } = useWithdrawalOrders();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(Date.now());
+    }, 30000);
+    return () => {
+      return clearInterval(interval);
+    };
+  }, []);
+
+  const { deleteOrderByInitiateHash, updateOrderByInitiateHash } =
+    useWithdrawalOrders();
 
   const reset = useCallback(() => {
     setIsProcessing(false);
@@ -68,35 +88,67 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
     onError: reset,
   });
 
-  // Update timer information for this order
+  // Clear stale timer info immediately when the order moves to a new stage
+  // (e.g. INITIATED → PROVED after a successful prove tx). Without this,
+  // the previous stage's isReady=true briefly enables the next stage's
+  // action button while the new getTimeTo… RPC call is in flight.
+  useEffect(() => {
+    setTimerInfo(null);
+  }, [order.status]);
+
+  // Update timer information for this order.
+  //
+  // Monotonic clamp: viem's getTimeToNextGame returns the timestamp of the
+  // *next* L2 dispute game, not the game that will actually cover this
+  // receipt's block. When a game lands without including the block, the
+  // raw value jumps back up to the next-next game — making the timer
+  // appear to restart. We persist the highest timestamp ever seen on the
+  // order and never display a value below it (until viem itself flips
+  // isReady=true).
   useEffect(() => {
     const updateTimer = async () => {
-      if (
-        order.status !== WithdrawalStatus.INITIATED &&
-        order.status !== WithdrawalStatus.PROVED
-      ) {
+      const isProveStage = order.status === WithdrawalStatus.INITIATED;
+      const isFinalizeStage = order.status === WithdrawalStatus.PROVED;
+      if (!isProveStage && !isFinalizeStage) {
         return;
       }
 
       try {
-        let timer: {
-          seconds: number;
-          timestamp: number;
-          isReady: boolean;
-          formattedTime: string;
-        } | null = null;
+        const fresh = isProveStage
+          ? await getTimeToProve(order.initiateHash)
+          : await getTimeToFinalize(order.initiateHash);
 
-        if (order.status === WithdrawalStatus.INITIATED) {
-          timer = await getTimeToProve(order.initiateHash);
-        } else if (order.status === WithdrawalStatus.PROVED) {
-          timer = await getTimeToFinalize(order.initiateHash);
+        if (!fresh) {
+          return;
         }
 
-        if (timer) {
-          setTimerInfo({
-            seconds: timer.seconds,
-            isReady: timer.isReady,
-            formattedTime: timer.formattedTime,
+        const storedTimestamp = isProveStage
+          ? (order.timeToProve?.timestamp ?? 0)
+          : (order.timeToFinalize?.timestamp ?? 0);
+
+        // viem decides ready; we only smooth the countdown while it's not.
+        // Note: viem returns `timestamp` in milliseconds (Date.now() + seconds * 1000),
+        // so we compare against Date.now() — not seconds — and convert the diff to seconds.
+        const effectiveTimestamp = fresh.isReady
+          ? fresh.timestamp
+          : Math.max(storedTimestamp, fresh.timestamp);
+
+        const effectiveSeconds = fresh.isReady
+          ? fresh.seconds
+          : Math.max(0, Math.floor((effectiveTimestamp - Date.now()) / 1000));
+
+        setTimerInfo({
+          seconds: effectiveSeconds,
+          isReady: fresh.isReady,
+          formattedTime: formatTimeRemaining(effectiveSeconds),
+        });
+
+        if (!fresh.isReady && effectiveTimestamp > storedTimestamp) {
+          updateOrderByInitiateHash(order.initiateHash, {
+            [isProveStage ? 'timeToProve' : 'timeToFinalize']: {
+              seconds: effectiveSeconds,
+              timestamp: effectiveTimestamp,
+            },
           });
         }
       } catch (error) {
@@ -111,7 +163,7 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
     return () => {
       return clearInterval(interval);
     };
-  }, [order, getTimeToProve, getTimeToFinalize]);
+  }, [order, getTimeToProve, getTimeToFinalize, updateOrderByInitiateHash]);
 
   const getStatusIcon = (status: WithdrawalStatus) => {
     switch (status) {
@@ -300,6 +352,14 @@ export function WithdrawalOrderCard({ order }: WithdrawalOrderCardProps) {
             )}
 
             <div className="space-y-1 text-sm text-gray-600">
+              <div className="mb-1 text-xs text-gray-500">
+                <span className="font-medium">
+                  {t('initiated', 'Initiated')}:
+                </span>{' '}
+                <span title={formatDate(order.createdAt)}>
+                  {formatAge(order.createdAt, now)}
+                </span>
+              </div>
               <div className="grid grid-cols-2 gap-1">
                 <div>
                   <span className="font-medium">From:</span>{' '}

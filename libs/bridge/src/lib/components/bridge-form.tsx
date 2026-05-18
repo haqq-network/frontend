@@ -1,9 +1,15 @@
 'use client';
+import { haqqDevnet2, haqqTestethiq } from '@haqq/shell-shared';
 import { Button } from '@haqq/shell-ui-kit';
 import { BridgeAmountInput } from './bridge-amount-input';
 import { BridgeReceiveInput } from './bridge-receive-input';
 import { BridgeSuccessMessage } from './bridge-success-message';
 import { TokenSelector } from './token-selector';
+
+const TARGET_L2_OPTIONS = [
+  { id: haqqTestethiq.id, name: haqqTestethiq.name },
+  { id: haqqDevnet2.id, name: haqqDevnet2.name },
+];
 
 interface Token {
   symbol: string;
@@ -40,6 +46,10 @@ export interface BridgeFormProps {
   onApprove?: () => void;
   // Bridge direction
   isL2ToL1: boolean;
+  // Target L2 selector (shown only when source L1 has multiple L2 targets)
+  showTargetL2Selector?: boolean;
+  selectedTargetL2ChainId?: number;
+  onTargetL2Select?: (chainId: number) => void;
 }
 
 export function BridgeForm({
@@ -65,9 +75,40 @@ export function BridgeForm({
   disabledApproveBtn = false,
   onApprove,
   isL2ToL1,
+  showTargetL2Selector = false,
+  selectedTargetL2ChainId,
+  onTargetL2Select,
 }: BridgeFormProps) {
   return (
     <div className="space-y-[20px]">
+      {showTargetL2Selector && onTargetL2Select && (
+        <div className="space-y-[6px]">
+          <label
+            htmlFor="bridge-target-l2"
+            className="text-[12px] font-medium text-[#0D0D0E80]"
+          >
+            Destination network
+          </label>
+          <select
+            id="bridge-target-l2"
+            value={selectedTargetL2ChainId ?? ''}
+            onChange={(event) => {
+              onTargetL2Select(Number(event.target.value));
+            }}
+            disabled={isProcessing || isWaitingForReceipt}
+            className="w-full rounded-[8px] border border-[#0D0D0E1A] bg-white px-[12px] py-[10px] text-[14px] text-[#0D0D0E] focus:border-[#0D0D0E] focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {TARGET_L2_OPTIONS.map((option) => {
+              return (
+                <option key={option.id} value={option.id}>
+                  {option.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      )}
+
       <TokenSelector
         tokens={tokens}
         selectedToken={selectedToken}

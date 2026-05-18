@@ -1,10 +1,15 @@
 'use client';
 
 import { useMemo } from 'react';
-import { CHAIN_CONFIG, SUPPORTED_CHAINS } from '@haqq/shell-shared';
+import {
+  CHAIN_CONFIG,
+  SEPOLIA_TARGET_L2_CHAIN_IDS,
+  SUPPORTED_CHAINS,
+} from '@haqq/shell-shared';
 
 export interface UseBridgeChainsParams {
   chainId: number | undefined;
+  selectedTargetL2ChainId?: number;
 }
 
 export interface UseBridgeChainsReturn {
@@ -21,6 +26,7 @@ export interface UseBridgeChainsReturn {
  */
 export function useBridgeChains({
   chainId,
+  selectedTargetL2ChainId,
 }: UseBridgeChainsParams): UseBridgeChainsReturn {
   const sourceChainId = chainId;
 
@@ -31,25 +37,38 @@ export function useBridgeChains({
       return CHAIN_CONFIG.l2ChainId;
     }
     if (sourceChainId === CHAIN_CONFIG.l1TestChainId) {
+      // Sepolia bridges to multiple devnet L2s — use the user's selection
+      if (
+        selectedTargetL2ChainId &&
+        (SEPOLIA_TARGET_L2_CHAIN_IDS as readonly number[]).includes(
+          selectedTargetL2ChainId,
+        )
+      ) {
+        return selectedTargetL2ChainId;
+      }
       return CHAIN_CONFIG.l2TestChainId;
     }
     // L2 -> L1 bridging
     if (sourceChainId === CHAIN_CONFIG.l2ChainId) {
       return CHAIN_CONFIG.l1ChainId;
     }
-    if (sourceChainId === CHAIN_CONFIG.l2TestChainId) {
+    if (
+      sourceChainId === CHAIN_CONFIG.l2TestChainId ||
+      sourceChainId === CHAIN_CONFIG.l2DevnetChainId
+    ) {
       return CHAIN_CONFIG.l1TestChainId;
     }
     // Default fallback
     return CHAIN_CONFIG.l2ChainId;
-  }, [sourceChainId]);
+  }, [sourceChainId, selectedTargetL2ChainId]);
 
   // Check if this is an L2 to L1 transfer
   const isL2ToL1 = useMemo(() => {
     return (
       (sourceChainId === CHAIN_CONFIG.l2ChainId &&
         targetChainId === CHAIN_CONFIG.l1ChainId) ||
-      (sourceChainId === CHAIN_CONFIG.l2TestChainId &&
+      ((sourceChainId === CHAIN_CONFIG.l2TestChainId ||
+        sourceChainId === CHAIN_CONFIG.l2DevnetChainId) &&
         targetChainId === CHAIN_CONFIG.l1TestChainId)
     );
   }, [sourceChainId, targetChainId]);
