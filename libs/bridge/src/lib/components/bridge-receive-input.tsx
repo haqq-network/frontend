@@ -21,6 +21,7 @@ export function BridgeReceiveInput({
         onChange={() => {
           // Read-only input
         }}
+        disabled
       />
     </div>
   );
